@@ -1,9 +1,9 @@
-# Q-Command System v2.0
+# Q-Command System v2.1
 
-**A Robust Co-Pilot System for Claude Code**
+**An Adaptive Co-Pilot System for Claude Code**
 
-**Version:** 2.0
-**Release Date:** 2025-11-13
+**Version:** 2.1
+**Release Date:** 2025-11-17
 **License:** MIT (or your choice)
 **Author:** Gabriel Rymberg
 
@@ -11,99 +11,102 @@
 
 ## What is the Q-Command System?
 
-The Q-Command System is a **comprehensive co-pilot framework** for working with Claude Code (Anthropic's CLI). It provides:
+The Q-Command System is an **adaptive co-pilot framework** for working with Claude Code (Anthropic's CLI). It provides:
 
 - ✅ **Structured session management** - Start, checkpoint, and end sessions with full documentation
 - ✅ **Automatic documentation** - Transcripts, session notes, and work plan updates
+- ✅ **Adaptive configuration** - Sets up based on YOUR project context and experience level
+- ✅ **Progressive scaffolding** - Offers tools as you need them, not all at once
 - ✅ **Context awareness** - Monitor and manage conversation context to prevent data loss
 - ✅ **Verification & error handling** - Explicit success/failure reporting, no silent failures
 - ✅ **Multi-user support** - Multiple team members can work same day without file collisions
 - ✅ **Git workflow integration** - Automatic commits with user-controlled pushes
 - ✅ **Graceful degradation** - Lightweight alternatives when context is constrained
 
-This system transforms Claude Code from a simple AI assistant into a **reliable development co-pilot** with memory, structure, and accountability.
+This system transforms Claude Code from a simple AI assistant into a **reliable, adaptive co-pilot** that meets you where you are and grows with your project.
 
 ---
 
 ## Quick Start
 
-### 1. Add to Your Repository
+**New to Q-Command System?** → **[QUICK-START-GUIDE.md](QUICK-START-GUIDE.md)** ← Start here!
 
-Copy the contents of `templates/` to your repository root:
+### Two Ways to Get Started
+
+**Option 1: Automated Setup (Recommended)**
+
+In your project folder in Claude Code, type:
+
+```
+Q-SETUP-DOMAIN
+```
+
+Answer 7 questions about your project, and the system configures everything for you automatically.
+
+**Time: 5 minutes**
+
+---
+
+**Option 2: Manual Setup**
+
+Copy template files and create directories manually for full control:
 
 ```bash
-# Copy template files to your repo
 cp Q-command-system/templates/SHORTCUTS.md [your-repo]/GeneratedMDs/
 cp Q-command-system/templates/SESSION-CHECKLIST.md [your-repo]/
-cp Q-command-system/templates/.gitignore [your-repo]/GeneratedMDs/
-
-# Add Q-command section to your CLAUDE.md
-# (See templates/CLAUDE.md for the section to add)
+mkdir -p GeneratedMDs/{transcripts,session-notes,checkpoints}
 ```
 
-### 2. Create Directory Structure
+**Time: 10 minutes**
 
-```bash
-mkdir -p GeneratedMDs/transcripts
-mkdir -p GeneratedMDs/session-notes
-mkdir -p GeneratedMDs/checkpoints
-```
+---
 
-### 3. Start Using Q-Commands
+**Full instructions:** See **[QUICK-START-GUIDE.md](QUICK-START-GUIDE.md)** for complete step-by-step guide with:
 
-```
-You: Q-BEGIN
-Claude: [Reads context, reviews last session, asks what to work on]
-
-[Work on your project...]
-
-You: Q-STATUS
-Claude: [Shows session progress, context health, recommendations]
-
-You: Q-CHECKPOINT
-Claude: [Saves mid-session snapshot]
-
-[Continue working...]
-
-You: Q-END
-Claude: [Creates transcript, session notes, commits changes]
-```
-
-**That's it!** The system is now active in your repository.
+- Which option to choose
+- Testing before committing
+- Troubleshooting
+- Daily workflow examples
 
 ---
 
 ## Core Features
 
-### 1. Session Management
+### 1. Adaptive Setup (NEW in v2.1)
+- **Q-SETUP-DOMAIN** - Automated configuration wizard
+- **Q-RECONFIGURE-DOMAIN** - Update when project evolves
+- **Progressive scaffolding** - Tools offered as you need them
+- **Experience calibration** - Adapts to beginner → expert
+
+### 2. Session Management
 - **Q-BEGIN** - Start session with context refresh
 - **Q-END** - Complete session with full documentation
 - **Q-SAVE** - Lightweight quick exit (when context is tight)
 - **Q-CHECKPOINT** - Mid-session progress snapshot
 
-### 2. Monitoring & Verification
+### 3. Monitoring & Verification
 - **Q-STATUS** - Real-time session state and context health
 - **Q-VERIFY** - Verify commands actually worked
 
-### 3. Documentation
+### 4. Documentation
 - **Q-DUMP** - Manual transcript creation
 - **Q-LEARNINGS** - Summarize session insights
 - **Q-COMMIT** - Stage and commit changes
 
-### 4. Specialized Commands
+### 5. Specialized Commands
 - **Q-COURSE** - Guided interview for course definition (customizable)
 
-### 5. Smart File Management
+### 6. Smart File Management
 - **Per-person-per-session naming** - No file collisions
 - **Organized directories** - Transcripts, notes, checkpoints separated
 - **Backward compatible** - Works with existing files
 
-### 6. Context Protection
+### 7. Context Protection
 - **Auto-compact detection** - Preserves full session history
 - **Checkpoint insurance** - Prevents work loss during long sessions
 - **Context health monitoring** - Warns when conversation getting full
 
-### 7. Error Handling
+### 8. Error Handling
 - **Explicit verification** - Each step confirmed before proceeding
 - **No silent failures** - Always reports what succeeded/failed
 - **Graceful degradation** - Complete what's possible, skip what fails
@@ -246,6 +249,24 @@ This package includes comprehensive documentation:
 ---
 
 ## Version History
+
+### v2.1 (2025-11-17) - Adaptive Configuration System
+**Major improvements:**
+- ✅ NEW: Q-SETUP-DOMAIN (automated adaptive setup wizard)
+- ✅ NEW: Q-RECONFIGURE-DOMAIN (update configuration as project evolves)
+- ✅ Progressive scaffolding system (not fixed tiers)
+- ✅ Experience-based calibration (beginner → advanced)
+- ✅ Configuration profiles (.q-system/domain-config.json)
+- ✅ Automatic documentation generation (DOMAIN-SETUP-SUMMARY.md)
+- ✅ Domain-specific question sets (screenplay, software, research, legal)
+- ✅ Comprehensive QUICK-START-GUIDE.md for new users
+
+**Why v2.1 was needed:**
+- Users struggled with manual setup (too many files to copy)
+- One-size-fits-all approach didn't work (beginners vs experts had different needs)
+- No guidance on what infrastructure to create
+- Projects evolved but configuration stayed static
+- Needed domain-specific features (screenplay vs software vs research)
 
 ### v2.0 (2025-11-13) - Robust Context-Aware System
 **Major improvements:**
@@ -397,9 +418,9 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 
 **Created by:** Gabriel Rymberg
 **Developed with:** Claude Code (Anthropic)
-**Version:** 2.0
-**Released:** November 13, 2025
+**Version:** 2.1
+**Released:** November 17, 2025
 
 ---
 
-**Ready to transform your Claude Code workflow? Start with the [Implementation Guide](IMPLEMENTATION-GUIDE.md)!**
+**Ready to transform your Claude Code workflow? Start with the [Quick Start Guide](QUICK-START-GUIDE.md)!**

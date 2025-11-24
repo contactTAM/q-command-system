@@ -2,8 +2,8 @@
 
 This file contains custom shortcut commands for this repository.
 
-**Last Updated:** 2025-11-13
-**Version:** 2.0 (Robust context-aware system)
+**Last Updated:** 2025-11-17
+**Version:** 2.1 (Adaptive domain-specific configuration)
 
 ---
 
@@ -100,10 +100,16 @@ When the user types `Q-DUMP`:
 - **Continued session:** Use original session start time from conversation summary
 - Example: If session started 7:00 AM, auto-compacted at 8:30 AM, continued until 9:15 AM → Use 7:00 AM as start time
 
+**IMPORTANT - Timestamp Generation:**
+- ALWAYS generate timestamp using: `date +"%Y-%m-%d-%H%M"`
+- This ensures LOCAL 24-hour time format (e.g., 2025-11-24-0946)
+- Run this bash command ONCE at session start and reuse the value
+
 **STEP 3: Create Session Transcript File**
 
 1. Create subdirectory if needed: `GeneratedMDs/transcripts/` (use Bash: `mkdir -p`)
-2. **File naming format: `GeneratedMDs/transcripts/YYYY-MM-DD-HHmm-[PersonName].md`**
+2. **Generate timestamp:** Run `TIMESTAMP=$(date +"%Y-%m-%d-%H%M")` to get session start time in local timezone
+3. **File naming format: `GeneratedMDs/transcripts/YYYY-MM-DD-HHmm-[PersonName].md`**
    - Example: `GeneratedMDs/transcripts/2025-11-13-0913-Gabriel.md`
    - Use ORIGINAL session start time (not continuation time)
    - Use actual participant's name (Gabriel, Guy, Fraser, Brian)
@@ -195,18 +201,20 @@ When the user types `Q-END`:
 **STEP 2: Create Session Transcript**
 
 1. Create subdirectory if needed: `mkdir -p "GeneratedMDs/transcripts"`
-2. Determine session start time and participant name
-3. Create file: `GeneratedMDs/transcripts/YYYY-MM-DD-HHmm-[PersonName].md`
-   - Use ORIGINAL session start time (if continued)
+2. **Generate timestamp:** Run `TIMESTAMP=$(date +"%Y-%m-%d-%H%M")` to get session start time in LOCAL timezone (24-hour format)
+3. Determine participant name (e.g., Gabriel, Guy, Fraser, Brian)
+4. Create file: `GeneratedMDs/transcripts/${TIMESTAMP}-[PersonName].md`
+   - Use ORIGINAL session start time (if continued session, adjust timestamp accordingly)
    - Document ALL work including from summary and checkpoints
-4. Write complete transcript following Q-DUMP specifications
-5. ✅ VERIFY: File exists and has substantial content
-6. Report to user: "✅ Transcript created: [filename]"
+5. Write complete transcript following Q-DUMP specifications
+6. ✅ VERIFY: File exists and has substantial content
+7. Report to user: "✅ Transcript created: [filename]"
 
 **STEP 3: Create Session Notes**
 
 1. Create subdirectory if needed: `mkdir -p "GeneratedMDs/session-notes"`
-2. Create file: `GeneratedMDs/session-notes/YYYY-MM-DD-HHmm-[PersonName].md`
+2. **Use same timestamp** from Step 2 (same session, same timestamp for all files)
+3. Create file: `GeneratedMDs/session-notes/${TIMESTAMP}-[PersonName].md`
 3. Write session summary including:
    - Key accomplishments (ALL from entire session)
    - Decisions made (ALL)
@@ -273,7 +281,8 @@ When the user types `Q-SAVE`:
 
 **What it does:**
 
-1. Create basic transcript in `GeneratedMDs/transcripts/YYYY-MM-DD-HHmm-[PersonName].md`
+1. **Generate timestamp:** Run `TIMESTAMP=$(date +"%Y-%m-%d-%H%M")` to get session start time in LOCAL timezone
+2. Create basic transcript in `GeneratedMDs/transcripts/${TIMESTAMP}-[PersonName].md`
    - Lightweight version (key accomplishments + files changed)
    - Skip detailed chronology
 2. Commit all changes (Q-COMMIT)
@@ -320,9 +329,10 @@ mkdir -p "GeneratedMDs/checkpoints"
 ```
 
 **STEP 2: Create checkpoint file**
-- Format: `GeneratedMDs/checkpoints/YYYY-MM-DD-HHmm-[PersonName].md`
+- **Generate timestamp:** Run `CHECKPOINT_TIME=$(date +"%Y-%m-%d-%H%M")` to get CURRENT time in LOCAL timezone
+- Format: `GeneratedMDs/checkpoints/${CHECKPOINT_TIME}-[PersonName].md`
 - Example: `GeneratedMDs/checkpoints/2025-11-13-1130-Gabriel.md`
-- Use current time for checkpoint (NOT session start time)
+- Use current time for checkpoint (NOT session start time - checkpoints use their own timestamp)
 
 **STEP 3: Document in checkpoint file**
 - Session start time (when session originally began)
@@ -491,6 +501,499 @@ When the user types `Q-VERIFY`:
 
 ---
 
+## Q-SETUP-DOMAIN
+
+When the user types `Q-SETUP-DOMAIN`:
+
+**Purpose:** Set up domain-specific Q-Command System infrastructure adapted to project context.
+
+**OVERVIEW:**
+
+This command configures the Q-Command System based on contextual questions about the project, using **progressive scaffolding** (not fixed tiers). The system adapts to:
+- Starting point (what exists now)
+- Project goal (what you're creating)
+- Experience level (how much guidance needed)
+- Collaboration context (solo vs team)
+- Special needs (visual, research, source materials)
+
+**PROCESS:**
+
+**STEP 1: INTRODUCTION**
+
+Present introduction to user:
+```
+I'll help you set up a domain-specific Q-Command System for your project.
+This will configure the right infrastructure, tools, and workflows based on
+your specific context and goals.
+
+Let's start with some questions to understand your project...
+```
+
+**STEP 2: DOMAIN SELECTION**
+
+Ask user to select domain:
+```
+What domain are you working in?
+
+a) Screenplay/TV Writing - Screenplays, pilots, TV series
+b) Software Development - Code, applications, systems
+c) Academic/Research - Papers, literature reviews, research
+d) Legal - Contracts, briefs, legal research
+e) Other - [Let me describe my domain]
+```
+
+Store answer in temporary variable for configuration.
+
+**STEP 3: CONTEXTUAL QUESTIONS (Domain-Specific)**
+
+**For "Screenplay/TV Writing" domain, ask these 7 questions:**
+
+**Q1: Starting Point**
+```
+What are you starting with today?
+
+a) Nothing yet - I have an idea but no written materials
+b) Source material - I have source texts/references to adapt from
+c) Basic documents - I have a vision doc, treatment, or notes
+d) Pitch bible - I have a complete pitch bible
+e) Partial work - I've already started writing scenes or outlines
+f) Let me describe my situation: [free text]
+```
+
+**Q2: Project Goal**
+```
+What's your goal for this project?
+
+a) Explore the concept - Create proof-of-concept outlines or treatments
+b) Pitch package - Create pitch bible and sample materials for pitching
+c) Complete pilot - Write a full pilot episode screenplay
+d) Full season - Write multiple episodes (season arc)
+e) Ongoing series - Long-running development (multiple seasons)
+f) Not sure yet - Help me figure out the right goal
+```
+
+**Q3: Experience Level**
+```
+What's your level of experience with screenwriting?
+
+a) Complete beginner - Never written a screenplay before
+b) Learning - Written some, but not professionally
+c) Intermediate - Some professional experience or formal training
+d) Advanced - Extensive professional experience
+
+Note: This helps me calibrate how much guidance and structure to provide.
+```
+
+**Q4: Collaboration Context**
+```
+Will you be working solo or with collaborators?
+
+a) Solo - Just me and Claude
+b) With occasional feedback - I'll share drafts for feedback sometimes
+c) Active collaboration - Regular collaboration with writing partner(s)
+d) Team/professional - Multiple stakeholders (producers, directors, etc.)
+```
+
+**Q5: Visual Development Needs**
+```
+Do you need visual development for this project?
+
+a) Yes - Need to create character/location visual references (concept art, etc.)
+b) Maybe later - Not now, but might need it eventually
+c) No - Text-only project
+d) Already have - Existing visual materials I'll reference
+```
+
+**Q6: Source Material Complexity**
+```
+Do you have source materials you're adapting or referencing?
+
+a) No source materials - Original work
+b) Single source - One canonical reference (book, historical event, etc.)
+c) Multiple equal sources - Research from various sources, all equally valid
+d) Multiple sources with hierarchy - Some are canonical, others are inspirational
+e) Complex research - Academic/historical research with citations needed
+```
+
+**Q7: Repository State**
+```
+Are you setting this up in:
+
+a) A new, empty repository - Starting from scratch
+b) An existing repository with some files - Need to organize what's there
+c) An existing Q-Command repository - Upgrading or adding domain features
+```
+
+**For other domains:** Adapt questions as appropriate to the domain's specific needs.
+
+**STEP 4: HANDLE UNCERTAIN ANSWERS**
+
+If user answers "not sure" or "help me decide" to multiple questions:
+- Don't force decision
+- Offer to set up minimal viable infrastructure
+- Explain: "We'll start simple and add more as your project evolves"
+- Set up more progressive triggers to watch for signals
+
+If answers seem contradictory (e.g., beginner + full season):
+- Ask clarifying question
+- Present options (e.g., "Start with pilot focus" vs "Full season with high support")
+- Help user think through timeline and realistic scope
+
+**STEP 5: GENERATE CONFIGURATION PROFILE**
+
+Based on answers, generate configuration profile and store in `.q-system/domain-config.json`:
+
+```json
+{
+  "domain": "[screenplay|software|research|legal|other]",
+  "config_name": "[descriptive-name]",
+  "timestamp": "YYYY-MM-DDTHH:MM:SSZ",
+  "answers": {
+    "starting_point": "[answer_key]",
+    "goal": "[answer_key]",
+    "experience": "[beginner|learning|intermediate|advanced]",
+    "collaboration": "[solo|occasional_feedback|active|professional]",
+    "visual_needs": "[yes|maybe|no|have_it]",
+    "source_complexity": "[none|single|multiple_equal|multiple_hierarchy|complex]",
+    "repo_state": "[new|existing_files|existing_q_system]"
+  },
+  "infrastructure": {
+    "directories": ["[list of directories to create]"],
+    "skills": ["[list of skills to install]"],
+    "agents": ["[list of agents to install]"],
+    "custom_commands": ["[list of Q-commands to add]"],
+    "collaborative_mode": "[structural|narrative|minimal|off]",
+    "source_framework": "[none|two_layer|hierarchy|academic]",
+    "session_notes_strategy": "[individual|consolidated|multi_user]",
+    "quality_level": "[high_scaffolding|medium|light|minimal]"
+  },
+  "triggers": [
+    {
+      "condition": "[trigger condition]",
+      "offer": "[what to offer]",
+      "priority": "[high|medium|low]"
+    }
+  ]
+}
+```
+
+**STEP 6: SHOW CONFIGURATION PREVIEW**
+
+Present configuration to user:
+```
+Based on your answers, here's what I'll set up:
+
+📁 Directory Structure:
+- [list directories with brief explanations]
+
+🛠️ Skills & Agents:
+- [list skills/agents with when to use them]
+
+⚙️ Custom Q-Commands:
+- [list custom commands with usage]
+
+🤝 Collaborative Mode:
+- [explain configured mode]
+
+📚 Source Framework:
+- [explain if applicable]
+
+🔔 Progressive Triggers:
+- [list what will be offered later as project grows]
+
+Would you like me to proceed with this setup?
+[Yes / Customize first / Cancel]
+```
+
+**STEP 7: SETUP EXECUTION**
+
+**7.1: Create Directory Structure**
+- Create `.q-system/` directory
+- Create only directories needed for current configuration
+- Don't create "just in case" directories
+
+**7.2: Install Core Q-Command Files**
+- `CLAUDE.md` (with domain-specific sections)
+- `SESSION-CHECKLIST.md`
+- `GeneratedMDs/SHORTCUTS.md` (base v2.0 + domain customizations)
+- `.gitignore` (for GeneratedMDs if not exists)
+
+**7.3: Install Domain-Specific Skills**
+Conditional based on configuration:
+- IF visual_needs = yes → Install Midjourney_Prompt_Skill.md or Visual_Development_Skill.md
+- IF source_complexity requires → Install source fidelity framework docs
+
+**7.4: Install Agents**
+Conditional based on configuration:
+- IF goal = complete_pilot/full_season → Install scene-prep-agent-instructions.md
+- IF starting_point = source_material → Install source-mining-agent.md
+
+**7.5: Add Custom Q-Commands to SHORTCUTS.md**
+Conditional based on configuration:
+- IF needs Q-SCENE → Add Q-SCENE command spec
+- IF source_complexity = multiple_hierarchy → Add Q-RESEARCH command with hierarchy enforcement
+
+**7.6: Configure Collaborative Mode**
+Add to top of SHORTCUTS.md or in CLAUDE.md based on experience level
+
+**7.7: Create FILE-STRUCTURE-MAP.md (if needed)**
+- IF starting_point = pitch_bible OR existing_repo → Create immediately
+- ELSE → Set trigger for later (when repo reaches ~30 files)
+
+**7.8: Save Configuration Profile**
+- Write `.q-system/domain-config.json` with complete configuration
+- Include timestamps and all answers
+
+**STEP 8: CREATE DOCUMENTATION**
+
+**8.1: Create DOMAIN-SETUP-SUMMARY.md**
+
+Write `docs/DOMAIN-SETUP-SUMMARY.md`:
+```markdown
+# Your Q-[Domain] System Setup
+
+**Configuration:** [Description]
+**Date:** [YYYY-MM-DD]
+
+## What I've Set Up For You
+
+### Directory Structure
+[List created directories with explanations]
+
+### Skills Available
+[List installed skills with when to use them]
+
+### Agents Available
+[List installed agents with how to invoke them]
+
+### Custom Q-Commands
+[List custom commands with usage examples]
+
+### Collaborative Mode
+[Explain configured collaborative mode]
+
+## What Happens Next
+
+As your project grows, I'll offer additional infrastructure:
+- [List progressive triggers and what they offer]
+
+## Getting Started
+
+Recommended first steps:
+1. Run Q-BEGIN to start your first session
+2. [Contextual recommendation based on starting_point]
+3. [Contextual recommendation based on goal]
+
+## Need Help?
+
+Type Q-STATUS at any time to see:
+- Current session state
+- Available commands and tools
+- Recommendations for next steps
+```
+
+**8.2: Create Quick Reference Card**
+
+Write `docs/QUICK-REFERENCE.md`:
+```markdown
+# Quick Reference: Your Q-[Domain] Commands
+
+## Core Q-Commands (Always Available)
+- Q-BEGIN - Start session
+- Q-END - Complete session with documentation
+- Q-CHECKPOINT - Save mid-session progress
+- Q-STATUS - See current state and recommendations
+- Q-VERIFY - Check that files were created correctly
+- Q-SAVE - Quick exit (lightweight)
+
+## Your Custom Q-Commands
+[List only commands installed for this configuration]
+
+## Agents You Can Invoke
+[List only agents installed for this configuration]
+
+## Skills Reference
+[List only skills installed for this configuration]
+```
+
+**STEP 9: VERIFICATION & FINAL REPORT**
+
+1. ✅ VERIFY: All directories created
+2. ✅ VERIFY: All files written successfully
+3. ✅ VERIFY: Configuration profile saved
+4. ✅ VERIFY: Git status (should show new files)
+
+Report to user:
+```
+✅ Domain Setup Complete!
+
+Configuration: [name]
+Profile: .q-system/domain-config.json
+
+Created:
+- [N] directories
+- [N] skills
+- [N] agents
+- [N] custom Q-commands
+- Setup documentation
+
+Documentation:
+- Setup Summary: docs/DOMAIN-SETUP-SUMMARY.md
+- Quick Reference: docs/QUICK-REFERENCE.md
+
+Next steps:
+1. Review docs/DOMAIN-SETUP-SUMMARY.md to understand your setup
+2. Run Q-BEGIN to start your first session
+3. [Contextual first task recommendation]
+
+Ready to start! 🚀
+```
+
+**STEP 10: OFFER TO START FIRST SESSION**
+
+Ask user:
+```
+Would you like me to run Q-BEGIN now to start your first session?
+[Yes / No, I'll start later]
+```
+
+If yes, execute Q-BEGIN automatically.
+
+**QUALITY CHECKS:**
+- [ ] All questions answered (or explicitly deferred)
+- [ ] Configuration profile makes sense (no contradictions)
+- [ ] Infrastructure matches configuration
+- [ ] User understands what was set up
+- [ ] User knows how to get started
+- [ ] Triggers are appropriate for context
+- [ ] All files verified to exist
+- [ ] Documentation is clear and helpful
+
+**ERROR HANDLING:**
+- If any file creation fails, report specifically what failed
+- Complete what is possible, report what couldn't be done
+- Provide manual steps for failed items
+- Don't fail silently
+
+---
+
+## Q-RECONFIGURE-DOMAIN
+
+When the user types `Q-RECONFIGURE-DOMAIN`:
+
+**Purpose:** Update domain configuration when project needs change.
+
+**When to Use:**
+- Project goals have evolved (concept → pilot, pilot → season)
+- Experience level changed (more confident now)
+- Collaboration context changed (adding team members)
+- Need infrastructure that wasn't set up initially
+
+**PROCESS:**
+
+**STEP 1: READ CURRENT CONFIGURATION**
+- Load `.q-system/domain-config.json`
+- Understand current setup
+- Identify what's currently installed
+
+**STEP 2: IDENTIFY CHANGES**
+- Ask: "What's changed in your project or needs?"
+- Re-ask relevant questions from Q-SETUP-DOMAIN
+- Allow user to keep previous answers or change them
+- Compare new answers to old answers
+
+**STEP 3: ANALYZE IMPACT**
+- Determine what needs to be added
+- Determine what needs to be modified
+- Determine what should be preserved
+- Estimate effort/disruption
+
+**STEP 4: SHOW BEFORE/AFTER COMPARISON**
+
+Present comparison:
+```
+=== Configuration Changes ===
+
+CURRENT → NEW:
+- Starting point: [old] → [new]
+- Goal: [old] → [new]
+- Experience: [old] → [new]
+[etc for changed answers]
+
+INFRASTRUCTURE CHANGES:
+
+Will Add:
+- [new directories]
+- [new skills]
+- [new agents]
+- [new commands]
+
+Will Modify:
+- [existing items to update]
+
+Will Preserve:
+- [everything staying the same]
+
+Estimated Impact: [Low/Medium/High]
+```
+
+**STEP 5: GET PERMISSION**
+- Show preview of changes
+- Ask explicit permission
+- Allow user to:
+  - Accept all changes
+  - Modify/customize changes
+  - Cancel reconfiguration
+
+**STEP 6: EXECUTE UPGRADE**
+- Add new infrastructure (directories, files)
+- Modify existing infrastructure carefully
+- **NEVER delete or move user's work**
+- Update `.q-system/domain-config.json`
+- Update SHORTCUTS.md with new commands (if applicable)
+- Update CLAUDE.md with new sections (if applicable)
+
+**STEP 7: UPDATE DOCUMENTATION**
+- Update `docs/DOMAIN-SETUP-SUMMARY.md`
+- Update `docs/QUICK-REFERENCE.md`
+- Create `docs/RECONFIGURATION-LOG-YYYY-MM-DD.md` with:
+  - What changed
+  - Why it changed
+  - What was added/modified
+  - What was preserved
+
+**STEP 8: VERIFY & REPORT**
+- Run verification checks
+- Report to user:
+  ```
+  ✅ Reconfiguration Complete!
+
+  Updated configuration: .q-system/domain-config.json
+  Reconfiguration log: docs/RECONFIGURATION-LOG-[date].md
+
+  Changes:
+  - Added: [N] items
+  - Modified: [N] items
+  - Preserved: All existing work
+
+  Updated documentation:
+  - docs/DOMAIN-SETUP-SUMMARY.md
+  - docs/QUICK-REFERENCE.md
+
+  Your work is safe - all files preserved.
+  Review the reconfiguration log for details.
+  ```
+
+**QUALITY CHECKS:**
+- [ ] No work lost or damaged
+- [ ] Configuration profile updated
+- [ ] Documentation reflects changes
+- [ ] User understands new capabilities
+- [ ] All new files created successfully
+- [ ] Existing customizations preserved
+
+---
+
 ## Q-COURSE
 
 When the user types `Q-COURSE`:
@@ -545,6 +1048,14 @@ When the user types `Q-COURSE`:
 ---
 
 ## VERSION HISTORY
+
+**v2.1 (2025-11-17):**
+- Added Q-SETUP-DOMAIN for adaptive domain-specific configuration
+- Added Q-RECONFIGURE-DOMAIN for evolving project needs
+- Implemented progressive scaffolding system (not fixed tiers)
+- Added configuration profile system (.q-system/domain-config.json)
+- Added 7-question setup wizard for screenplay domain
+- Added automatic documentation generation (DOMAIN-SETUP-SUMMARY.md, QUICK-REFERENCE.md)
 
 **v2.0 (2025-11-13):**
 - Redesigned file naming to prevent collisions (per-person-per-session)

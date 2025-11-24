@@ -2,12 +2,16 @@
 
 **Comprehensive Command Documentation**
 
-**Version:** 2.0
-**Last Updated:** 2025-11-13
+**Version:** 2.1
+**Last Updated:** 2025-11-17
 
 ---
 
 ## Command Index
+
+### Setup & Configuration
+- [Q-SETUP-DOMAIN](#q-setup-domain) - **NEW** Adaptive domain-specific setup wizard
+- [Q-RECONFIGURE-DOMAIN](#q-reconfigure-domain) - **NEW** Update configuration when needs change
 
 ### Session Management
 - [Q-BEGIN](#q-begin) - Start session with context refresh
@@ -28,6 +32,372 @@
 
 ### Specialized
 - [Q-COURSE](#q-course) - Guided interview (customizable)
+
+---
+
+## Q-SETUP-DOMAIN
+
+**Purpose:** Set up domain-specific Q-Command System infrastructure adapted to your project context using progressive scaffolding (not fixed tiers)
+
+**Version:** 2.1 (NEW in v2.1)
+
+### Usage
+```
+Q-SETUP-DOMAIN
+```
+
+### What It Does
+
+Runs a 10-step adaptive wizard that configures your repository based on contextual questions:
+
+**STEP 1-2: Domain Selection**
+- Asks what domain you're working in (Screenplay, Software, Research, Legal, Other)
+- Branches to domain-specific questions
+
+**STEP 3: Contextual Questions (7 for Screenplay)**
+1. **Starting point** - What you have now (nothing, source material, pitch bible, partial work)
+2. **Project goal** - What you're creating (explore concept, pitch package, pilot, season, series)
+3. **Experience level** - How much guidance needed (beginner, learning, intermediate, advanced)
+4. **Collaboration context** - Solo vs team (solo, occasional feedback, active, professional)
+5. **Visual needs** - Visual development requirements (yes, maybe, no, have it)
+6. **Source complexity** - Source material situation (none, single, multiple, hierarchy, complex)
+7. **Repository state** - New vs existing (new, existing files, existing Q-system)
+
+**STEP 4: Handle Uncertainty**
+- If user answers "not sure" to multiple questions → Sets up minimal infrastructure, more triggers
+- If answers contradictory (e.g., beginner + full season) → Asks clarifying questions, offers options
+
+**STEP 5-6: Configuration Generation & Preview**
+- Generates configuration profile based on answers
+- Shows preview of what will be set up (directories, skills, agents, commands, triggers)
+- Asks permission to proceed
+
+**STEP 7: Setup Execution**
+- Creates directories (only what's needed)
+- Installs core files (CLAUDE.md, SHORTCUTS.md, SESSION-CHECKLIST.md, .gitignore)
+- Installs domain-specific skills (conditional)
+- Installs agents (conditional)
+- Adds custom Q-commands (conditional)
+- Configures collaborative mode (based on experience level)
+- Creates FILE-STRUCTURE-MAP.md (if complex project)
+- Saves configuration profile to `.q-system/domain-config.json`
+
+**STEP 8: Documentation Generation**
+- Creates `docs/DOMAIN-SETUP-SUMMARY.md` (what was set up and why)
+- Creates `docs/QUICK-REFERENCE.md` (command reference)
+
+**STEP 9: Verification**
+- Verifies all directories created
+- Verifies all files written successfully
+- Verifies configuration profile saved
+- Reports git status
+
+**STEP 10: Offer First Session**
+- Asks if you want to run Q-BEGIN now
+- If yes, starts first session automatically
+
+### Configuration Profile
+
+Stores complete configuration in `.q-system/domain-config.json`:
+
+```json
+{
+  "domain": "screenplay",
+  "config_name": "screenplay-pilot-beginner-solo",
+  "timestamp": "2025-11-17T14:30:00Z",
+  "answers": { ... },
+  "infrastructure": {
+    "directories": [...],
+    "skills": [...],
+    "agents": [...],
+    "custom_commands": [...],
+    "collaborative_mode": "structural",
+    "source_framework": "two_layer",
+    "session_notes_strategy": "individual",
+    "quality_level": "high_scaffolding"
+  },
+  "triggers": [...]
+}
+```
+
+### Progressive Scaffolding Triggers
+
+Sets up triggers that offer infrastructure as project grows:
+
+**Examples:**
+- When 5+ scenes written → Offer Q-SCENE command
+- When user mentions "character arcs" → Offer arc tracking
+- When repo reaches 30+ files → Offer FILE-STRUCTURE-MAP.md
+- When user mentions "visual" → Offer visual development setup
+
+**Benefits:**
+- Don't overwhelm user on Day 1
+- Offer tools at the right time (teachable moments)
+- System adapts as project evolves
+
+### Experience-Based Calibration
+
+Same infrastructure, different levels of guidance:
+
+**Beginner:**
+- High scaffolding (extensive guidance in templates)
+- Educational checklists (prevent common mistakes, explain why)
+- Structural collaborative mode (NEVER/ALWAYS lists, red flags)
+- Detailed explanations
+
+**Intermediate:**
+- Medium scaffolding (standard templates)
+- Standard checklists
+- Narrative collaborative mode
+- Assumes basic knowledge
+
+**Advanced:**
+- Minimal scaffolding (bare-bones templates, customizable)
+- Brief/no checklists
+- Optional collaborative mode
+- Maximum flexibility
+
+### Example Configurations
+
+**UCU Context** (Early exploration with source material):
+- Config: `screenplay-concept-beginner-solo-visual`
+- Infrastructure: Lightweight, organic growth, visual development, source fidelity framework
+- Triggers: Offer scene agent when mentions writing, arc tracking when outlines complete
+
+**TDW Context** (Pilot writing with existing materials):
+- Config: `screenplay-pilot-beginner-feedback-research`
+- Infrastructure: Full-featured, source hierarchy enforcement, deliverables export
+- Immediate: Q-SCENE, Q-RESEARCH commands, FILE-STRUCTURE-MAP.md
+- Triggers: Arc tracking when mentioned, timeline when needed
+
+**Experienced Writer** (Original work):
+- Config: `screenplay-season-advanced-solo`
+- Infrastructure: Minimal structure, no agents/skills upfront
+- User drives, system stays out of way
+- Triggers: Offer tools only when user signals need
+
+### When to Use
+
+- **First time** setting up Q-System in a repository
+- **Adding** domain-specific features to existing Q-System
+- **Starting** a new project that needs structured workflow
+
+### What Gets Created
+
+**Directories (conditional):**
+- `.q-system/` (configuration storage)
+- `docs/` (documentation, skills, agents)
+- `GeneratedMDs/` (transcripts, checkpoints, session-notes)
+- Domain-specific directories based on configuration
+
+**Files (always):**
+- `.q-system/domain-config.json` (configuration profile)
+- `CLAUDE.md` (project context with domain sections)
+- `SESSION-CHECKLIST.md` (workflow guide)
+- `GeneratedMDs/SHORTCUTS.md` (base v2.1 + custom commands)
+- `.gitignore` (for GeneratedMDs)
+- `docs/DOMAIN-SETUP-SUMMARY.md` (setup documentation)
+- `docs/QUICK-REFERENCE.md` (command reference)
+
+**Files (conditional):**
+- Skills (e.g., Midjourney_Prompt_Skill.md)
+- Agents (e.g., scene-prep-agent-instructions.md)
+- Source frameworks (e.g., Source_Hierarchy_Framework.md)
+- FILE-STRUCTURE-MAP.md (if complex project)
+
+### Customization
+
+Each domain can define:
+- Custom question set (7-10 questions)
+- Infrastructure decision logic
+- Skills and agents to install
+- Custom Q-commands to add
+- Trigger conditions and offers
+
+### See Also
+
+- [Q-RECONFIGURE-DOMAIN](#q-reconfigure-domain) - Update configuration when needs change
+- [docs/Q-SETUP-DOMAIN-WIZARD-SPECIFICATION.md](Q-SETUP-DOMAIN-WIZARD-SPECIFICATION.md) - Full specification
+- [docs/Q-SETUP-DOMAIN-TEST-WALKTHROUGHS.md](Q-SETUP-DOMAIN-TEST-WALKTHROUGHS.md) - Test scenarios
+
+---
+
+## Q-RECONFIGURE-DOMAIN
+
+**Purpose:** Update domain configuration when project needs change
+
+**Version:** 2.1 (NEW in v2.1)
+
+### Usage
+```
+Q-RECONFIGURE-DOMAIN
+```
+
+### What It Does
+
+Updates your Q-Command System configuration when your project evolves:
+
+**STEP 1: Read Current Configuration**
+- Loads `.q-system/domain-config.json`
+- Understands what's currently installed
+- Shows current answers
+
+**STEP 2: Identify Changes**
+- Asks: "What's changed in your project or needs?"
+- Re-asks relevant questions from Q-SETUP-DOMAIN
+- Allows keeping previous answers or changing them
+- Identifies what changed
+
+**STEP 3: Analyze Impact**
+- Determines what needs to be added
+- Determines what needs to be modified
+- Determines what should be preserved
+- Estimates effort/disruption level
+
+**STEP 4: Show Before/After Comparison**
+```
+=== Configuration Changes ===
+
+CURRENT → NEW:
+- Starting point: concept → pilot
+- Goal: explore → complete_pilot
+- Experience: beginner → learning
+
+INFRASTRUCTURE CHANGES:
+
+Will Add:
+- /screenplay/scenes/ directory
+- scene-prep-agent-instructions.md
+- Q-SCENE command
+- Deliverables export infrastructure
+
+Will Modify:
+- SHORTCUTS.md (add Q-SCENE)
+- CLAUDE.md (update collaborative mode)
+
+Will Preserve:
+- All existing work
+- Visual reference materials
+- Character profiles
+
+Estimated Impact: Medium
+```
+
+**STEP 5: Get Permission**
+- Shows preview of changes
+- Asks explicit permission
+- User can: Accept all, Customize first, or Cancel
+
+**STEP 6: Execute Upgrade**
+- Adds new infrastructure (directories, files)
+- Modifies existing infrastructure carefully
+- **NEVER deletes or moves user's work**
+- Updates `.q-system/domain-config.json`
+- Updates SHORTCUTS.md with new commands (if applicable)
+- Updates CLAUDE.md with new sections (if applicable)
+
+**STEP 7: Update Documentation**
+- Updates `docs/DOMAIN-SETUP-SUMMARY.md`
+- Updates `docs/QUICK-REFERENCE.md`
+- Creates `docs/RECONFIGURATION-LOG-YYYY-MM-DD.md` with:
+  - What changed
+  - Why it changed
+  - What was added/modified
+  - What was preserved
+
+**STEP 8: Verify & Report**
+```
+✅ Reconfiguration Complete!
+
+Updated configuration: .q-system/domain-config.json
+Reconfiguration log: docs/RECONFIGURATION-LOG-2025-11-17.md
+
+Changes:
+- Added: 5 items
+- Modified: 2 items
+- Preserved: All existing work
+
+Updated documentation:
+- docs/DOMAIN-SETUP-SUMMARY.md
+- docs/QUICK-REFERENCE.md
+
+Your work is safe - all files preserved.
+Review the reconfiguration log for details.
+```
+
+### When to Use
+
+**Project Evolution:**
+- Started with "explore concept" → Now writing complete pilot
+- Started with "pitch package" → Now developing full season
+- Started solo → Now working with team
+
+**Experience Growth:**
+- Started as beginner → Now more confident (reduce scaffolding)
+- Started as intermediate → Now expert (minimal guidance)
+
+**Collaboration Changes:**
+- Solo work → Now sharing for feedback (need deliverables)
+- Occasional feedback → Active collaboration (need multi-user)
+- Solo → Professional team (need approval workflows)
+
+**Infrastructure Needs:**
+- Didn't need visual development → Now need it
+- Didn't have source materials → Now adapting from book
+- Simple project → Grown complex (need FILE-STRUCTURE-MAP.md)
+
+### Safety Guarantees
+
+**NEVER:**
+- Deletes user's work files
+- Moves files without permission
+- Overwrites customizations
+- Makes destructive changes
+
+**ALWAYS:**
+- Preserves all existing work
+- Shows preview before changes
+- Gets explicit permission
+- Creates reconfiguration log
+- Reports what changed
+
+### Example Scenarios
+
+**Scenario 1: From Exploration to Execution**
+- Started: Explore concept (lightweight setup)
+- Now: Writing complete pilot (need full infrastructure)
+- Changes: Add screenplay structure, scene PREP agent, Q-SCENE command
+- Impact: Medium (adds infrastructure, preserves explorations)
+
+**Scenario 2: Experience Level Increase**
+- Started: Complete beginner (high scaffolding)
+- Now: Learning/intermediate (reduce guidance)
+- Changes: Lighter templates, less verbose checklists, minimal collaborative mode
+- Impact: Low (mostly template updates)
+
+**Scenario 3: Adding Team Members**
+- Started: Solo (individual session notes)
+- Now: Team of 3 (need multi-user file naming)
+- Changes: Update file naming, add collaboration docs, add decision tracking
+- Impact: Low (infrastructure addition, no disruption)
+
+### Configuration History
+
+Reconfiguration logs create audit trail:
+- `docs/RECONFIGURATION-LOG-2025-11-17.md` (first reconfiguration)
+- `docs/RECONFIGURATION-LOG-2025-12-01.md` (second reconfiguration)
+- etc.
+
+Each log documents:
+- What changed and why
+- Before/after configuration comparison
+- What was added/modified/preserved
+- User's reason for reconfiguration
+
+### See Also
+
+- [Q-SETUP-DOMAIN](#q-setup-domain) - Initial setup wizard
+- [docs/Q-SETUP-DOMAIN-WIZARD-SPECIFICATION.md](Q-SETUP-DOMAIN-WIZARD-SPECIFICATION.md) - Full specification
 
 ---
 
