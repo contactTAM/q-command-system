@@ -167,9 +167,11 @@ When the user types `Q-LEARNINGS`:
 When the user types `Q-BEGIN`:
 
 1. Read `CLAUDE.md` for quick context refresh
-2. Review the most recent session notes from `GeneratedMDs/session-notes/`
-   - Look for files matching current user's name: `*-[PersonName].md`
-   - Sort by date/time, read most recent
+2. Review the most recent session notes (check BOTH locations for backward compatibility):
+   - **First:** Check `GeneratedMDs/session-notes/*-[PersonName].md` (v2.0 format)
+   - **Fallback:** If no v2.0 files found, check `session-notes/session-notes-*.md` (v1.0 format)
+   - Sort by date/time, read most recent file found
+   - Note: v1.0 files may contain multiple people's sessions in one file
 3. Review current status from `work-plan/work-plan.md`:
    - Check blocker status
    - Review recent progress
