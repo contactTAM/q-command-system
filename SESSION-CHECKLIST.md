@@ -1,1 +1,0 @@
-templates/SESSION-CHECKLIST.md

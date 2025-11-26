@@ -2,8 +2,8 @@
 
 This file contains custom shortcut commands for this repository.
 
-**Last Updated:** 2025-11-17
-**Version:** 2.1 (Adaptive domain-specific configuration)
+**Last Updated:** 2025-11-26
+**Version:** 1.0 (First public release)
 
 ---
 
@@ -167,11 +167,9 @@ When the user types `Q-LEARNINGS`:
 When the user types `Q-BEGIN`:
 
 1. Read `CLAUDE.md` for quick context refresh
-2. Review the most recent session notes (check BOTH locations for backward compatibility):
-   - **First:** Check `GeneratedMDs/session-notes/*-[PersonName].md` (v2.0 format)
-   - **Fallback:** If no v2.0 files found, check `session-notes/session-notes-*.md` (v1.0 format)
-   - Sort by date/time, read most recent file found
-   - Note: v1.0 files may contain multiple people's sessions in one file
+2. Review the most recent session notes:
+   - Check `GeneratedMDs/session-notes/*-[PersonName].md`
+   - Sort by date/time, read most recent file matching your name
 3. Review current status from `work-plan/work-plan.md`:
    - Check blocker status
    - Review recent progress
@@ -996,25 +994,225 @@ Estimated Impact: [Low/Medium/High]
 
 ---
 
-## Q-COURSE
+## Q-COMPACT
 
-When the user types `Q-COURSE`:
+When the user types `Q-COMPACT`:
 
-1. First, display the full list of questions from `planning/courses/COURSE-DEFINITION-TEMPLATE.md` so the creator can review and prepare
-2. Ask the creator if they're ready to begin the interview or need time to prepare
-3. If ready, work through each question one-by-one in a guided conversation:
-   - Ask the question
-   - Listen to the answer
-   - Probe for clarity, specificity, or missing details as needed
-   - Move to next question when satisfied
-4. After all questions are answered, create a new course definition file:
-   - Name: `planning/courses/course-[number]-[short-name].md`
-   - Use the Course Definition Output Format from the template
-   - Include all gathered information in a structured, complete document
-5. Save the file and confirm completion with the creator
-6. Update `planning/courses/README.md` if needed to reflect the new course
+**Purpose:** Safely free up context space by saving progress first, then compacting. This protects your work while giving you more room to continue.
 
-**Purpose:** Systematically gather all information needed to define a new course for the Alpha Peer platform.
+**Why use Q-COMPACT instead of /compact directly:**
+
+- `/compact` alone summarizes and loses detail
+- `Q-COMPACT` saves a checkpoint FIRST, then compacts
+- Your detailed work history is preserved in the checkpoint file
+- You get more context space AND keep your work safe
+
+**What to do:**
+
+**STEP 1: Show current context usage**
+
+Report to user:
+
+```text
+📊 Context Status (Before)
+Run /context to see current usage...
+```
+
+Then guide user or describe the context level if visible.
+
+**STEP 2: Create checkpoint (preserve work)**
+
+Execute Q-CHECKPOINT internally:
+
+1. Create checkpoint file with all progress so far
+2. Verify checkpoint was saved
+3. Report: "✅ Progress saved to checkpoint"
+
+**STEP 3: Run /compact with instructions**
+
+Tell the user to run:
+
+```text
+/compact Preserve: key decisions, files changed, current task status. This is a Q-COMPACT operation - checkpoint already saved.
+```
+
+Or if Claude can execute it directly, do so.
+
+**STEP 4: Report results**
+
+```text
+📊 Context Status (After)
+
+✅ Q-COMPACT Complete!
+
+Checkpoint saved: GeneratedMDs/checkpoints/[filename]
+Context compacted: More space available
+
+Your detailed work is preserved in the checkpoint.
+Q-END will merge checkpoint + remaining work into complete session notes.
+
+💡 Tip: Run /context to see your new context usage.
+```
+
+**When to use Q-COMPACT:**
+
+- Context usage above 70% (session slowing down)
+- After `/context` shows high usage
+- Before starting a large new task
+- When Claude's responses are getting slower
+
+**Benefits:**
+
+- Frees context space for more work
+- Preserves detailed history in checkpoint
+- User-controlled (not auto-compact surprise)
+- Q-END will merge everything together
+
+**Example workflow:**
+
+```text
+[Working for 90 minutes, context getting full]
+User: /context              → Shows 75% usage
+User: Q-COMPACT             → Saves checkpoint, then compacts
+                            → Now at ~30% usage
+[Continue working with fresh context]
+User: Q-END                 → Merges checkpoint + new work = complete docs
+```
+
+---
+
+## Q-UPGRADE
+
+When the user types `Q-UPGRADE`:
+
+**Purpose:** Check current Q-Command System version and guide upgrade to latest version.
+
+**STEP 1: Read Current Version**
+
+1. Read this SHORTCUTS.md file
+2. Find the line: `**Version:** X.X`
+3. Extract version number
+4. Report to user:
+   ```
+   Current Q-Command System version: [version]
+   Installed at: GeneratedMDs/SHORTCUTS.md
+   ```
+
+**STEP 2: Ask for Latest Version**
+
+Ask user:
+```
+To check for upgrades, I need the latest SHORTCUTS.md.
+
+Option A: Tell me the latest version number (if you know it)
+Option B: Paste the header of the new SHORTCUTS.md (first 10 lines)
+Option C: Provide path to downloaded SHORTCUTS.md file
+
+Which would you like to do?
+```
+
+**STEP 3: Compare Versions**
+
+Once you have both versions:
+- If current >= latest: Report "You're up to date!" and stop
+- If current < latest: Continue to Step 4
+
+**STEP 4: Check for Custom Commands**
+
+1. Read current SHORTCUTS.md completely
+2. Identify standard Q-commands (Q-BEGIN, Q-END, Q-CHECKPOINT, Q-STATUS, Q-VERIFY, Q-SAVE, Q-DUMP, Q-COMMIT, Q-LEARNINGS, Q-COMPACT, Q-SETUP-DOMAIN, Q-RECONFIGURE-DOMAIN, Q-UPGRADE)
+3. Find any ADDITIONAL `## Q-` sections that are NOT in the standard list
+4. These are custom commands the user added
+
+Report:
+```
+=== Upgrade Analysis ===
+
+Current version: [X.X]
+Latest version: [Y.Y]
+
+Custom commands found: [N]
+[List any custom commands, or "None"]
+
+Standard commands to update: [list what changed between versions]
+```
+
+**STEP 5: Offer Upgrade Options**
+
+```
+How would you like to proceed?
+
+Option 1: Full replacement (recommended if no custom commands)
+   - Replace SHORTCUTS.md entirely with new version
+   - Fast and clean
+
+Option 2: Guided merge (recommended if you have custom commands)
+   - I'll update standard commands
+   - I'll preserve your custom commands
+   - You review the result
+
+Option 3: Manual upgrade
+   - I'll show you exactly what changed
+   - You make the edits yourself
+
+Which option? [1/2/3]
+```
+
+**STEP 6: Execute Upgrade**
+
+**For Option 1 (Full replacement):**
+1. Ask user to provide new SHORTCUTS.md content (paste or file path)
+2. Back up current: Copy to `GeneratedMDs/SHORTCUTS-backup-YYYY-MM-DD.md`
+3. Replace SHORTCUTS.md with new content
+4. Verify new file exists and has content
+5. Report success
+
+**For Option 2 (Guided merge):**
+1. Ask user to provide new SHORTCUTS.md content
+2. Back up current: Copy to `GeneratedMDs/SHORTCUTS-backup-YYYY-MM-DD.md`
+3. Start with new SHORTCUTS.md as base
+4. Find user's custom commands in backup
+5. Append custom commands before VERSION HISTORY section
+6. Write merged file
+7. Show user what was preserved
+8. Verify file exists
+
+**For Option 3 (Manual):**
+1. List what's new in latest version (from CHANGELOG or version history)
+2. Explain each change
+3. Tell user which sections to update
+4. Offer to show diff if helpful
+
+**STEP 7: Verify and Report**
+
+```
+=== Upgrade Complete ===
+
+Previous version: [X.X] (backed up to SHORTCUTS-backup-YYYY-MM-DD.md)
+New version: [Y.Y]
+
+Custom commands preserved: [list or "N/A"]
+
+Next steps:
+1. Run Q-BEGIN to verify everything works
+2. Delete backup file when satisfied
+
+Upgrade successful!
+```
+
+**ERROR HANDLING:**
+
+- If backup fails: Stop and report error
+- If write fails: Restore from backup
+- If custom command merge is ambiguous: Ask user to resolve
+- Never lose user's custom commands without explicit permission
+
+**NOTES:**
+
+- This command works by reading and comparing SHORTCUTS.md files
+- User must provide the new version (paste or file path)
+- Always creates backup before making changes
+- Custom commands are preserved by default
 
 ---
 
@@ -1051,22 +1249,26 @@ When the user types `Q-COURSE`:
 
 ## VERSION HISTORY
 
-**v2.1 (2025-11-17):**
-- Added Q-SETUP-DOMAIN for adaptive domain-specific configuration
-- Added Q-RECONFIGURE-DOMAIN for evolving project needs
-- Implemented progressive scaffolding system (not fixed tiers)
-- Added configuration profile system (.q-system/domain-config.json)
-- Added 7-question setup wizard for screenplay domain
-- Added automatic documentation generation (DOMAIN-SETUP-SUMMARY.md, QUICK-REFERENCE.md)
+**v1.0 (2025-11-26):**
+- First public release
+- Q-UPGRADE for easy version upgrades (preserves custom commands)
+- Q-COMPACT for safe context management (checkpoint + compact)
+- Q-SETUP-DOMAIN for adaptive domain-specific configuration
+- Q-RECONFIGURE-DOMAIN for evolving project needs
+- Progressive scaffolding system (not fixed tiers)
+- Per-person-per-session file naming (no collisions)
+- Organized directory structure (transcripts/, checkpoints/, session-notes/)
+- Step-by-step verification in Q-END
+- Q-SAVE for lightweight quick exits
+- Q-VERIFY for checking command success
+- Q-STATUS with context health and recommendations
+- Comprehensive error handling policy
 
-**v2.0 (2025-11-13):**
-- Redesigned file naming to prevent collisions (per-person-per-session)
-- Reorganized directory structure (transcripts/, checkpoints/, session-notes/)
-- Made Q-END robust with step-by-step verification
-- Added Q-SAVE for lightweight quick exits
-- Added Q-VERIFY for checking command success
-- Enhanced Q-STATUS with context health and recommendations
-- Added comprehensive error handling policy
+**v0.2 (2025-11-17):**
+- Added domain-specific setup wizard
+- Added configuration profile system
+- Added automatic documentation generation
 
-**v1.0 (2025-11-11):**
-- Initial command set: Q-BEGIN, Q-END, Q-DUMP, Q-COMMIT, Q-CHECKPOINT, Q-STATUS, Q-LEARNINGS, Q-COURSE
+**v0.1 (2025-11-13):**
+- Initial development version
+- Basic command set: Q-BEGIN, Q-END, Q-DUMP, Q-COMMIT, Q-CHECKPOINT, Q-STATUS, Q-LEARNINGS

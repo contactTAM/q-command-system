@@ -2,8 +2,8 @@
 
 **Comprehensive Feature Overview**
 
-**Version:** 2.0
-**Last Updated:** 2025-11-13
+**Version:** 1.0
+**Last Updated:** 2025-11-26
 
 ---
 
@@ -752,26 +752,18 @@ Changes take effect immediately (Claude reads SHORTCUTS.md at session start).
 
 ---
 
-### Domain-Specific Adaptations
+### Adding Custom Commands
 
-**Q-COURSE example adaptations:**
-
-**Original:** Course definition interview
-**Adapt to:**
-- Product feature specification
-- API endpoint design
-- Test case templates
-- Design system components
-- Documentation templates
+You can add your own Q-commands for domain-specific tasks.
 
 **How:**
 1. Open `GeneratedMDs/SHORTCUTS.md`
-2. Find `## Q-COURSE`
-3. Replace question template reference
-4. Update output format
-5. Save and use
+2. Add a new `## Q-YOURCOMMAND` section
+3. Define what Claude should do
+4. Save and use immediately
 
 **Example: Product Feature Spec**
+
 ```markdown
 ## Q-FEATURE
 

@@ -17,7 +17,7 @@ Copy everything from "## Workflow with Claude Code" onwards and paste it into yo
 
 ### Session Workflow
 
-**File Organization (Q-Command System v2.0):**
+**File Organization (Q-Command System v1.0):**
 
 All generated session files use per-person-per-session naming to prevent collisions:
 - **Format:** `YYYY-MM-DD-HHmm-[PersonName].md` (example: `2025-11-13-0913-Gabriel.md`)
@@ -72,7 +72,6 @@ Type `Q-END` and Claude will automatically:
 - **Q-DUMP** → Create session transcript manually
 - **Q-COMMIT** → Stage and commit changes
 - **Q-LEARNINGS** → Summarize session key learnings
-- **Q-COURSE** → [Customize for your domain: Guided interview/template generation]
 
 ---
 
@@ -81,7 +80,7 @@ Type `Q-END` and Claude will automatically:
 [Add your project-specific reference documents here]
 
 **Q-Command System Documentation:**
-- `GeneratedMDs/SHORTCUTS.md` - Q-command specifications (v2.0 robust system)
+- `GeneratedMDs/SHORTCUTS.md` - Q-command specifications (v1.0)
 - `SESSION-CHECKLIST.md` - Step-by-step session start and end procedures
 - `GeneratedMDs/transcripts/` - Session transcripts by person and date
 - `GeneratedMDs/session-notes/` - Session summaries by person and date
@@ -97,7 +96,6 @@ Type `Q-END` and Claude will automatically:
 - `Q-DUMP` - Create session transcript manually
 - `Q-COMMIT` - Stage and commit changes
 - `Q-LEARNINGS` - Summarize session learnings
-- `Q-COURSE` - [Customize for your domain]
 
 ---
 
@@ -111,18 +109,13 @@ Type `Q-END` and Claude will automatically:
 
 1. **Replace placeholders:**
    - `[PROJECT_OWNER_NAME]` → Your name or team lead's name
-   - `[Customize for your domain]` → Adapt Q-COURSE command description
 
 2. **Add your project context:**
    - Add sections about your project (What is it? Team? Status? etc.)
    - Add reference to your work plan or roadmap files
    - Add key insights or mission statement
 
-3. **Customize Q-COURSE command:**
-   - If you don't need Q-COURSE, remove it from lists
-   - If you want to customize it, update SHORTCUTS.md accordingly
-
-4. **Add team member names:**
+3. **Add team member names:**
    - List your actual team members who will use the system
    - This helps Claude address people correctly in session notes
 

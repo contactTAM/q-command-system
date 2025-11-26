@@ -21,9 +21,6 @@ Desktop.ini
 *.tmp
 *.temp
 
-# Private/personal documentation (keep local only)
-docs/2025-11-17-lost-session.md
-docs/SESSION-SUMMARY-2025-11-17-ADAPTIVE-SYSTEM-DESIGN.md
-docs/TDW-SCREENPLAY-SYSTEM-ANALYSIS.md
-docs/UCU-SCREENPLAY-SYSTEM-ANALYSIS.md
-docs/SCREENPLAY-SYSTEMS-COMPARISON.md
+# Private/internal documentation (keep local only)
+# Contains: dev notes, domain templates, AI Masters branding, export files
+docs/private/

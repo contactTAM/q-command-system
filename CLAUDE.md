@@ -2,7 +2,7 @@
 
 **A Robust Co-Pilot System for Claude Code**
 
-**Version:** 2.0
+**Version:** 1.0
 **Author:** Gabriel Rymberg
 **Repository:** github.com/contactTAM/q-command-system
 **License:** MIT
@@ -38,17 +38,17 @@ The Q-Command System transforms Claude Code from a simple AI assistant into a **
 
 ## Current Status
 
-**Version:** 2.0 (Released 2025-11-13)
+**Version:** 1.0 (Released 2025-11-26)
 
-**Recent Release:**
-- Major upgrade from v1.0
+**First Public Release:**
+- Q-COMPACT for safe context management
+- Q-SETUP-DOMAIN for adaptive domain-specific configuration
 - Per-person-per-session file naming (no collisions)
 - Organized directory structure (transcripts/, session-notes/, checkpoints/)
-- New commands: Q-SAVE, Q-VERIFY
-- Enhanced Q-STATUS with context health monitoring
+- Q-SAVE, Q-VERIFY, Q-STATUS with context health monitoring
 - Comprehensive error handling
 
-**Repository State:** Active development and documentation refinement
+**Repository State:** Stable, ready for public use
 
 ---
 
@@ -89,29 +89,28 @@ The Q-Command System transforms Claude Code from a simple AI assistant into a **
 
 ```
 Q-command-system/
-  docs/
-    FEATURES.md              ← Detailed feature documentation
-    ARCHITECTURE.md          ← System internals and design
-    COMMANDS-REFERENCE.md    ← Complete command reference
-    MIGRATION-GUIDE-v2.md    ← Upgrading from v1.0
-  templates/
-    SHORTCUTS.md             ← Q-command specifications (copy to repos)
-    CLAUDE.md                ← Template for other projects
-    SESSION-CHECKLIST.md     ← User workflow guide
-    .gitignore               ← For GeneratedMDs directory
-  examples/
-    file-structure.md        ← Directory organization examples
-    naming-conventions.md    ← File naming patterns
-    sample-session-flow.md   ← Complete walkthrough
-  GeneratedMDs/
-    transcripts/             ← Session transcripts for THIS repo
-    session-notes/           ← Session summaries for THIS repo
-    checkpoints/             ← Mid-session snapshots for THIS repo
-    SHORTCUTS.md             ← Q-commands for THIS repo (symlink to templates/)
-  IMPLEMENTATION-GUIDE.md    ← How to add to new repos
-  UPDATE-GUIDE.md            ← How to update existing v2.0 installations
-  README.md                  ← Overview and quick start
-  SESSION-CHECKLIST.md       ← Workflow guide for THIS repo
+├── getting-started.md       ← Start here
+├── README.md                ← Overview
+├── CHANGELOG.md             ← Version history
+│
+├── templates/               ← Files to copy to your projects
+│   ├── SHORTCUTS.md         ← Q-command specifications
+│   ├── CLAUDE.md            ← Template for your CLAUDE.md
+│   └── .gitignore           ← For GeneratedMDs directory
+│
+├── docs/                    ← Documentation
+│   ├── install/             ← Platform installation guides
+│   ├── commands-reference.md
+│   ├── features.md
+│   ├── architecture.md
+│   ├── workflow.md
+│   ├── context-management.md
+│   └── setup.md
+│
+└── GeneratedMDs/            ← Session files for THIS repo
+    ├── transcripts/
+    ├── session-notes/
+    └── checkpoints/
 ```
 
 ---
@@ -144,7 +143,7 @@ When working on this repository:
 Before releasing updates:
 - Test all Q-commands in a sample repository
 - Verify documentation is clear and accurate
-- Check backward compatibility with v1.0
+- Check backward compatibility with previous versions
 - Update version numbers and release notes
 
 ---
@@ -160,7 +159,7 @@ Before releasing updates:
 
 ### Session Workflow
 
-**File Organization (Q-Command System v2.0):**
+**File Organization (Q-Command System v1.0):**
 
 All generated session files use per-person-per-session naming to prevent collisions:
 - **Format:** `YYYY-MM-DD-HHmm-[PersonName].md` (example: `2025-11-13-1405-Gabriel.md`)
@@ -217,21 +216,19 @@ Type `Q-END` and Claude will automatically:
 
 ## Reference Documents
 
-**Core Documentation:**
-- `README.md` - Overview and quick start
-- `IMPLEMENTATION-GUIDE.md` - Adding to new repositories
-- `UPDATE-GUIDE.md` - Updating existing v2.0 installations
-- `docs/FEATURES.md` - Detailed feature documentation
-- `docs/ARCHITECTURE.md` - System design and internals
-- `docs/COMMANDS-REFERENCE.md` - Complete command reference
-- `docs/MIGRATION-GUIDE-v2.md` - Upgrading from v1.0
+**Documentation:**
+- `getting-started.md` - Quick start guide
+- `docs/commands-reference.md` - All Q-commands
+- `docs/workflow.md` - Daily workflow
+- `docs/context-management.md` - Managing the 200K token limit
+- `docs/features.md` - Feature details
+- `docs/architecture.md` - System internals
 
-**Q-Command System Documentation:**
-- `GeneratedMDs/SHORTCUTS.md` - Q-command specifications (v2.0 robust system)
-- `SESSION-CHECKLIST.md` - Step-by-step session start and end procedures
-- `GeneratedMDs/transcripts/` - Session transcripts by person and date
-- `GeneratedMDs/session-notes/` - Session summaries by person and date
-- `GeneratedMDs/checkpoints/` - Mid-session progress snapshots
+**Q-Command System Files:**
+- `GeneratedMDs/SHORTCUTS.md` - Q-command specifications (v1.0)
+- `GeneratedMDs/transcripts/` - Session transcripts
+- `GeneratedMDs/session-notes/` - Session summaries
+- `GeneratedMDs/checkpoints/` - Mid-session snapshots
 
 **Available Q-Commands:**
 - `Q-BEGIN` - Start session with context refresh

@@ -2,16 +2,17 @@
 
 **Comprehensive Command Documentation**
 
-**Version:** 2.1
-**Last Updated:** 2025-11-17
+**Version:** 1.0
+**Last Updated:** 2025-11-26
 
 ---
 
 ## Command Index
 
 ### Setup & Configuration
-- [Q-SETUP-DOMAIN](#q-setup-domain) - **NEW** Adaptive domain-specific setup wizard
-- [Q-RECONFIGURE-DOMAIN](#q-reconfigure-domain) - **NEW** Update configuration when needs change
+- [Q-SETUP-DOMAIN](#q-setup-domain) - Adaptive domain-specific setup wizard
+- [Q-RECONFIGURE-DOMAIN](#q-reconfigure-domain) - Update configuration when needs change
+- [Q-UPGRADE](#q-upgrade) - Upgrade to latest version
 
 ### Session Management
 - [Q-BEGIN](#q-begin) - Start session with context refresh
@@ -30,16 +31,13 @@
 ### Git Operations
 - [Q-COMMIT](#q-commit) - Stage and commit changes
 
-### Specialized
-- [Q-COURSE](#q-course) - Guided interview (customizable)
-
 ---
 
 ## Q-SETUP-DOMAIN
 
 **Purpose:** Set up domain-specific Q-Command System infrastructure adapted to your project context using progressive scaffolding (not fixed tiers)
 
-**Version:** 2.1 (NEW in v2.1)
+**Version:** 1.0
 
 ### Usage
 ```
@@ -217,8 +215,7 @@ Each domain can define:
 ### See Also
 
 - [Q-RECONFIGURE-DOMAIN](#q-reconfigure-domain) - Update configuration when needs change
-- [docs/Q-SETUP-DOMAIN-WIZARD-SPECIFICATION.md](Q-SETUP-DOMAIN-WIZARD-SPECIFICATION.md) - Full specification
-- [docs/Q-SETUP-DOMAIN-TEST-WALKTHROUGHS.md](Q-SETUP-DOMAIN-TEST-WALKTHROUGHS.md) - Test scenarios
+- Full specification in SHORTCUTS.md Q-SETUP-DOMAIN section
 
 ---
 
@@ -226,7 +223,7 @@ Each domain can define:
 
 **Purpose:** Update domain configuration when project needs change
 
-**Version:** 2.1 (NEW in v2.1)
+**Version:** 1.0
 
 ### Usage
 ```
@@ -397,7 +394,93 @@ Each log documents:
 ### See Also
 
 - [Q-SETUP-DOMAIN](#q-setup-domain) - Initial setup wizard
-- [docs/Q-SETUP-DOMAIN-WIZARD-SPECIFICATION.md](Q-SETUP-DOMAIN-WIZARD-SPECIFICATION.md) - Full specification
+- Full specification in SHORTCUTS.md
+
+---
+
+## Q-UPGRADE
+
+**Purpose:** Check current version and guide upgrade to latest Q-Command System
+
+### Usage
+
+```
+Q-UPGRADE
+```
+
+### What It Does
+
+1. Reads your current SHORTCUTS.md version
+2. Asks you to provide the latest version (paste or file path)
+3. Compares versions
+4. Identifies any custom commands you've added
+5. Offers upgrade options:
+   - Full replacement (if no custom commands)
+   - Guided merge (preserves custom commands)
+   - Manual upgrade (shows what changed)
+6. Creates backup before making changes
+7. Verifies upgrade succeeded
+
+### When to Use
+
+- When a new version of Q-Command System is released
+- When you want to check if you're up to date
+- When you have custom commands and want to upgrade safely
+
+### Custom Command Preservation
+
+Q-UPGRADE automatically detects any custom `## Q-` sections you've added to SHORTCUTS.md that aren't part of the standard commands. During upgrade, these are preserved and merged into the new version.
+
+### Backup
+
+Before any upgrade, Q-UPGRADE creates:
+```
+GeneratedMDs/SHORTCUTS-backup-YYYY-MM-DD.md
+```
+
+If anything goes wrong, your original file is safe.
+
+### Example Flow
+
+```
+You: Q-UPGRADE
+
+Claude: Current Q-Command System version: 1.0
+        Installed at: GeneratedMDs/SHORTCUTS.md
+
+        To check for upgrades, I need the latest SHORTCUTS.md.
+        Option A: Tell me the latest version number
+        Option B: Paste the header of the new SHORTCUTS.md
+        Option C: Provide path to downloaded file
+
+        Which would you like to do?
+
+You: C - it's at ~/Downloads/SHORTCUTS.md
+
+Claude: === Upgrade Analysis ===
+        Current version: 1.0
+        Latest version: 1.1
+        Custom commands found: 1 (Q-REVIEW)
+
+        How would you like to proceed?
+        1: Full replacement
+        2: Guided merge (recommended)
+        3: Manual upgrade
+
+You: 2
+
+Claude: === Upgrade Complete ===
+        Previous: 1.0 (backed up)
+        New: 1.1
+        Custom commands preserved: Q-REVIEW
+
+        Run Q-BEGIN to verify everything works.
+```
+
+### See Also
+
+- [CHANGELOG.md](../CHANGELOG.md) - What changed in each version
+- Full specification in SHORTCUTS.md
 
 ---
 
@@ -907,73 +990,6 @@ Working tree clean. Ready to push when you're ready.
 
 ---
 
-## Q-COURSE
-
-**Purpose:** Guided interview for structured data collection
-
-**⚠️ Note:** This command is designed to be **customized for your domain**.
-
-### Default Usage (Course Definition)
-```
-Q-COURSE
-```
-
-### What It Does (Default)
-
-1. **Displays template questions** from `planning/courses/COURSE-DEFINITION-TEMPLATE.md`
-2. **Asks if ready** to begin interview or need time to prepare
-3. **Works through questions** one-by-one:
-   - Ask question
-   - Listen to answer
-   - Probe for clarity/specifics
-   - Move to next question
-4. **Creates course definition file:** `planning/courses/course-[number]-[short-name].md`
-5. **Updates** course README if needed
-
-### Customization Examples
-
-**Adapt to Product Features:**
-```markdown
-## Q-FEATURE
-
-When the user types `Q-FEATURE`:
-
-1. Display feature specification template
-2. Work through questions:
-   - Feature name and description
-   - User stories
-   - Acceptance criteria
-   - Technical requirements
-   - Dependencies
-3. Create: `planning/features/feature-[number]-[name].md`
-```
-
-**Adapt to API Design:**
-```markdown
-## Q-API
-
-When the user types `Q-API`:
-
-1. Display API endpoint template
-2. Work through questions:
-   - Endpoint path and method
-   - Request/response formats
-   - Authentication requirements
-   - Error handling
-3. Create: `docs/api/endpoints/[name].md`
-```
-
-### How to Customize
-
-1. **Create template file** in your project (e.g., `planning/feature-template.md`)
-2. **Edit** `GeneratedMDs/SHORTCUTS.md`
-3. **Find** `## Q-COURSE` section
-4. **Modify or duplicate** for new command
-5. **Update** template reference and output location
-6. **Save** and use immediately
-
----
-
 ## Command Comparison
 
 ### When to Use Each Command
@@ -988,7 +1004,6 @@ When the user types `Q-API`:
 | Want to verify success | Q-VERIFY | Check all files created correctly |
 | Mid-session commit | Q-COMMIT | Save work without full documentation |
 | Reflecting on session | Q-LEARNINGS | Capture insights and decisions |
-| Structured data collection | Q-COURSE | Guided interview (customize) |
 
 ---
 
@@ -1149,7 +1164,6 @@ The Q-Command System provides **10 commands** organized into:
 **Progress Tracking:** Q-CHECKPOINT, Q-STATUS, Q-VERIFY
 **Documentation:** Q-DUMP, Q-LEARNINGS
 **Git:** Q-COMMIT
-**Specialized:** Q-COURSE (customizable)
 
 All commands:
 - ✅ Include verification

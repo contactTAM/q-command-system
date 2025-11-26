@@ -2,8 +2,8 @@
 
 **How the System Works Internally**
 
-**Version:** 2.0
-**Last Updated:** 2025-11-13
+**Version:** 1.0
+**Last Updated:** 2025-11-26
 
 ---
 
@@ -31,9 +31,9 @@ The Q-Command System is a **prompt-based architecture** that extends Claude Code
 - References SHORTCUTS.md
 - Loaded at session start
 
-**SESSION-CHECKLIST.md**
+**docs/workflow.md**
 - User-facing documentation
-- Workflow guide
+- Daily workflow guide
 - Not read by Claude (human reference only)
 
 ---
@@ -171,7 +171,7 @@ Outputs: Complete session documentation (9:00-11:30)
 ```
 Repository Root/
 ├── CLAUDE.md                      ← Project context + Q-command reference
-├── SESSION-CHECKLIST.md            ← User workflow guide
+├── docs/workflow.md               ← User workflow guide
 │
 └── GeneratedMDs/
     ├── SHORTCUTS.md                ← Q-command specifications
@@ -477,25 +477,19 @@ Save and done. Next Q-END will run tests.
 
 ---
 
-### Template System
+### Custom Commands
 
-**Domain adaptation:**
+You can add domain-specific commands to SHORTCUTS.md.
 
-The Q-COURSE command is a template system:
-- Reads questions from template file
-- Works through questions interactively
-- Generates output file from responses
+**How:**
+1. Add a `## Q-YOURCOMMAND` section to SHORTCUTS.md
+2. Define what Claude should do
+3. Save and use immediately
 
-**Adapt to any domain:**
-1. Create template file (e.g., `planning/feature-template.md`)
-2. Update Q-COURSE (or Q-FEATURE) to reference new template
-3. Use for your domain
-
-**Examples:**
-- Product feature specs
-- API endpoint designs
-- Test case templates
-- Design system components
+**Examples of custom commands:**
+- Q-FEATURE — Product feature specification
+- Q-API — API endpoint design
+- Q-TESTCASE — Test case templates
 
 ---
 
@@ -582,7 +576,7 @@ Push system files (SHORTCUTS.md) but not generated files
 
 1. **SHORTCUTS.md** - Add/modify commands
 2. **CLAUDE.md** - Add project context, customize workflow
-3. **SESSION-CHECKLIST.md** - Add team-specific procedures
+3. **docs/workflow.md** - Add team-specific procedures
 4. **.gitignore** - Configure what gets committed
 5. **Template files** - Create domain-specific templates
 
@@ -655,7 +649,7 @@ Push system files (SHORTCUTS.md) but not generated files
 
 ## Future Enhancements
 
-**Possible v3.0 features:**
+**Possible future features:**
 
 1. **Automated archival:** Script to compress old sessions
 2. **Session analytics:** Aggregate statistics across sessions
@@ -665,7 +659,7 @@ Push system files (SHORTCUTS.md) but not generated files
 6. **Web viewer:** Browse session files in browser
 7. **Search:** Full-text search across all sessions
 
-**Current v2.0 is stable and complete** - enhancements are optional.
+**Current v1.0 is stable and complete** - enhancements are optional.
 
 ---
 
@@ -685,4 +679,4 @@ The Q-Command System works through:
 
 ---
 
-**Next:** See [COMMANDS-REFERENCE.md](COMMANDS-REFERENCE.md) for complete command documentation.
+**Next:** See [commands-reference.md](commands-reference.md) for complete command documentation.
