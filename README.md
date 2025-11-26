@@ -32,20 +32,19 @@ If you want personalized support, we offer **VIP white-glove service**:
 
 ## Quick Start
 
-**[Get Started](getting-started.md)** — Install and set up in 10 minutes.
+Open Claude Code in your project folder and type:
 
-Or if you just want the essentials:
-
-```bash
-# In your project folder
-mkdir -p GeneratedMDs
-cp /path/to/Q-command-system/templates/SHORTCUTS.md ./GeneratedMDs/
+```
+Install Q-Command System from https://github.com/contactTAM/q-command-system
 ```
 
-Then in Claude Code:
-```
-Q-BEGIN
-```
+Then run `Q-SETUP-DOMAIN` to configure for your project.
+
+That's it.
+
+---
+
+**[Full Setup Guide](getting-started.md)** — More details and manual installation options.
 
 ---
 
