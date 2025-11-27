@@ -4,7 +4,7 @@ Get the Q-Command System running in your project.
 
 ---
 
-## Step 1: Install Prerequisites
+## Step 1: Prerequisites
 
 You need Claude Code, VS Code, and Git installed first.
 
@@ -17,51 +17,33 @@ Already have them? [Verify your installation](docs/install/verify-install.md).
 
 ---
 
-## Step 2: Add Q-Command System to Your Project
+## Step 2: Install Q-Command System
 
-In your project folder:
-
-```bash
-# Create the required folder
-mkdir -p GeneratedMDs
-
-# Copy the Q-Command System (adjust path as needed)
-cp /path/to/Q-command-system/templates/SHORTCUTS.md ./GeneratedMDs/
-```
-
----
-
-## Step 3: Run Setup
-
-Open Claude Code in your project folder:
-
-```bash
-claude
-```
-
-Then tell Claude:
+Open Claude Code in your project folder and type:
 
 ```text
-I have SHORTCUTS.md at GeneratedMDs/SHORTCUTS.md.
-Please read it and run Q-SETUP-DOMAIN to set up this repository.
+Install Q-Command System from https://github.com/contactTAM/q-command-system
 ```
 
-Answer 7 questions about your project. Done!
+Claude will fetch and install everything automatically:
+- Slash commands in `.claude/commands/`
+- Session file directories in `GeneratedMDs/`
+- Reference documentation
 
 ---
 
-## Step 4: Start Working
+## Step 3: Start Working
 
 Begin every session with:
 
 ```text
-Q-BEGIN
+/q-begin
 ```
 
 End every session with:
 
 ```text
-Q-END
+/q-end
 ```
 
 That's it. The system handles documentation, commits, and context automatically.
@@ -70,14 +52,16 @@ That's it. The system handles documentation, commits, and context automatically.
 
 ## Quick Reference
 
+Type `/q-` and press Tab to see all commands.
+
 | Command | What it does |
 |---------|--------------|
-| `Q-BEGIN` | Start session, load context |
-| `Q-END` | End session, save everything |
-| `Q-CHECKPOINT` | Save progress mid-session |
-| `Q-COMPACT` | Free context safely (checkpoint + compact) |
-| `Q-STATUS` | Check session state |
-| `/context` | Check context usage |
+| `/q-begin` | Start session, load context |
+| `/q-end` | End session, save everything |
+| `/q-checkpoint` | Save progress mid-session |
+| `/q-compact` | Free context safely |
+| `/q-status` | Check session state |
+| `/context` | Check context usage (built-in) |
 
 Full command list: [docs/commands-reference.md](docs/commands-reference.md)
 
@@ -92,13 +76,34 @@ Full command list: [docs/commands-reference.md](docs/commands-reference.md)
 
 ---
 
+## Alternative: Manual Installation
+
+If you need to install offline or prefer manual setup:
+
+```bash
+# 1. Create directories
+mkdir -p GeneratedMDs
+mkdir -p .claude/commands
+
+# 2. Copy files from downloaded Q-command-system repo
+cp -r /path/to/Q-command-system/templates/.claude/commands/* .claude/commands/
+cp /path/to/Q-command-system/templates/SHORTCUTS.md GeneratedMDs/
+```
+
+Then open Claude Code and type `/q-begin` to verify it works.
+
+---
+
 ## Troubleshooting
 
-**"Q-SETUP-DOMAIN not recognized"**
-Make sure Claude read SHORTCUTS.md first. Tell Claude where it is.
+**Install command not working?**
 
-**Commands not working?**
-Check that `GeneratedMDs/SHORTCUTS.md` exists in your project.
+Make sure you're connected to the internet. Claude needs to fetch files from GitHub.
+
+**Commands not recognized?**
+
+Check that `.claude/commands/` folder exists with the q-*.md files inside.
 
 **Need more help?**
+
 See [docs/setup.md](docs/setup.md) for detailed instructions.
