@@ -37,9 +37,12 @@ STEP 4: Report success
 Q-Command System installed!
 
 15 slash commands installed in .claude/commands/
-Type /q- and press Tab to see them.
 
-Next: Type /q-begin to start your first session!
+IMPORTANT: Restart Claude Code to activate the new commands.
+(Close this terminal and run `claude` again)
+
+After restart: Type /q- and press Tab to see all commands.
+Then type /q-begin to start your first session!
 ```
 
 Do NOT push to git. User controls that.

@@ -98,7 +98,9 @@ Make sure you're connected to the internet. Claude needs to fetch files from Git
 
 **Commands not recognized?**
 
-Check that `.claude/commands/` folder exists with the q-*.md files inside.
+Restart Claude Code after installation. Close the terminal and run `claude` again.
+
+If still not working, check that `.claude/commands/` folder exists with the q-*.md files inside.
 
 **Need more help?**
 
