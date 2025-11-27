@@ -33,6 +33,9 @@ Fetch each of these files and write them to `.claude/commands/`:
 | `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-learnings.md` | `.claude/commands/q-learnings.md` |
 | `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-pare.md` | `.claude/commands/q-pare.md` |
 | `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-prompts.md` | `.claude/commands/q-prompts.md` |
+| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-setup-domain.md` | `.claude/commands/q-setup-domain.md` |
+| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-reconfigure-domain.md` | `.claude/commands/q-reconfigure-domain.md` |
+| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-upgrade.md` | `.claude/commands/q-upgrade.md` |
 
 ---
 
@@ -100,22 +103,33 @@ After completing the above, report:
 ```text
 Q-Command System installed!
 
-Slash commands available (type / to see them):
-  /q-begin      - Start session with context refresh
-  /q-end        - Complete session with documentation
-  /q-checkpoint - Save mid-session progress
-  /q-status     - Check session state
-  /q-save       - Quick exit (minimal docs)
-  /q-verify     - Verify files were created
-  /q-commit     - Stage and commit changes
-  /q-compact    - Safe context management
-  /q-dump       - Create transcript manually
-  /q-learnings  - Summarize session insights
-  /q-pare       - Optimize CLAUDE.md size
-  /q-prompts    - Save session prompts
+Slash commands available (type /q- and Tab to see them):
+
+  Session:
+    /q-begin            - Start session with context refresh
+    /q-end              - Complete session with documentation
+    /q-checkpoint       - Save mid-session progress
+    /q-status           - Check session state
+    /q-save             - Quick exit (minimal docs)
+    /q-verify           - Verify files were created
+
+  Git:
+    /q-commit           - Stage and commit changes
+
+  Context:
+    /q-compact          - Safe context management
+    /q-dump             - Create transcript manually
+    /q-learnings        - Summarize session insights
+    /q-pare             - Optimize CLAUDE.md size
+    /q-prompts          - Save session prompts
+
+  Setup:
+    /q-setup-domain     - Configure for your project type
+    /q-reconfigure-domain - Update configuration
+    /q-upgrade          - Upgrade to latest version
 
 Created:
-  .claude/commands/     (12 slash commands)
+  .claude/commands/     (15 slash commands)
   GeneratedMDs/         (session file storage)
     SHORTCUTS.md        (command reference)
     transcripts/

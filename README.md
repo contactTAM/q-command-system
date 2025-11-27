@@ -50,7 +50,7 @@ That's it.
 
 ## Commands
 
-Type `/q-` and press Tab to see all available commands:
+Type `/q-` and press Tab to see all 15 commands:
 
 | Command | Purpose |
 |---------|---------|
@@ -66,6 +66,9 @@ Type `/q-` and press Tab to see all available commands:
 | `/q-learnings` | Summarize session insights |
 | `/q-pare` | Optimize CLAUDE.md size |
 | `/q-prompts` | Save session prompts |
+| `/q-setup-domain` | Configure for your project type |
+| `/q-reconfigure-domain` | Update configuration |
+| `/q-upgrade` | Upgrade to latest version |
 
 Full reference: [docs/commands-reference.md](docs/commands-reference.md)
 
