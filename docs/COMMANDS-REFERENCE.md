@@ -9,7 +9,16 @@
 
 ## Command Index
 
-All commands are available as slash commands. Type `/q-` and press Tab to see them.
+**Two ways to invoke commands:**
+
+| Format | Example | Notes |
+|--------|---------|-------|
+| Slash command | `/q-begin` | Tab completion, native to Claude Code |
+| Uppercase text | `Q-BEGIN` | Also works, same effect |
+
+Both formats do exactly the same thing. This document uses `/q-` format as the primary style.
+
+Type `/q-` and press Tab to see all available commands.
 
 ### Setup & Configuration
 
@@ -53,8 +62,9 @@ All commands are available as slash commands. Type `/q-` and press Tab to see th
 **Version:** 1.0
 
 ### Usage
-```
-Q-SETUP-DOMAIN
+
+```text
+/q-setup-domain
 ```
 
 ### What It Does
@@ -239,8 +249,9 @@ Each domain can define:
 **Version:** 1.0
 
 ### Usage
-```
-Q-RECONFIGURE-DOMAIN
+
+```text
+/q-reconfigure-domain
 ```
 
 ### What It Does
@@ -417,8 +428,8 @@ Each log documents:
 
 ### Usage
 
-```
-Q-UPGRADE
+```text
+/q-upgrade
 ```
 
 ### What It Does
@@ -502,8 +513,9 @@ Claude: === Upgrade Complete ===
 **Purpose:** Start session with full context refresh
 
 ### Usage
-```
-Q-BEGIN
+
+```text
+/q-begin
 ```
 
 ### What It Does
@@ -553,8 +565,9 @@ Edit `GeneratedMDs/SHORTCUTS.md` under `## Q-BEGIN` to:
 **Purpose:** Complete session with full documentation and commit
 
 ### Usage
-```
-Q-END
+
+```text
+/q-end
 ```
 
 ### What It Does
@@ -628,8 +641,9 @@ Edit `GeneratedMDs/SHORTCUTS.md` under `## Q-END` to:
 **Purpose:** Lightweight quick exit when context is constrained
 
 ### Usage
-```
-Q-SAVE
+
+```text
+/q-save
 ```
 
 ### What It Does
@@ -675,8 +689,9 @@ Ready to push! Run `git push` when ready.
 **Purpose:** Save mid-session progress snapshot
 
 ### Usage
-```
-Q-CHECKPOINT
+
+```text
+/q-checkpoint
 ```
 
 ### What It Does
@@ -724,8 +739,9 @@ Continue working - Q-END will merge checkpoint + final work.
 **Purpose:** Show current session state and context health
 
 ### Usage
-```
-Q-STATUS
+
+```text
+/q-status
 ```
 
 ### What It Displays
@@ -813,8 +829,9 @@ Next steps:
 **Purpose:** Verify that Q-END/Q-CHECKPOINT actually worked
 
 ### Usage
-```
-Q-VERIFY
+
+```text
+/q-verify
 ```
 
 ### What It Checks
@@ -861,8 +878,9 @@ Status: All Clear ✅
 **Purpose:** Create session transcript manually
 
 ### Usage
-```
-Q-DUMP
+
+```text
+/q-dump
 ```
 
 ### What It Does
@@ -906,8 +924,9 @@ Q-DUMP
 **Purpose:** Summarize key learnings from session
 
 ### Usage
-```
-Q-LEARNINGS
+
+```text
+/q-learnings
 ```
 
 ### What It Does
@@ -958,8 +977,9 @@ Best Practices:
 **Purpose:** Stage and commit all changes locally
 
 ### Usage
-```
-Q-COMMIT
+
+```text
+/q-commit
 ```
 
 ### What It Does
