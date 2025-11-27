@@ -64,9 +64,9 @@ Open Claude Code in your project folder and type:
 Install Q-Command System from https://github.com/contactTAM/q-command-system
 ```
 
-Then type `/q-begin` to start your first session.
+Then **restart Claude Code** (exit and run `claude` again).
 
-That's it.
+After restart, type `/q-begin` to start your first session.
 
 ---
 

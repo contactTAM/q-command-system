@@ -29,6 +29,8 @@ Claude will fetch and install everything automatically:
 - 15 slash commands in `.claude/commands/`
 - Session file directories in `GeneratedMDs/`
 
+**After installation, restart Claude Code** (exit and run `claude` again) to activate the commands.
+
 ---
 
 ## Step 3: Start Working
