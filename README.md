@@ -22,7 +22,7 @@ If you want personalized support, we offer **VIP white-glove service**:
 
 ## What It Does
 
-- **Session management** — Start, checkpoint, and end sessions with `Q-BEGIN`, `Q-CHECKPOINT`, `Q-END`
+- **Session management** — Start, checkpoint, and end sessions with `/q-begin`, `/q-checkpoint`, `/q-end`
 - **Automatic documentation** — Transcripts and session notes created automatically
 - **Context protection** — Prevents losing work when conversation gets long
 - **Multi-user support** — Team members work without file conflicts
@@ -38,7 +38,7 @@ Open Claude Code in your project folder and type:
 Install Q-Command System from https://github.com/contactTAM/q-command-system
 ```
 
-Then run `Q-SETUP-DOMAIN` to configure for your project.
+Then type `/q-begin` to start your first session.
 
 That's it.
 
@@ -50,15 +50,22 @@ That's it.
 
 ## Commands
 
+Type `/q-` and press Tab to see all available commands:
+
 | Command | Purpose |
 |---------|---------|
-| `Q-SETUP-DOMAIN` | Set up Q-Command System (run once) |
-| `Q-BEGIN` | Start session |
-| `Q-END` | End session, save everything |
-| `Q-CHECKPOINT` | Save progress mid-session |
-| `Q-COMPACT` | Free context safely (checkpoint + compact) |
-| `Q-STATUS` | Check session state |
-| `/context` | Check context usage |
+| `/q-begin` | Start session with context refresh |
+| `/q-end` | Complete session with documentation |
+| `/q-checkpoint` | Save progress mid-session |
+| `/q-status` | Check session state |
+| `/q-save` | Quick exit (minimal docs) |
+| `/q-verify` | Verify files were created |
+| `/q-commit` | Stage and commit changes |
+| `/q-compact` | Free context safely |
+| `/q-dump` | Create transcript manually |
+| `/q-learnings` | Summarize session insights |
+| `/q-pare` | Optimize CLAUDE.md size |
+| `/q-prompts` | Save session prompts |
 
 Full reference: [docs/commands-reference.md](docs/commands-reference.md)
 
@@ -79,17 +86,18 @@ Full reference: [docs/commands-reference.md](docs/commands-reference.md)
 
 ## Repository Structure
 
-```
-├── getting-started.md       ← Start here
-├── CHANGELOG.md             ← Version history
-├── templates/               ← Files to copy to your projects
-│   ├── SHORTCUTS.md         ← Q-command definitions
-│   └── CLAUDE.md            ← Template for your CLAUDE.md
-├── docs/                    ← Documentation
-│   ├── install/             ← Platform installation guides
+```text
+├── getting-started.md       <- Start here
+├── CHANGELOG.md             <- Version history
+├── templates/
+│   ├── .claude/commands/    <- Slash command definitions
+│   ├── SHORTCUTS.md         <- Command reference
+│   └── CLAUDE.md            <- Template for your CLAUDE.md
+├── docs/                    <- Documentation
+│   ├── install/             <- Platform installation guides
 │   ├── commands-reference.md
 │   └── ...
-└── GeneratedMDs/            ← Session files (for this repo)
+└── GeneratedMDs/            <- Session files (for this repo)
 ```
 
 ---
