@@ -1,150 +1,76 @@
-# Q-Command System Installation Instructions
+# Q-Command System Installation
 
-**For Claude Code:** When a user asks to install the Q-Command System from this repository, follow these steps exactly.
+**Note:** The install instructions are now in [README.md](README.md) at the top (in an HTML comment that Claude can read).
+
+This file is kept for reference but is no longer the primary install source.
 
 ---
 
-## Step 1: Create Directory Structure
+## What Gets Installed
+
+**15 slash commands** in `.claude/commands/`:
+
+| Command | Purpose |
+|---------|---------|
+| `q-begin.md` | Start session with context refresh |
+| `q-end.md` | Complete session with documentation |
+| `q-checkpoint.md` | Save progress mid-session |
+| `q-status.md` | Check session state |
+| `q-save.md` | Quick exit (minimal docs) |
+| `q-verify.md` | Verify files were created |
+| `q-commit.md` | Stage and commit changes |
+| `q-compact.md` | Free context safely |
+| `q-dump.md` | Create transcript manually |
+| `q-learnings.md` | Summarize session insights |
+| `q-pare.md` | Optimize CLAUDE.md size |
+| `q-prompts.md` | Save session prompts |
+| `q-setup-domain.md` | Configure for your project type |
+| `q-reconfigure-domain.md` | Update configuration |
+| `q-upgrade.md` | Upgrade to latest version |
+
+**Directories** in `GeneratedMDs/`:
+
+```text
+GeneratedMDs/
+├── transcripts/      # Full session records
+├── session-notes/    # Summary notes
+├── checkpoints/      # Mid-session saves
+├── prompts/          # Saved prompts
+└── .gitignore        # Ignores checkpoints/ and prompts/
+```
+
+---
+
+## Manual Installation
+
+If you need to install manually (offline or troubleshooting):
 
 ```bash
-mkdir -p GeneratedMDs/transcripts
-mkdir -p GeneratedMDs/session-notes
-mkdir -p GeneratedMDs/checkpoints
+# 1. Create directories
+mkdir -p GeneratedMDs/transcripts GeneratedMDs/session-notes GeneratedMDs/checkpoints GeneratedMDs/prompts
 mkdir -p .claude/commands
+
+# 2. Copy slash commands from downloaded repo
+cp -r /path/to/Q-command-system/templates/.claude/commands/* .claude/commands/
+
+# 3. Create .gitignore
+echo -e "checkpoints/\nprompts/" > GeneratedMDs/.gitignore
 ```
+
+Then type `/q-begin` to verify it works.
 
 ---
 
-## Step 2: Install Slash Commands
+## Troubleshooting
 
-Fetch each of these files and write them to `.claude/commands/`:
+**Commands not showing up?**
 
-| Fetch from | Write to |
-|------------|----------|
-| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-begin.md` | `.claude/commands/q-begin.md` |
-| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-end.md` | `.claude/commands/q-end.md` |
-| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-checkpoint.md` | `.claude/commands/q-checkpoint.md` |
-| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-status.md` | `.claude/commands/q-status.md` |
-| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-save.md` | `.claude/commands/q-save.md` |
-| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-verify.md` | `.claude/commands/q-verify.md` |
-| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-commit.md` | `.claude/commands/q-commit.md` |
-| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-compact.md` | `.claude/commands/q-compact.md` |
-| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-dump.md` | `.claude/commands/q-dump.md` |
-| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-learnings.md` | `.claude/commands/q-learnings.md` |
-| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-pare.md` | `.claude/commands/q-pare.md` |
-| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-prompts.md` | `.claude/commands/q-prompts.md` |
-| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-setup-domain.md` | `.claude/commands/q-setup-domain.md` |
-| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-reconfigure-domain.md` | `.claude/commands/q-reconfigure-domain.md` |
-| `https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-upgrade.md` | `.claude/commands/q-upgrade.md` |
+Check that `.claude/commands/` folder exists with 15 `.md` files inside.
 
----
+**Tab completion not working?**
 
-## Step 3: Install SHORTCUTS.md (Reference)
+Restart Claude Code after installation.
 
-Fetch this file:
+**Need more help?**
 
-```text
-https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/SHORTCUTS.md
-```
-
-Write it to:
-
-```text
-GeneratedMDs/SHORTCUTS.md
-```
-
-This serves as reference documentation for the commands.
-
----
-
-## Step 4: Create .gitignore for GeneratedMDs
-
-Create `GeneratedMDs/.gitignore` with this content:
-
-```gitignore
-# Ignore checkpoint files (temporary mid-session saves)
-checkpoints/
-
-# Ignore prompts (personal reference)
-prompts/
-
-# Keep transcripts and session-notes (they get committed)
-!transcripts/
-!session-notes/
-```
-
----
-
-## Step 5: Show User the CLAUDE.md Template
-
-Fetch this file:
-
-```text
-https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/CLAUDE.md
-```
-
-Show the user the "Workflow with Claude Code" section and tell them:
-
-> I've installed the Q-Command System. You should add the "Workflow with Claude Code" section to your CLAUDE.md file (create one if you don't have it).
->
-> **Key section to add:**
->
-> - Copy everything from "## Workflow with Claude Code" onwards
-> - Replace `[PROJECT_OWNER_NAME]` with your name
->
-> Would you like me to create a CLAUDE.md file for you, or do you already have one I should add to?
-
----
-
-## Step 6: Confirm Installation
-
-After completing the above, report:
-
-```text
-Q-Command System installed!
-
-Slash commands available (type /q- and Tab to see them):
-
-  Session:
-    /q-begin            - Start session with context refresh
-    /q-end              - Complete session with documentation
-    /q-checkpoint       - Save mid-session progress
-    /q-status           - Check session state
-    /q-save             - Quick exit (minimal docs)
-    /q-verify           - Verify files were created
-
-  Git:
-    /q-commit           - Stage and commit changes
-
-  Context:
-    /q-compact          - Safe context management
-    /q-dump             - Create transcript manually
-    /q-learnings        - Summarize session insights
-    /q-pare             - Optimize CLAUDE.md size
-    /q-prompts          - Save session prompts
-
-  Setup:
-    /q-setup-domain     - Configure for your project type
-    /q-reconfigure-domain - Update configuration
-    /q-upgrade          - Upgrade to latest version
-
-Created:
-  .claude/commands/     (15 slash commands)
-  GeneratedMDs/         (session file storage)
-    SHORTCUTS.md        (command reference)
-    transcripts/
-    session-notes/
-    checkpoints/
-    .gitignore
-
-Next: Run /q-begin to start your first session!
-```
-
----
-
-## Notes for Claude
-
-- Do NOT push to git. User controls that.
-- If user already has `.claude/commands/` folder, ask before overwriting.
-- If user already has GeneratedMDs/ folder, preserve existing files.
-- The slash commands work immediately after installation - user can type `/q-` and tab to see them.
+See [getting-started.md](getting-started.md) or open an issue.

@@ -2,7 +2,7 @@
 
 **A Robust Co-Pilot System for Claude Code**
 
-**Version:** 1.0
+**Version:** 1.1
 **Author:** Gabriel Rymberg
 **Repository:** github.com/contactTAM/q-command-system
 **License:** MIT
@@ -21,32 +21,30 @@ This repository **IS** the Q-Command System - the source code, documentation, te
 
 The Q-Command System transforms Claude Code from a simple AI assistant into a **reliable development co-pilot** with:
 
-- ✅ Structured session management (Q-BEGIN, Q-END, Q-CHECKPOINT)
-- ✅ Automatic documentation (transcripts, session notes)
-- ✅ Context awareness and protection
-- ✅ Multi-user support without file collisions
-- ✅ Git workflow integration
-- ✅ Explicit verification and error handling
+- Structured session management (`/q-begin`, `/q-end`, `/q-checkpoint`)
+- Automatic documentation (transcripts, session notes)
+- Context awareness and protection
+- Multi-user support without file collisions
+- Git workflow integration
+- Explicit verification and error handling
 
 **This repository contains:**
-- `/docs/` - Comprehensive documentation (FEATURES.md, ARCHITECTURE.md, COMMANDS-REFERENCE.md, etc.)
-- `/templates/` - Ready-to-use files for other repos (SHORTCUTS.md, CLAUDE.md, SESSION-CHECKLIST.md)
-- `/examples/` - Sample sessions and workflows
+- `/docs/` - Comprehensive documentation
+- `/templates/.claude/commands/` - Slash command definitions (15 files)
+- `/templates/CLAUDE.md` - Template for your CLAUDE.md
 - Implementation and migration guides
 
 ---
 
 ## Current Status
 
-**Version:** 1.0 (Released 2025-11-26)
+**Version:** 1.1 (Released 2025-11-27)
 
-**First Public Release:**
-- Q-COMPACT for safe context management
-- Q-SETUP-DOMAIN for adaptive domain-specific configuration
-- Per-person-per-session file naming (no collisions)
-- Organized directory structure (transcripts/, session-notes/, checkpoints/)
-- Q-SAVE, Q-VERIFY, Q-STATUS with context health monitoring
-- Comprehensive error handling
+**Latest Updates:**
+- Native slash commands (`/q-begin`, `/q-end`, etc.) with tab completion
+- One-liner install from GitHub
+- 15 commands total including `/q-pare` and `/q-prompts`
+- Simplified install (no SHORTCUTS.md needed)
 
 **Repository State:** Stable, ready for public use
 
@@ -63,43 +61,20 @@ The Q-Command System transforms Claude Code from a simple AI assistant into a **
 
 ---
 
-## Project Goals
-
-### Short-term (Current Sprint)
-- Refine documentation based on user feedback
-- Add more examples and use cases
-- Create video walkthrough guides
-- Build community around the system
-
-### Medium-term
-- Plugin system for custom Q-commands
-- Integration with other Claude Code features
-- Multi-language support (currently English-centric)
-- VS Code extension for Q-command shortcuts
-
-### Long-term
-- Ecosystem of domain-specific Q-command libraries
-- Analytics dashboard for session insights
-- Team collaboration features
-- AI-assisted Q-command generation
-
----
-
 ## Repository Structure
 
-```
+```text
 Q-command-system/
-├── getting-started.md       ← Start here
-├── README.md                ← Overview
-├── CHANGELOG.md             ← Version history
+├── getting-started.md        <- Start here
+├── README.md                 <- Overview + install instructions
+├── CHANGELOG.md              <- Version history
 │
-├── templates/               ← Files to copy to your projects
-│   ├── SHORTCUTS.md         ← Q-command specifications
-│   ├── CLAUDE.md            ← Template for your CLAUDE.md
-│   └── .gitignore           ← For GeneratedMDs directory
+├── templates/
+│   ├── .claude/commands/     <- Slash command definitions (15 files)
+│   └── CLAUDE.md             <- Template for your CLAUDE.md
 │
-├── docs/                    ← Documentation
-│   ├── install/             ← Platform installation guides
+├── docs/
+│   ├── install/              <- Platform installation guides
 │   ├── commands-reference.md
 │   ├── features.md
 │   ├── architecture.md
@@ -107,7 +82,7 @@ Q-command-system/
 │   ├── context-management.md
 │   └── setup.md
 │
-└── GeneratedMDs/            ← Session files for THIS repo
+└── GeneratedMDs/             <- Session files for THIS repo
     ├── transcripts/
     ├── session-notes/
     └── checkpoints/
@@ -134,17 +109,16 @@ When working on this repository:
 
 1. **Documentation changes** → Update relevant files in `/docs/` or root
 2. **Template improvements** → Modify files in `/templates/`
-3. **New features** → Update SHORTCUTS.md, document in FEATURES.md
+3. **New commands** → Add to `/templates/.claude/commands/`, update docs
 4. **Bug fixes** → Update affected files, note in session notes
-5. **Examples** → Add to `/examples/`
 
 ### Testing Changes
 
 Before releasing updates:
-- Test all Q-commands in a sample repository
-- Verify documentation is clear and accurate
-- Check backward compatibility with previous versions
-- Update version numbers and release notes
+- Test install in a fresh repository
+- Verify all slash commands work
+- Check documentation is accurate
+- Update version numbers and CHANGELOG
 
 ---
 
@@ -152,30 +126,26 @@ Before releasing updates:
 
 ### IMPORTANT POLICIES
 
-**🚨 Git Push Policy:**
+**Git Push Policy:**
 - Claude will NEVER push to GitHub without explicit user permission
 - Only Gabriel can decide when to push to remote repository
 - Claude can stage and commit locally, but NEVER runs `git push` unless specifically requested
 
 ### Session Workflow
 
-**File Organization (Q-Command System v1.0):**
+**File Organization (Q-Command System v1.1):**
 
 All generated session files use per-person-per-session naming to prevent collisions:
-- **Format:** `YYYY-MM-DD-HHmm-[PersonName].md` (example: `2025-11-13-1405-Gabriel.md`)
+- **Format:** `YYYY-MM-DD-HHmm-[PersonName].md` (example: `2025-11-27-1405-Gabriel.md`)
 - **Transcripts:** `GeneratedMDs/transcripts/`
 - **Session Notes:** `GeneratedMDs/session-notes/`
 - **Checkpoints:** `GeneratedMDs/checkpoints/`
 
-This allows multiple team members to work on the same day without file collisions.
-
 **Start of session:**
 
-Type `Q-BEGIN` and Claude will automatically:
+Type `/q-begin` and Claude will automatically:
 1. Read `CLAUDE.md` for quick context refresh
 2. Review last session notes from `GeneratedMDs/session-notes/`
-   - Looks for files matching your name
-   - Reads most recent session
 3. Review current status and pending tasks
 4. Provide brief summary of what was accomplished and current status
 5. Ask: "What would you like to work on today?"
@@ -184,33 +154,20 @@ Type `Q-BEGIN` and Claude will automatically:
 **During session:**
 - Use TodoWrite to track progress on tasks
 - Document decisions and learnings as we go
-- Ask questions when clarification needed
-- Update relevant files (docs, templates, examples)
-- **For long sessions:** Use `Q-CHECKPOINT` to save progress mid-session (insurance against auto-compact)
-- **Check progress anytime:** Use `Q-STATUS` to see session state and recommendations
-- **Verify saves worked:** Use `Q-VERIFY` to check files were created correctly
+- **For long sessions:** Use `/q-checkpoint` to save progress mid-session
+- **Check progress anytime:** Use `/q-status` to see session state
+- **Verify saves worked:** Use `/q-verify` to check files were created
 
 **End of session:**
 
-Type `Q-END` and Claude will automatically:
-1. Create session transcript in `GeneratedMDs/transcripts/YYYY-MM-DD-HHmm-[PersonName].md`
-   - **For continued sessions:** Documents ENTIRE session including work before auto-compact
-   - Merges any checkpoint files with final work
-2. Create session notes in `GeneratedMDs/session-notes/YYYY-MM-DD-HHmm-[PersonName].md`
-   - Comprehensive summary with accomplishments, decisions, files changed
-3. Update any relevant project files with progress or changes
-4. Stage and commit all changes with `Q-COMMIT`
-5. Verify each step completed successfully
-6. Remind user: **USER manually pushes when ready:** `git push` (Gabriel controls when code goes to GitHub)
+Type `/q-end` and Claude will automatically:
+1. Create session transcript in `GeneratedMDs/transcripts/`
+2. Create session notes in `GeneratedMDs/session-notes/`
+3. Stage and commit all changes
+4. Verify each step completed successfully
+5. Remind user to `git push` when ready
 
-**Alternative commands:**
-- **Q-SAVE** → Lightweight quick exit (transcript + commit only, skips notes)
-- **Q-VERIFY** → Check that Q-END/Q-CHECKPOINT actually worked
-- **Q-STATUS** → Check current session state and get recommendations
-- **Q-CHECKPOINT** → Save mid-session progress snapshot
-- **Q-DUMP** → Create session transcript manually
-- **Q-COMMIT** → Stage and commit changes
-- **Q-LEARNINGS** → Summarize session key learnings
+**All commands:** Type `/q-` and press Tab to see all 15 commands.
 
 ---
 
@@ -218,28 +175,34 @@ Type `Q-END` and Claude will automatically:
 
 **Documentation:**
 - `getting-started.md` - Quick start guide
-- `docs/commands-reference.md` - All Q-commands
+- `docs/commands-reference.md` - All commands
 - `docs/workflow.md` - Daily workflow
 - `docs/context-management.md` - Managing the 200K token limit
 - `docs/features.md` - Feature details
 - `docs/architecture.md` - System internals
 
 **Q-Command System Files:**
-- `GeneratedMDs/SHORTCUTS.md` - Q-command specifications (v1.0)
+- `.claude/commands/` - Slash command definitions (15 files)
 - `GeneratedMDs/transcripts/` - Session transcripts
 - `GeneratedMDs/session-notes/` - Session summaries
 - `GeneratedMDs/checkpoints/` - Mid-session snapshots
 
-**Available Q-Commands:**
-- `Q-BEGIN` - Start session with context refresh
-- `Q-END` - Complete session documentation and commit
-- `Q-SAVE` - Lightweight quick exit (when context is tight)
-- `Q-CHECKPOINT` - Save mid-session progress snapshot
-- `Q-STATUS` - Check session state and get recommendations
-- `Q-VERIFY` - Verify that Q-END/Q-CHECKPOINT worked
-- `Q-DUMP` - Create session transcript manually
-- `Q-COMMIT` - Stage and commit changes
-- `Q-LEARNINGS` - Summarize session learnings
+**Available Commands (type /q- and Tab):**
+- `/q-begin` - Start session with context refresh
+- `/q-end` - Complete session documentation and commit
+- `/q-save` - Lightweight quick exit
+- `/q-checkpoint` - Save mid-session progress
+- `/q-status` - Check session state
+- `/q-verify` - Verify saves worked
+- `/q-commit` - Stage and commit changes
+- `/q-compact` - Free context safely
+- `/q-dump` - Create transcript manually
+- `/q-learnings` - Summarize session insights
+- `/q-pare` - Optimize CLAUDE.md size
+- `/q-prompts` - Save session prompts
+- `/q-setup-domain` - Configure for project type
+- `/q-reconfigure-domain` - Update configuration
+- `/q-upgrade` - Upgrade Q-Command System
 
 ---
 
@@ -249,7 +212,7 @@ Type `Q-END` and Claude will automatically:
 
 By adding **structured session management, automatic documentation, and explicit verification**, we transform Claude Code from a helpful assistant into a **reliable, accountable, structured co-pilot** for software development.
 
-**This repository practices what it preaches:** We use Q-commands to develop Q-commands. Every feature, bug fix, and documentation update is managed through Q-BEGIN, Q-CHECKPOINT, and Q-END. Our session notes are our development log. Our transcripts are our audit trail.
+**This repository practices what it preaches:** We use Q-commands to develop Q-commands. Every feature, bug fix, and documentation update is managed through `/q-begin`, `/q-checkpoint`, and `/q-end`. Our session notes are our development log. Our transcripts are our audit trail.
 
 ---
 
@@ -273,7 +236,6 @@ Interested in contributing to the Q-Command System?
 - Test the system in your projects and share feedback
 - Report bugs or edge cases
 - Suggest new features or improvements
-- Share your custom Q-commands
 - Improve documentation
 - Create domain-specific extensions
 
@@ -289,8 +251,7 @@ Interested in contributing to the Q-Command System?
 
 **Issues:** Report at github.com/contactTAM/q-command-system/issues
 **Discussions:** GitHub Discussions (coming soon)
-**Email:** [Add if desired]
 
 ---
 
-**Meta Note:** This CLAUDE.md file was created using the Q-Command System to manage the Q-Command System repository. Inception complete! 🎯
+**Meta Note:** This CLAUDE.md file was created using the Q-Command System to manage the Q-Command System repository.

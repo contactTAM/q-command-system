@@ -6,27 +6,34 @@ All notable changes to the Q-Command System.
 
 ## [1.1.0] - 2025-11-27
 
-**Native slash commands and new features.**
+**Native slash commands and simplified install.**
 
 ### Added
 
-- **Native slash commands** — All commands now available as `/q-begin`, `/q-end`, etc. with tab completion
+- **Native slash commands** — All 15 commands available as `/q-begin`, `/q-end`, etc. with tab completion
 - **/q-pare** — Optimize CLAUDE.md by moving verbose content to OFFLOAD.md
 - **/q-prompts** — Save all user prompts from session for future reuse
+- **/q-setup-domain**, **/q-reconfigure-domain**, **/q-upgrade** — As slash commands
 - **One-liner install** — `Install Q-Command System from https://github.com/contactTAM/q-command-system`
+- **Install instructions in README** — Claude finds them immediately (HTML comment at top)
 
 ### Changed
 
-- Commands now use slash format (`/q-begin`) as primary style
-- Uppercase format (`Q-BEGIN`) still works — both do the same thing
+- **Removed SHORTCUTS.md** — Slash commands are now the only command source
+- Commands use slash format (`/q-begin`) as primary style
 - Simplified getting-started.md to match README quick start
-- Harmonized documentation to use consistent command format
+- Harmonized all documentation to use slash command format
+
+### Removed
+
+- `templates/SHORTCUTS.md` — No longer needed (slash commands contain all specifications)
+- SHORTCUTS.md from install process — Simpler, faster installs
 
 ### Documentation
 
-- Updated commands-reference.md with all 15 commands
-- Added command format explanation (slash vs uppercase)
-- Moved manual installation to "Alternative" section
+- Updated all docs to remove SHORTCUTS.md references
+- Moved install instructions to README.md for faster discovery
+- Updated CLAUDE.md template with slash command format
 
 ---
 

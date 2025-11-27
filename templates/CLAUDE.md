@@ -10,17 +10,17 @@ Copy everything from "## Workflow with Claude Code" onwards and paste it into yo
 
 ### IMPORTANT POLICIES
 
-**🚨 Git Push Policy:**
+**Git Push Policy:**
 - Claude will NEVER push to GitHub without explicit user permission
 - Only [PROJECT_OWNER_NAME] can decide when to push to remote repository
 - Claude can stage and commit locally, but NEVER runs `git push` unless specifically requested
 
 ### Session Workflow
 
-**File Organization (Q-Command System v1.0):**
+**File Organization (Q-Command System v1.1):**
 
 All generated session files use per-person-per-session naming to prevent collisions:
-- **Format:** `YYYY-MM-DD-HHmm-[PersonName].md` (example: `2025-11-13-0913-Gabriel.md`)
+- **Format:** `YYYY-MM-DD-HHmm-[PersonName].md` (example: `2025-11-27-0913-Gabriel.md`)
 - **Transcripts:** `GeneratedMDs/transcripts/`
 - **Session Notes:** `GeneratedMDs/session-notes/`
 - **Checkpoints:** `GeneratedMDs/checkpoints/`
@@ -29,15 +29,12 @@ This allows multiple team members to work on the same day without file collision
 
 **Start of session:**
 
-Type `Q-BEGIN` and Claude will automatically:
+Type `/q-begin` and Claude will automatically:
 1. Read `CLAUDE.md` for quick context refresh
 2. Review last session notes from `GeneratedMDs/session-notes/`
    - Looks for files matching your name
    - Reads most recent session
-3. Review current status from project files (e.g., `work-plan/work-plan.md` if exists)
-   - Check blocker status
-   - Review recent progress
-   - Identify pending tasks
+3. Review current status from project files
 4. Provide brief summary of what was accomplished and current status
 5. Ask: "What would you like to work on today?"
 6. Set up TodoWrite if needed
@@ -46,32 +43,20 @@ Type `Q-BEGIN` and Claude will automatically:
 - Use TodoWrite to track progress on tasks
 - Document decisions and learnings as we go
 - Ask questions when clarification needed
-- Update relevant files (work-plan, session notes, etc.)
-- **For long sessions:** Use `Q-CHECKPOINT` to save progress mid-session (insurance against auto-compact)
-- **Check progress anytime:** Use `Q-STATUS` to see session state and recommendations
-- **Verify saves worked:** Use `Q-VERIFY` to check files were created correctly
+- **For long sessions:** Use `/q-checkpoint` to save progress mid-session
+- **Check progress anytime:** Use `/q-status` to see session state
+- **Verify saves worked:** Use `/q-verify` to check files were created
 
 **End of session:**
 
-Type `Q-END` and Claude will automatically:
-1. Create session transcript in `GeneratedMDs/transcripts/YYYY-MM-DD-HHmm-[PersonName].md`
-   - **For continued sessions:** Documents ENTIRE session including work before auto-compact
-   - Merges any checkpoint files with final work
-2. Create session notes in `GeneratedMDs/session-notes/YYYY-MM-DD-HHmm-[PersonName].md`
-   - Comprehensive summary with accomplishments, decisions, files changed
-3. Update project files with any progress or changes (if applicable)
-4. Stage and commit all changes with `Q-COMMIT`
-5. Verify each step completed successfully
-6. Remind user: **USER manually pushes when ready:** `git push` ([PROJECT_OWNER_NAME] controls when code goes to GitHub)
+Type `/q-end` and Claude will automatically:
+1. Create session transcript in `GeneratedMDs/transcripts/`
+2. Create session notes in `GeneratedMDs/session-notes/`
+3. Stage and commit all changes
+4. Verify each step completed successfully
+5. Remind user to `git push` when ready
 
-**Alternative commands:**
-- **Q-SAVE** → Lightweight quick exit (transcript + commit only, skips notes)
-- **Q-VERIFY** → Check that Q-END/Q-CHECKPOINT actually worked
-- **Q-STATUS** → Check current session state and get recommendations
-- **Q-CHECKPOINT** → Save mid-session progress snapshot
-- **Q-DUMP** → Create session transcript manually
-- **Q-COMMIT** → Stage and commit changes
-- **Q-LEARNINGS** → Summarize session key learnings
+**All commands:** Type `/q-` and press Tab to see all 15 commands.
 
 ---
 
@@ -79,23 +64,28 @@ Type `Q-END` and Claude will automatically:
 
 [Add your project-specific reference documents here]
 
-**Q-Command System Documentation:**
-- `GeneratedMDs/SHORTCUTS.md` - Q-command specifications (v1.0)
-- `SESSION-CHECKLIST.md` - Step-by-step session start and end procedures
+**Q-Command System Files:**
+- `.claude/commands/` - Slash command definitions (15 files)
 - `GeneratedMDs/transcripts/` - Session transcripts by person and date
 - `GeneratedMDs/session-notes/` - Session summaries by person and date
 - `GeneratedMDs/checkpoints/` - Mid-session progress snapshots
 
-**Available Q-Commands:**
-- `Q-BEGIN` - Start session with context refresh
-- `Q-END` - Complete session documentation and commit
-- `Q-SAVE` - Lightweight quick exit (when context is tight)
-- `Q-CHECKPOINT` - Save mid-session progress snapshot
-- `Q-STATUS` - Check session state and get recommendations
-- `Q-VERIFY` - Verify that Q-END/Q-CHECKPOINT worked
-- `Q-DUMP` - Create session transcript manually
-- `Q-COMMIT` - Stage and commit changes
-- `Q-LEARNINGS` - Summarize session learnings
+**Available Commands (type /q- and Tab):**
+- `/q-begin` - Start session with context refresh
+- `/q-end` - Complete session documentation and commit
+- `/q-save` - Lightweight quick exit
+- `/q-checkpoint` - Save mid-session progress
+- `/q-status` - Check session state
+- `/q-verify` - Verify saves worked
+- `/q-commit` - Stage and commit changes
+- `/q-compact` - Free context safely
+- `/q-dump` - Create transcript manually
+- `/q-learnings` - Summarize session insights
+- `/q-pare` - Optimize CLAUDE.md size
+- `/q-prompts` - Save session prompts
+- `/q-setup-domain` - Configure for project type
+- `/q-reconfigure-domain` - Update configuration
+- `/q-upgrade` - Upgrade Q-Command System
 
 ---
 
@@ -124,11 +114,11 @@ Type `Q-END` and Claude will automatically:
 ```markdown
 ## Team
 
-- **Alice Johnson** - Lead Developer (uses Q-commands)
-- **Bob Smith** - Backend Engineer (uses Q-commands)
-- **Carol Williams** - Designer (occasional Q-command usage)
+- **Alice Johnson** - Lead Developer
+- **Bob Smith** - Backend Engineer
+- **Carol Williams** - Designer
 
-All team members use Q-BEGIN/Q-END workflow for session documentation.
+All team members use /q-begin and /q-end for session documentation.
 ```
 
 ---
