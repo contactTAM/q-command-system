@@ -2,34 +2,47 @@
 
 **Comprehensive Command Documentation**
 
-**Version:** 1.0
-**Last Updated:** 2025-11-26
+**Version:** 1.1
+**Last Updated:** 2025-11-27
 
 ---
 
 ## Command Index
 
+All commands are available as slash commands. Type `/q-` and press Tab to see them.
+
 ### Setup & Configuration
-- [Q-SETUP-DOMAIN](#q-setup-domain) - Adaptive domain-specific setup wizard
-- [Q-RECONFIGURE-DOMAIN](#q-reconfigure-domain) - Update configuration when needs change
-- [Q-UPGRADE](#q-upgrade) - Upgrade to latest version
+
+- [/q-setup-domain](#q-setup-domain) - Adaptive domain-specific setup wizard
+- [/q-reconfigure-domain](#q-reconfigure-domain) - Update configuration when needs change
+- [/q-upgrade](#q-upgrade) - Upgrade to latest version
 
 ### Session Management
-- [Q-BEGIN](#q-begin) - Start session with context refresh
-- [Q-END](#q-end) - Complete session documentation and commit
-- [Q-SAVE](#q-save) - Lightweight quick exit
+
+- [/q-begin](#q-begin) - Start session with context refresh
+- [/q-end](#q-end) - Complete session documentation and commit
+- [/q-save](#q-save) - Lightweight quick exit
 
 ### Progress Tracking
-- [Q-CHECKPOINT](#q-checkpoint) - Save mid-session progress snapshot
-- [Q-STATUS](#q-status) - Check session state and context health
-- [Q-VERIFY](#q-verify) - Verify command success
+
+- [/q-checkpoint](#q-checkpoint) - Save mid-session progress snapshot
+- [/q-status](#q-status) - Check session state and context health
+- [/q-verify](#q-verify) - Verify command success
+- [/q-compact](#q-compact) - Safe context management (checkpoint + compact)
 
 ### Documentation
-- [Q-DUMP](#q-dump) - Create session transcript manually
-- [Q-LEARNINGS](#q-learnings) - Summarize session insights
+
+- [/q-dump](#q-dump) - Create session transcript manually
+- [/q-learnings](#q-learnings) - Summarize session insights
+- [/q-prompts](#q-prompts) - Save all user prompts from session
 
 ### Git Operations
-- [Q-COMMIT](#q-commit) - Stage and commit changes
+
+- [/q-commit](#q-commit) - Stage and commit changes
+
+### Optimization
+
+- [/q-pare](#q-pare) - Optimize CLAUDE.md by offloading verbose content
 
 ---
 
@@ -986,7 +999,220 @@ Working tree clean. Ready to push when you're ready.
 - **Before risky operations** (refactors, etc.)
 
 ### Git Push Policy
+
 **Q-COMMIT NEVER pushes to remote** - user controls when to share code
+
+---
+
+## /q-compact
+
+**Purpose:** Safely free context space by checkpointing first, then compacting
+
+### Usage
+
+```text
+/q-compact
+```
+
+### What It Does
+
+1. **Creates checkpoint** via /q-checkpoint to preserve detailed work
+2. **Runs /compact** with instructions to preserve key information
+3. **Reports results** showing checkpoint location and new context state
+
+### Why Use /q-compact Instead of /compact
+
+- `/compact` alone summarizes and loses detail
+- `/q-compact` saves a checkpoint FIRST, then compacts
+- Your detailed work history is preserved in the checkpoint file
+- You get more context space AND keep your work safe
+
+### Example Output
+
+```text
+Q-COMPACT Complete!
+
+Checkpoint saved: GeneratedMDs/checkpoints/2025-11-13-1030-Gabriel.md
+Context compacted: More space available
+
+Your detailed work is preserved in the checkpoint.
+/q-end will merge checkpoint + remaining work into complete session notes.
+
+Tip: Run /context to see your new context usage.
+```
+
+### When to Use
+
+- **Context usage above 70%** (session slowing down)
+- **After /context shows high usage**
+- **Before starting a large new task**
+- **When Claude's responses are getting slower**
+
+### Workflow Example
+
+```text
+[Working for 90 minutes, context getting full]
+User: /context              → Shows 75% usage
+User: /q-compact            → Saves checkpoint, then compacts
+                            → Now at ~30% usage
+[Continue working with fresh context]
+User: /q-end                → Merges checkpoint + new work
+```
+
+---
+
+## /q-pare
+
+**Purpose:** Optimize CLAUDE.md by moving verbose content to OFFLOAD.md
+
+### Usage
+
+```text
+/q-pare
+```
+
+### What It Does
+
+1. **Analyzes CLAUDE.md** to identify verbose reference content
+2. **Creates/updates OFFLOAD.md** with moved content
+3. **Slims down CLAUDE.md** while preserving essential guidance
+4. **Reports** what was moved and size reduction achieved
+
+### What Stays in CLAUDE.md (Essential)
+
+- Project overview (1-2 paragraphs)
+- Tech stack (brief list)
+- Core architecture overview
+- Key workflows and commands
+- Critical policies
+- Team member names
+- Important constraints
+
+### What Moves to OFFLOAD.md (Reference)
+
+- Detailed command examples
+- Complete file structure listings
+- Full environment variable documentation
+- Detailed deployment procedures
+- Extended history or background
+- Reference links
+- Detailed code examples
+- Complete schema documentation
+
+### Example Output
+
+```text
+CLAUDE.md Optimized
+
+Moved to OFFLOAD.md:
+- Detailed development commands
+- Complete page structure reference
+- Full design system specifications
+- Environment variables details
+
+CLAUDE.md changes:
+- Before: ~325 lines
+- After: ~150 lines (54% reduction)
+- Added pointer to OFFLOAD.md
+- Maintained all essential guidance
+
+Both files ready. CLAUDE.md is now optimized for context loading.
+```
+
+### When to Use
+
+- **CLAUDE.md is very long** (>300 lines)
+- **Context feels constrained**
+- **Setting up a new project** with extensive documentation
+- **Performance optimization** needed
+
+### Benefits
+
+- Faster context loading (CLAUDE.md is always loaded)
+- Better performance in long sessions
+- Reference content still available when needed
+- Claude reads OFFLOAD.md on demand
+
+---
+
+## /q-prompts
+
+**Purpose:** Save all user prompts from the session for future reference and reuse
+
+### Usage
+
+```text
+/q-prompts
+```
+
+### What It Does
+
+1. **Extracts all user prompts** from the current session
+2. **Creates prompts file** in `GeneratedMDs/prompts/`
+3. **Lists prompts chronologically**
+4. **Highlights useful prompts** worth reusing
+
+### File Location
+
+```text
+GeneratedMDs/prompts/YYYY-MM-DD-HHmm-[Name].md
+```
+
+### Example Output
+
+```text
+Prompts saved: GeneratedMDs/prompts/2025-11-13-0913-Gabriel.md
+
+Total prompts captured: 23
+Highlighted 5 prompts as particularly useful for reuse.
+
+Tip: Review this file to find prompts worth reusing in future sessions.
+```
+
+### File Contents
+
+```markdown
+# Session Prompts: 2025-11-13-0913
+
+**Date:** 2025-11-13
+**Participant:** Gabriel
+
+---
+
+## Prompts (Chronological)
+
+1. Q-BEGIN
+
+2. Let's work on the authentication system today
+
+3. Can you show me how the login flow works?
+
+[... continues ...]
+
+---
+
+## Useful Prompts to Reuse
+
+### Code Review
+- "Review this code for security vulnerabilities and suggest fixes"
+
+### Documentation
+- "Create API documentation for this endpoint following our standard format"
+```
+
+### When to Use
+
+- **End of productive session** to capture effective prompts
+- **After discovering effective prompts** you want to remember
+- **Building a prompt library** for your workflow
+- **Learning what instructions work well** with Claude
+
+### Benefits
+
+- Build a personal prompt library
+- Find effective prompts to reuse
+- Track how you interact with Claude
+- Learn what instructions work best
 
 ---
 
@@ -996,14 +1222,17 @@ Working tree clean. Ready to push when you're ready.
 
 | Situation | Command | Why |
 |-----------|---------|-----|
-| Starting work session | Q-BEGIN | Load context, see last session |
-| Long session (90+ min) | Q-CHECKPOINT | Insurance against data loss |
-| Want to check progress | Q-STATUS | See session state, context health |
-| Finishing work (normal) | Q-END | Full documentation + commit |
-| Context critical (>90%) | Q-SAVE | Fast exit, still captures essentials |
-| Want to verify success | Q-VERIFY | Check all files created correctly |
-| Mid-session commit | Q-COMMIT | Save work without full documentation |
-| Reflecting on session | Q-LEARNINGS | Capture insights and decisions |
+| Starting work session | /q-begin | Load context, see last session |
+| Long session (90+ min) | /q-checkpoint | Insurance against data loss |
+| Want to check progress | /q-status | See session state, context health |
+| Finishing work (normal) | /q-end | Full documentation + commit |
+| Context critical (>90%) | /q-save | Fast exit, still captures essentials |
+| Context high (70-90%) | /q-compact | Free space while preserving work |
+| Want to verify success | /q-verify | Check all files created correctly |
+| Mid-session commit | /q-commit | Save work without full documentation |
+| Reflecting on session | /q-learnings | Capture insights and decisions |
+| Save prompts for reuse | /q-prompts | Build prompt library |
+| CLAUDE.md too long | /q-pare | Optimize context loading |
 
 ---
 
@@ -1158,18 +1387,27 @@ Save and use - next Q-END will run tests.
 
 ## Summary
 
-The Q-Command System provides **10 commands** organized into:
+The Q-Command System provides **15 commands** organized into:
 
-**Session Management:** Q-BEGIN, Q-END, Q-SAVE
-**Progress Tracking:** Q-CHECKPOINT, Q-STATUS, Q-VERIFY
-**Documentation:** Q-DUMP, Q-LEARNINGS
-**Git:** Q-COMMIT
+**Session Management:** /q-begin, /q-end, /q-save
+
+**Progress Tracking:** /q-checkpoint, /q-status, /q-verify, /q-compact
+
+**Documentation:** /q-dump, /q-learnings, /q-prompts
+
+**Git:** /q-commit
+
+**Optimization:** /q-pare
+
+**Setup:** /q-setup-domain, /q-reconfigure-domain, /q-upgrade
 
 All commands:
-- ✅ Include verification
-- ✅ Report explicitly
-- ✅ Degrade gracefully
-- ✅ Are customizable
+
+- Available as native slash commands (type `/q-` and Tab)
+- Include verification
+- Report explicitly
+- Degrade gracefully
+- Are customizable
 
 ---
 

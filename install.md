@@ -39,12 +39,14 @@ Fetch each of these files and write them to `.claude/commands/`:
 ## Step 3: Install SHORTCUTS.md (Reference)
 
 Fetch this file:
-```
+
+```text
 https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/SHORTCUTS.md
 ```
 
 Write it to:
-```
+
+```text
 GeneratedMDs/SHORTCUTS.md
 ```
 
@@ -56,7 +58,7 @@ This serves as reference documentation for the commands.
 
 Create `GeneratedMDs/.gitignore` with this content:
 
-```
+```gitignore
 # Ignore checkpoint files (temporary mid-session saves)
 checkpoints/
 
@@ -73,7 +75,8 @@ prompts/
 ## Step 5: Show User the CLAUDE.md Template
 
 Fetch this file:
-```
+
+```text
 https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/CLAUDE.md
 ```
 
@@ -82,6 +85,7 @@ Show the user the "Workflow with Claude Code" section and tell them:
 > I've installed the Q-Command System. You should add the "Workflow with Claude Code" section to your CLAUDE.md file (create one if you don't have it).
 >
 > **Key section to add:**
+>
 > - Copy everything from "## Workflow with Claude Code" onwards
 > - Replace `[PROJECT_OWNER_NAME]` with your name
 >
@@ -93,7 +97,7 @@ Show the user the "Workflow with Claude Code" section and tell them:
 
 After completing the above, report:
 
-```
+```text
 Q-Command System installed!
 
 Slash commands available (type / to see them):
