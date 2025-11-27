@@ -4,6 +4,32 @@ All notable changes to the Q-Command System.
 
 ---
 
+## [1.1.0] - 2025-11-27
+
+**Native slash commands and new features.**
+
+### Added
+
+- **Native slash commands** — All commands now available as `/q-begin`, `/q-end`, etc. with tab completion
+- **/q-pare** — Optimize CLAUDE.md by moving verbose content to OFFLOAD.md
+- **/q-prompts** — Save all user prompts from session for future reuse
+- **One-liner install** — `Install Q-Command System from https://github.com/contactTAM/q-command-system`
+
+### Changed
+
+- Commands now use slash format (`/q-begin`) as primary style
+- Uppercase format (`Q-BEGIN`) still works — both do the same thing
+- Simplified getting-started.md to match README quick start
+- Harmonized documentation to use consistent command format
+
+### Documentation
+
+- Updated commands-reference.md with all 15 commands
+- Added command format explanation (slash vs uppercase)
+- Moved manual installation to "Alternative" section
+
+---
+
 ## [1.0.0] - 2025-11-26
 
 **First public release.**
@@ -68,6 +94,16 @@ All notable changes to the Q-Command System.
 ---
 
 ## Version Numbering
+
+We use [Semantic Versioning](https://semver.org/):
+
+| Bump | When | Example |
+|------|------|---------|
+| **MAJOR** (2.0.0) | Breaking changes requiring user action | Renaming commands, changing file locations |
+| **MINOR** (1.1.0) | New features, backward compatible | New commands, slash command support |
+| **PATCH** (1.0.1) | Bug fixes, documentation fixes | Typos, clarifications |
+
+**Version ranges:**
 
 - **1.x** — Public releases (stable, documented)
 - **0.x** — Development versions (internal testing)

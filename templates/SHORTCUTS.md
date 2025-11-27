@@ -2,8 +2,8 @@
 
 This file contains custom shortcut commands for this repository.
 
-**Last Updated:** 2025-11-26
-**Version:** 1.0 (First public release)
+**Last Updated:** 2025-11-27
+**Version:** 1.1.0
 
 ---
 
@@ -1249,7 +1249,14 @@ Upgrade successful!
 
 ## VERSION HISTORY
 
-**v1.0 (2025-11-26):**
+**v1.1.0 (2025-11-27):**
+- Native slash commands (/q-begin, /q-end, etc.) with tab completion
+- New command: /q-pare (optimize CLAUDE.md size)
+- New command: /q-prompts (save session prompts for reuse)
+- One-liner install from GitHub
+- Both /q-begin and Q-BEGIN formats work (same effect)
+
+**v1.0.0 (2025-11-26):**
 - First public release
 - Q-UPGRADE for easy version upgrades (preserves custom commands)
 - Q-COMPACT for safe context management (checkpoint + compact)
