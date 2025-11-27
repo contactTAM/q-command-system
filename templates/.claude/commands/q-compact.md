@@ -26,7 +26,7 @@ Tell the user:
 ```
 Checkpoint saved. Now run this command:
 
-/compact Preserve: key decisions, files changed, current task status. This is a Q-COMPACT operation - checkpoint already saved.
+/compact Preserve: key decisions, files changed, current task status. This is a /q-compact operation - checkpoint already saved.
 ```
 
 Or if you can execute /compact directly, do so with that prompt.
@@ -34,7 +34,7 @@ Or if you can execute /compact directly, do so with that prompt.
 ## Step 3: Report Results
 
 ```
-Q-COMPACT Complete!
+/q-compact complete!
 
 Checkpoint saved: GeneratedMDs/checkpoints/[filename]
 Context compacted: More space available

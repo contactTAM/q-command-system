@@ -27,7 +27,10 @@ All notable changes to the Q-Command System.
 ### Removed
 
 - `templates/SHORTCUTS.md` — No longer needed (slash commands contain all specifications)
-- SHORTCUTS.md from install process — Simpler, faster installs
+- `docs/setup.md` — Consolidated into getting-started.md and features.md
+- `docs/commands-reference.md` — Merged into features.md
+- `docs/architecture.md` — Brief "How It Works" added to features.md instead
+- `install.md` — Install instructions now in README.md
 
 ### Documentation
 

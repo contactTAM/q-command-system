@@ -1,93 +1,121 @@
-# Q-Command System Features Documentation
+# Q-Command System Features
 
-**Comprehensive Feature Overview**
-
-**Version:** 1.0
-**Last Updated:** 2025-11-26
+**Version:** 1.1
+**Last Updated:** 2025-11-27
 
 ---
 
-## Table of Contents
+## Quick Start (For New Users)
 
-1. [Session Management](#session-management)
-2. [Context Protection](#context-protection)
-3. [Documentation Generation](#documentation-generation)
-4. [Verification & Error Handling](#verification--error-handling)
-5. [Multi-User Support](#multi-user-support)
-6. [Git Integration](#git-integration)
-7. [Monitoring & Observability](#monitoring--observability)
-8. [Customization](#customization)
+**What it does:** Turns Claude Code into a reliable co-pilot with automatic documentation, context protection, and git integration.
+
+**The 3 commands you need:**
+
+| Command | When | What happens |
+|---------|------|--------------|
+| `/q-begin` | Start of session | Loads context, shows last session summary |
+| `/q-checkpoint` | Every 90 min | Saves progress (insurance) |
+| `/q-end` | End of session | Creates docs, commits to git |
+
+That's it. Type `/q-` and press Tab to see all commands.
 
 ---
 
-## Session Management
+## All Commands (Quick Reference)
 
-### Q-BEGIN: Structured Session Start
+### Essential (Use Daily)
+
+| Command | Purpose |
+|---------|---------|
+| `/q-begin` | Start session with context refresh |
+| `/q-end` | End session with full documentation and commit |
+| `/q-checkpoint` | Save mid-session progress snapshot |
+
+### Monitoring
+
+| Command | Purpose |
+|---------|---------|
+| `/q-status` | Check session state and context health |
+| `/q-verify` | Verify that saves/commits worked |
+
+### Context Management
+
+| Command | Purpose |
+|---------|---------|
+| `/q-compact` | Free context space safely (checkpoint first, then compact) |
+| `/q-save` | Quick exit when context is critical (>90%) |
+
+### Documentation
+
+| Command | Purpose |
+|---------|---------|
+| `/q-dump` | Create session transcript manually |
+| `/q-learnings` | Summarize key insights from session |
+| `/q-prompts` | Save all user prompts for future reuse |
+
+### Git
+
+| Command | Purpose |
+|---------|---------|
+| `/q-commit` | Stage and commit changes (without full /q-end) |
+
+### Optimization
+
+| Command | Purpose |
+|---------|---------|
+| `/q-pare` | Slim down CLAUDE.md by moving verbose content to OFFLOAD.md |
+
+### Setup
+
+| Command | Purpose |
+|---------|---------|
+| `/q-setup-domain` | Configure Q-Command System for your project type |
+| `/q-reconfigure-domain` | Update configuration as project evolves |
+| `/q-upgrade` | Upgrade to latest Q-Command System version |
+
+**Detailed command info:** See `.claude/commands/q-*.md` files
+
+---
+
+## Command Details
+
+### /q-begin
 
 **What it does:**
-- Reads project context from CLAUDE.md
-- Reviews last session notes (filtered by your name)
-- Checks project status files (work plans, roadmaps, etc.)
-- Provides summary of recent progress
+- Reads CLAUDE.md for project context
+- Reviews your last session notes
+- Shows summary of recent progress
 - Asks what to work on today
 
-**Why it matters:**
-- No more starting sessions with zero context
-- Builds on previous work seamlessly
-- Ensures Claude knows project state
-- Reduces time spent explaining context
-
-**Features:**
-- Multi-file context loading
-- Person-specific session history
-- Automatic status check
-- TodoWrite setup for multi-step tasks
-
-**Example flow:**
+**Example:**
 ```
-User: Q-BEGIN
+User: /q-begin
 
-Claude reads:
-1. CLAUDE.md (project overview)
-2. GeneratedMDs/session-notes/2025-11-12-1430-Gabriel.md (last session)
-3. work-plan/work-plan.md (current status)
+Claude: Last session (Nov 26, 2:30 PM):
+- Added user authentication
+- Fixed 3 bugs in checkout flow
+- All changes committed
 
-Claude: "Last session: Updated budget estimates to $25-50K across 6 documents.
-Current status: Ready for Brian's review.
-What would you like to work on today?"
+What would you like to work on today?
 ```
 
 ---
 
-### Q-END: Complete Session Documentation
+### /q-end
 
 **What it does:**
-- Creates full session transcript
-- Generates session notes summary
-- Updates project files (work plans, etc.)
-- Commits all changes to git
-- Verifies each step succeeded
-
-**Why it matters:**
-- Never lose track of what was accomplished
-- Automatic documentation without manual effort
-- Git history matches session work
-- Complete audit trail
-
-**Features:**
-- 6-step verification process
-- Continued session detection (preserves work before auto-compact)
-- Checkpoint merging
-- Explicit success/failure reporting
-- Automatic git commit with attribution
+1. Creates session transcript in `GeneratedMDs/transcripts/`
+2. Creates session notes in `GeneratedMDs/session-notes/`
+3. Commits all changes to git
+4. Verifies each step succeeded
+5. Reminds you to `git push`
 
 **Example output:**
 ```
-✅ Session Complete!
+Session Complete!
 
-Transcript: GeneratedMDs/transcripts/2025-11-13-0913-Gabriel.md
-Session Notes: GeneratedMDs/session-notes/2025-11-13-0913-Gabriel.md
-Work Plan: Updated
+Transcript: GeneratedMDs/transcripts/2025-11-27-0913-Gabriel.md
+Session Notes: GeneratedMDs/session-notes/2025-11-27-0913-Gabriel.md
 Git: Committed (9 files changed)
 
 Ready to push! Run `git push` when ready.
@@ -95,711 +123,380 @@ Ready to push! Run `git push` when ready.
 
 ---
 
-### Q-SAVE: Lightweight Quick Exit
+### /q-checkpoint
 
 **What it does:**
-- Creates basic transcript (key accomplishments + files changed)
-- Commits all changes to git
-- Skips detailed session notes and work plan updates
-
-**Why it matters:**
-- Emergency exit when context is critical (>90%)
-- Fast wrap-up when in a hurry
-- Still captures essential information
-- Prevents total data loss
-
-**When to use:**
-- Context usage above 90%
-- Conversation slowing down (sign of context pressure)
-- Need to exit quickly
-- Already created checkpoints earlier
-
-**Trade-offs:**
-- Less comprehensive documentation
-- No work plan updates
-- But faster and safer than trying full Q-END when context is constrained
-
----
-
-### Q-CHECKPOINT: Mid-Session Progress Snapshot
-
-**What it does:**
-- Creates lightweight checkpoint file
-- Documents accomplishments so far
-- Lists files created/modified
-- Notes current status and next steps
-
-**Why it matters:**
-- Insurance against auto-compact data loss
-- Allows Q-END to reconstruct full session
-- User control over when to save progress
-- Minimal overhead (100-200 lines)
+- Creates checkpoint file with current progress
+- Documents accomplishments, files changed, next steps
+- Insurance against context loss
 
 **When to use:**
 - Every 90 minutes in long sessions
-- After completing major milestone
-- Before starting next big chunk of work
+- After completing a major milestone
 - When context usage reaches 70%
 
-**Example checkpoint:**
-```markdown
-# Checkpoint: 2025-11-13 10:30 AM
+---
 
-Session started: 09:13 AM
-Checkpoint time: 10:30 AM (1 hour 17 minutes elapsed)
+### /q-status
 
-Accomplishments:
-- Updated budget estimates across 6 documents
-- Removed "free" dashboard option
-- Added preliminary estimate warnings
-
-Files modified:
-- alpha-peer-mvp-presentation.html
-- hypothesis-to-feature-mapping.md
-- brian-approval-checklist.md
-- mvp-approach-comparison.md
-- polished-concierge-presentation-outline.md
-- html-presentation-plan.md
-
-Next: Final consistency check, then commit
-```
+**What it shows:**
+- Session duration
+- Accomplishments count
+- Files modified
+- Context health (usage percentage)
+- Recommendations (when to checkpoint, when to wrap up)
 
 ---
 
-## Context Protection
+### /q-verify
 
-### Auto-Compact Detection
+**What it checks:**
+- Transcripts created today
+- Session notes created today
+- Checkpoints created today
+- Git status (uncommitted changes, commits ahead)
 
-**What it does:**
-- Detects when conversation was auto-compacted
-- Reads conversation summary for pre-compact work
-- Treats entire session as one unified session
-- Documents ALL work from start to finish
-
-**Why it matters:**
-- Prevents losing 1-2 hours of work
-- Most critical failure mode in v1.0 was losing pre-compact work
-- Automatic detection and recovery
-- No user action required
-
-**How it works:**
-1. Q-END checks for "This session is being continued from a previous conversation"
-2. If found, reads conversation summary thoroughly
-3. Extracts all accomplishments, decisions, files changed
-4. Merges with current context
-5. Documents as ONE session with full timeline
-
-**Example:**
-```
-Session started: 9:00 AM
-Auto-compact occurred: 10:30 AM
-Session continues until: 11:45 AM
-
-Q-END documents:
-- Start time: 9:00 AM (original)
-- Duration: 2 hours 45 minutes (total)
-- Work before auto-compact: [from summary]
-- Work after auto-compact: [from current context]
-Result: Complete session documentation
-```
+Use after `/q-end` to confirm everything saved correctly.
 
 ---
 
-### Context Health Monitoring
+### /q-compact
 
 **What it does:**
-- Estimates context usage percentage
-- Tracks conversation length
-- Monitors time since last checkpoint
-- Provides actionable recommendations
+1. Runs `/q-checkpoint` first (saves your work)
+2. Then runs `/compact` to free context space
 
-**Why it matters:**
-- Proactive warning before problems occur
-- User can decide when to checkpoint or exit
-- Prevents surprise auto-compacts
-- Optimizes session timing
-
-**Included in Q-STATUS:**
-```
-Context Health:
-- Estimated usage: 75% ⚠️ HIGH
-- Messages in conversation: 187
-- Time since last checkpoint: 62 minutes
-
-Recommendations:
-⚠️ Consider Q-CHECKPOINT soon to preserve progress
-```
+**Why use /q-compact instead of /compact:**
+- `/compact` alone loses detail
+- `/q-compact` preserves your work in a checkpoint file first
 
 ---
 
-### Checkpoint Insurance
+### /q-save
 
-**What it does:**
-- Provides fallback if auto-compact summary is incomplete
-- Allows session reconstruction from multiple sources
-- User-controlled save points
+**Lightweight quick exit when context is critical.**
 
-**Why it matters:**
-- Belt-and-suspenders approach
-- Even if auto-compact loses info, checkpoints preserve it
-- Gives user peace of mind
-- Minimal performance cost
+Creates basic transcript and commits, but skips detailed session notes.
+
+**Use when:**
+- Context usage above 90%
+- Need to exit quickly
+- Already created checkpoints earlier
+
+---
+
+### /q-dump
+
+Creates session transcript manually without full `/q-end` process.
+
+---
+
+### /q-learnings
+
+Analyzes session and presents key insights:
+- Technical discoveries
+- Process improvements
+- Important decisions and rationale
+
+---
+
+### /q-prompts
+
+Saves all your prompts from the session to `GeneratedMDs/prompts/`.
+
+Useful for building a personal prompt library.
+
+---
+
+### /q-commit
+
+Stages and commits all changes without full `/q-end` documentation.
+
+**Note:** Never pushes to remote - you control that.
+
+---
+
+### /q-pare
+
+Optimizes CLAUDE.md by moving verbose reference content to OFFLOAD.md.
+
+**What stays in CLAUDE.md:** Project overview, tech stack, key workflows
+**What moves to OFFLOAD.md:** Detailed examples, full file listings, extended docs
+
+---
+
+### /q-setup-domain
+
+Runs a setup wizard that configures Q-Command System for your project:
+- Asks about your domain (software, research, writing, etc.)
+- Asks about experience level
+- Creates appropriate directory structure
+- Installs relevant commands
+
+---
+
+### /q-reconfigure-domain
+
+Updates your configuration when your project evolves:
+- From exploration to execution
+- Experience level changes
+- Team size changes
+
+---
+
+### /q-upgrade
+
+Checks your version and guides upgrade to latest Q-Command System.
+
+Preserves any custom commands you've added.
+
+---
+
+## How It Works
+
+Commands are defined in `.claude/commands/q-*.md` files. When you type `/q-begin`, Claude reads the instruction file and follows it step-by-step. Session notes serve as memory between sessions—Claude reads them at the start of each new session.
+
+No code, no plugins. Just markdown instructions that Claude follows.
+
+---
+
+## Features Deep Dive (For Advanced Users)
+
+### Context Protection
+
+**The Problem:** Long conversations hit Claude's 200K token limit. When this happens, Claude auto-compacts and can lose work details.
+
+**How Q-Command protects you:**
+
+1. **Auto-compact detection** - `/q-end` detects if conversation was compacted and reads the summary
+2. **Checkpoint insurance** - `/q-checkpoint` saves detailed progress that survives compaction
+3. **Context health monitoring** - `/q-status` shows usage percentage and warns you
+4. **Safe compaction** - `/q-compact` saves checkpoint FIRST, then compacts
 
 **Recovery hierarchy:**
 1. Current context (always available)
 2. Conversation summary (if auto-compacted)
 3. Checkpoints (if created)
-4. Previous session notes (for Q-BEGIN)
-
-Result: Multiple layers of data protection
+4. Previous session notes (for /q-begin)
 
 ---
 
-## Documentation Generation
+### Documentation Generation
 
-### Session Transcripts
-
-**Location:** `GeneratedMDs/transcripts/YYYY-MM-DD-HHmm-[PersonName].md`
-
-**Contents:**
+**Session Transcripts** (`GeneratedMDs/transcripts/`)
 - Chronological conversation flow
-- User commands/prompts
-- Claude's actions and responses
-- File changes made
-- Decisions taken
-- Session metrics (duration, deliverables)
+- All actions and responses
+- Full session history
 
-**Format:**
-- Clear development log style
-- References code effects without full code blocks
-- Organized by major accomplishments
-- Timestamped with session duration
-
-**Use cases:**
-- Review what was accomplished
-- Understand decision rationale
-- Debug issues from past sessions
-- Billing/time tracking
-- Knowledge transfer to team
-
----
-
-### Session Notes
-
-**Location:** `GeneratedMDs/session-notes/YYYY-MM-DD-HHmm-[PersonName].md`
-
-**Contents:**
-- Key accomplishments (executive summary)
-- Decisions made with rationale
-- Files created/modified (complete list)
-- Blocker status updates
-- Open questions
+**Session Notes** (`GeneratedMDs/session-notes/`)
+- Executive summary
+- Key accomplishments
+- Files changed
 - Next steps
-
-**Format:**
-- High-level summary (not chronological)
-- Bullet points and structured sections
 - Scannable in 2-3 minutes
-- Links to relevant files
 
-**Use cases:**
-- Quick status check
-- Team standup references
-- Project review meetings
-- Resume work after break
-- Q-BEGIN context loading
+**File naming:** `YYYY-MM-DD-HHmm-[PersonName].md`
+- Example: `2025-11-27-0913-Gabriel.md`
+- Sorts chronologically
+- No collisions between team members
 
 ---
 
-### Work Plan Updates
+### Multi-User Support
 
-**Location:** Project-specific (e.g., `work-plan/work-plan.md`)
-
-**What it updates:**
-- Blocker status (if resolved)
-- Completed milestones
-- New tasks identified
-- Recent progress section
-- Timeline adjustments
-
-**When it updates:**
-- Only if significant progress made
-- Q-END checks if updates needed
-- Reports: "Work plan updated" or "Work plan unchanged"
-
-**Why it matters:**
-- Single source of truth stays current
-- No manual work plan maintenance
-- Project status always reflects reality
-
----
-
-## Verification & Error Handling
-
-### Step-by-Step Verification
-
-**Q-END verification process:**
-
+**Per-person file naming prevents collisions:**
 ```
-STEP 1: Check for continued sessions
-✅ VERIFY: Conversation summary read (if applicable)
-
-STEP 2: Create session transcript
-✅ VERIFY: File exists at correct path
-✅ VERIFY: File has substantial content (>100 lines)
-
-STEP 3: Create session notes
-✅ VERIFY: File exists at correct path
-✅ VERIFY: File has content
-
-STEP 4: Update work plan
-✅ VERIFY: Changes saved (if updated)
-
-STEP 5: Commit all changes
-✅ VERIFY: git status shows clean working tree
-
-STEP 6: Final report
-✅ Shows all files created and git commit hash
+GeneratedMDs/session-notes/
+  2025-11-27-0913-Gabriel.md
+  2025-11-27-1000-Guy.md
+  2025-11-27-1430-Fraser.md
 ```
 
-**Why it matters:**
-- No silent failures
-- User knows exactly what happened
-- Can catch problems immediately
-- Can verify with Q-VERIFY
-
----
-
-### Q-VERIFY: Post-Operation Verification
-
-**What it checks:**
-1. **Transcripts:** Files in GeneratedMDs/transcripts/ (today, your name)
-2. **Session Notes:** Files in GeneratedMDs/session-notes/ (today, your name)
-3. **Checkpoints:** Files in GeneratedMDs/checkpoints/ (today, your name)
-4. **Git Status:** Uncommitted changes? Commits ahead of origin?
-
-**Output example:**
-```
-=== Verification Report ===
-
-✅ Transcript: Found GeneratedMDs/transcripts/2025-11-13-0913-Gabriel.md
-   - Created: 11:45 AM
-   - Size: 487 lines
-
-✅ Session Notes: Found GeneratedMDs/session-notes/2025-11-13-0913-Gabriel.md
-   - Created: 11:45 AM
-   - Size: 142 lines
-
-✅ Checkpoints: Found 2 checkpoint(s)
-   - 2025-11-13-1030-Gabriel.md (10:30 AM)
-   - 2025-11-13-1145-Gabriel.md (11:45 AM)
-
-✅ Git: Committed, clean working tree
-   - Ahead of origin by 1 commit(s)
-   - Last commit: "Update budget estimates..." (2 minutes ago)
-
-Status: All Clear
-```
-
-**Use cases:**
-- After Q-END to confirm success
-- After Q-CHECKPOINT to verify saved
-- Debugging: "Did my command work?"
-- Before manual push to verify state
-
----
-
-### Explicit Error Reporting
-
-**Error handling policy:**
-
-1. **Never fail silently**
-   - Always report what went wrong
-   - Explain which step failed
-
-2. **Graceful degradation**
-   - Complete what's possible
-   - Skip what fails, but report it clearly
-
-3. **Actionable feedback**
-   - Tell user exactly what succeeded
-   - Tell user exactly what failed
-   - Provide manual steps to fix
-
-4. **User control**
-   - Offer options when uncertain
-   - Let user decide how to proceed
-
-**Example error:**
-```
-❌ STEP 3 FAILED: Create session notes
-Error: Unable to write file (disk full?)
-
-What succeeded:
-✅ Transcript created: GeneratedMDs/transcripts/2025-11-13-0913-Gabriel.md
-✅ Checkpoints merged
-
-What failed:
-❌ Session notes NOT created
-❌ Work plan NOT updated
-❌ Git NOT committed
-
-Manual steps:
-1. Free up disk space
-2. Run Q-DUMP manually to retry transcript
-3. Run Q-COMMIT to commit changes
-4. Or try Q-SAVE for lightweight alternative
-```
-
----
-
-## Multi-User Support
-
-### Per-Person-Per-Session File Naming
-
-**Format:** `YYYY-MM-DD-HHmm-[PersonName].md`
-
-**Benefits:**
-- **No collisions:** Gabriel and Guy can both work Nov 13 at 9:00 AM
-- **Clear ownership:** Instantly see who worked when
-- **Easy filtering:** `ls *-Gabriel.md` shows all Gabriel's sessions
-- **Sortable:** Files sort chronologically
-- **Scriptable:** No spaces in filenames
-
-**Example directory:**
-```
-GeneratedMDs/transcripts/
-  2025-11-13-0913-Gabriel.md
-  2025-11-13-1000-Guy.md
-  2025-11-13-1430-Fraser.md
-  2025-11-13-1600-Brian.md
-  2025-11-14-0900-Gabriel.md
-  2025-11-14-0915-Guy.md
-```
-
-Each person has their own files, no conflicts.
-
----
-
-### Person-Specific Session History
-
-**Q-BEGIN behavior:**
-- Looks for files matching current user's name
-- Sorts by date/time
-- Reads most recent session
-- Ignores other people's sessions
-
-**Example:**
-```
-Gabriel types Q-BEGIN:
-→ Reads GeneratedMDs/session-notes/*-Gabriel.md (most recent)
-→ Ignores Guy's sessions, Fraser's sessions, etc.
-→ Shows Gabriel's last session summary
-
-Guy types Q-BEGIN:
-→ Reads GeneratedMDs/session-notes/*-Guy.md (most recent)
-→ Ignores Gabriel's sessions
-→ Shows Guy's last session summary
-```
-
-**Benefits:**
+**Person-specific history:**
+- `/q-begin` reads YOUR last session, not teammates'
 - Each person picks up where THEY left off
-- No confusion from other people's work
-- Clear context for each team member
 
 ---
 
-### Team Coordination
+### Git Integration
 
-**Features:**
-- All session files in shared repo (if desired)
-- Easy to review teammate's work: `cat GeneratedMDs/session-notes/2025-11-13-1000-Guy.md`
-- Git history shows all team activity
-- Session notes reference each other when needed
+**Automatic commits:**
+- `/q-end` commits all changes
+- Descriptive commit messages with bullet points
+- Co-author attribution to Claude
 
-**Example coordination:**
-```
-Gabriel's session notes:
-"Waiting for Guy to complete course #3 definition before proceeding with implementation."
+**User-controlled push:**
+- Claude NEVER pushes automatically
+- You review and push when ready
 
-Guy's session notes:
-"Completed course #3 definition. Ready for Gabriel's review."
-```
-
-Team members can reference each other's sessions for context.
-
----
-
-## Git Integration
-
-### Automatic Commits
-
-**Q-END behavior:**
-1. Stages all changes: `git add .`
-2. Creates descriptive commit message
-3. Includes bullet points of changes
-4. Adds co-author attribution
-5. Verifies commit succeeded
-
-**Commit message format:**
+**Commit format:**
 ```
 Brief summary of changes
 
 - Point 1: description
 - Point 2: description
-- Point 3: description
 
 Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 
-**Benefits:**
-- Git history matches session work
-- No forgotten uncommitted changes
-- Clear commit messages
-- Proper attribution
-
 ---
 
-### User-Controlled Push
+### Verification & Error Handling
 
-**Policy:** Claude NEVER pushes to remote automatically
+**Every command verifies success:**
+- Files created? Check.
+- Content substantial? Check.
+- Git committed? Check.
 
-**Reasoning:**
-- User decides what to share publicly
-- User controls timing of releases
-- Prevents accidental pushes of WIP
-- User maintains sovereignty over repository
+**Explicit error reporting:**
+- Never fails silently
+- Reports what succeeded and what failed
+- Provides manual recovery steps
 
-**Workflow:**
+**Example error:**
 ```
-Q-END completes:
-✅ Changes committed locally
+STEP 3 FAILED: Create session notes
+Error: Unable to write file
 
-User reviews:
-git status  → Clean working tree
-git log -1  → Review commit message
+What succeeded:
+- Transcript created
+- Checkpoints merged
 
-User decides:
-git push    → Share with team (user's choice)
-```
+What failed:
+- Session notes NOT created
 
-**Benefits:**
-- Full control over what goes public
-- Can review before sharing
-- Can make additional changes before push
-- Peace of mind
-
----
-
-### Attribution
-
-**Co-authorship:**
-Every commit includes:
-```
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
-
-**Why it matters:**
-- Clear that AI assisted
-- Proper credit to Claude
-- Transparent about workflow
-- GitHub/GitLab recognizes co-authorship
-
----
-
-## Monitoring & Observability
-
-### Q-STATUS: Real-Time Session State
-
-**What it shows:**
-
-**Session Info:**
-- Start time and duration
-- Participant name
-- Session type (regular vs continued)
-
-**Progress:**
-- Accomplishments count
-- Files created/modified
-- Key decisions made
-
-**Checkpoints:**
-- Last checkpoint time
-- Checkpoint location
-- Time since last checkpoint
-
-**Git Status:**
-- Uncommitted changes count
-- Commits ahead of origin
-
-**Context Health:**
-- Estimated usage percentage
-- Messages in conversation
-- Time since last checkpoint
-
-**Recommendations:**
-- When to checkpoint
-- When to wrap up
-- When to use Q-SAVE
-
-**Example:**
-```
-=== Session Status ===
-
-Session started: 2025-11-13 09:13 (2 hours 32 minutes ago)
-Participant: Gabriel
-Session type: Continued from auto-compact at 10:30
-
-Progress:
-- Accomplishments: 8 major items
-- Files created: 3
-- Files modified: 6
-- Key decisions: 4
-
-Checkpoints:
-- Last checkpoint: 10:30 (1 hour 2 minutes ago)
-- Checkpoint location: GeneratedMDs/checkpoints/2025-11-13-1030-Gabriel.md
-
-Git Status:
-- Uncommitted changes: Yes (9 files)
-- Commits ahead of origin: 0
-
-Context Health:
-- Estimated usage: 68% OK
-- Messages in conversation: 143
-- Time since last checkpoint: 62 minutes
-
-Recommendations:
-- Session >2 hours - consider wrapping up with Q-END soon
-- Context healthy but consider Q-CHECKPOINT before next major task
-
-Next steps:
-- Complete final consistency check (in progress)
-- Commit changes (pending)
+Manual steps:
+1. Check disk space
+2. Run /q-dump to retry
 ```
 
 ---
 
-### TodoWrite Integration
+### Customization
 
-**Features:**
-- Q-BEGIN sets up TodoWrite for multi-step tasks
-- Real-time task tracking during session
-- Q-STATUS shows pending tasks
-- Tasks documented in session notes
+**Add custom commands:**
 
-**Benefits:**
-- Clear session structure
-- Progress visibility
-- Nothing forgotten
-- Professional organization
-
----
-
-## Customization
-
-### Add Custom Commands
-
-**How to:**
-1. Open `GeneratedMDs/SHORTCUTS.md`
-2. Add new section: `## Q-[COMMAND]`
-3. Define what Claude should do
-4. Save and use immediately
+1. Create `.claude/commands/q-yourcommand.md`
+2. Define what Claude should do
+3. Use immediately with `/q-yourcommand`
 
 **Example custom command:**
+
+Create `.claude/commands/q-review.md`:
 ```markdown
-## Q-REVIEW
+# /q-review
 
-When the user types `Q-REVIEW`:
+Pre-push code review.
 
-1. Read all files modified in last commit
-2. Check for common issues:
-   - TODOs or FIXMEs left in code
-   - Console.log statements
-   - Commented-out code
-   - Missing error handling
+When the user runs this command:
+
+1. Read files modified in last commit
+2. Check for common issues (TODOs, console.logs, etc.)
 3. Generate review checklist
-4. Ask user if they want to address any issues before pushing
+4. Ask if user wants to fix anything
+```
 
-**Purpose:** Pre-push code review automation
+**Modify existing commands:**
+
+Edit any `.claude/commands/q-*.md` file. Changes take effect immediately.
+
+---
+
+### Status Line (Optional)
+
+Display Q-System status in Claude Code status bar.
+
+**Step 1:** Create `~/.claude/statusline.sh`:
+```bash
+#!/bin/bash
+echo "Q-System Ready"
+```
+
+**Step 2:** Make executable:
+```bash
+chmod +x ~/.claude/statusline.sh
+```
+
+**Step 3:** Add to `~/.claude/settings.json`:
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  }
+}
 ```
 
 ---
 
-### Modify Existing Commands
+## When to Use Each Command
 
-**Q-END is fully customizable:**
-
-Edit `GeneratedMDs/SHORTCUTS.md`, find `## Q-END`, modify steps:
-
-**Add test execution:**
-```markdown
-**STEP 4.5: Run Tests**
-1. Execute test suite: `npm test` or `pytest`
-2. ✅ VERIFY: All tests pass
-3. Report to user: "✅ Tests passed" or "⚠️ Tests failed: [details]"
-```
-
-**Add linting:**
-```markdown
-**STEP 4.6: Run Linter**
-1. Execute linter: `npm run lint`
-2. ✅ VERIFY: No linting errors
-3. Report to user: "✅ Code linted" or "⚠️ Linting errors: [details]"
-```
-
-Changes take effect immediately (Claude reads SHORTCUTS.md at session start).
+| Situation | Command | Why |
+|-----------|---------|-----|
+| Starting work session | `/q-begin` | Load context, see last session |
+| Long session (90+ min) | `/q-checkpoint` | Insurance against data loss |
+| Want to check progress | `/q-status` | See session state, context health |
+| Finishing work (normal) | `/q-end` | Full documentation + commit |
+| Context critical (>90%) | `/q-save` | Fast exit, still captures essentials |
+| Context high (70-90%) | `/q-compact` | Free space while preserving work |
+| Want to verify success | `/q-verify` | Check all files created correctly |
+| Mid-session commit | `/q-commit` | Save work without full documentation |
+| Reflecting on session | `/q-learnings` | Capture insights and decisions |
+| Save prompts for reuse | `/q-prompts` | Build prompt library |
+| CLAUDE.md too long | `/q-pare` | Optimize context loading |
 
 ---
 
-### Adding Custom Commands
+## Typical Session Flow
 
-You can add your own Q-commands for domain-specific tasks.
-
-**How:**
-1. Open `GeneratedMDs/SHORTCUTS.md`
-2. Add a new `## Q-YOURCOMMAND` section
-3. Define what Claude should do
-4. Save and use immediately
-
-**Example: Product Feature Spec**
-
-```markdown
-## Q-FEATURE
-
-When the user types `Q-FEATURE`:
-
-1. Display product feature specification template questions
-2. Work through each question one-by-one:
-   - Feature name and description
-   - User stories and use cases
-   - Acceptance criteria
-   - Technical requirements
-   - Dependencies and blockers
-   - Success metrics
-3. Generate: `planning/features/feature-[number]-[name].md`
-4. Update feature roadmap
-
-**Purpose:** Systematically gather requirements for new features
+```text
+/q-begin
+   ↓
+Work...
+   ↓
+/q-status (check progress)
+   ↓
+Work...
+   ↓
+/q-checkpoint (90 min mark)
+   ↓
+Work...
+   ↓
+/q-end (finish session)
+   ↓
+/q-verify (confirm success)
 ```
+
+**Quick session:** `/q-begin` → Work → `/q-end`
+
+**Long session with context pressure:** `/q-begin` → Work → `/q-checkpoint` → Work → `/q-save`
+
+**Multiple checkpoints:** `/q-begin` → Work → `/q-checkpoint` → Work → `/q-checkpoint` → Work → `/q-end`
+
+---
+
+## Error Recovery
+
+**If /q-end fails:**
+```text
+/q-dump      → Create transcript manually
+/q-commit    → Commit changes manually
+```
+
+**If files missing:** Run `/q-verify` to see what's missing, then re-run the failed command.
+
+**If git issues:** Check `git status` and `git log -1`, then re-run `/q-commit`.
 
 ---
 
 ## Summary
 
-The Q-Command System provides:
+**For new users:** Start with `/q-begin`, `/q-checkpoint`, `/q-end`. That's 90% of what you need.
 
-✅ **Structure** - Clear workflows for sessions
-✅ **Memory** - Automatic documentation and context
-✅ **Protection** - Multiple layers against data loss
-✅ **Verification** - Explicit success/failure reporting
-✅ **Multi-user** - Team support without conflicts
-✅ **Git integration** - Automatic commits, user-controlled push
-✅ **Observability** - Real-time status and recommendations
-✅ **Customization** - Adapt to any workflow or domain
+**For power users:** The system provides context protection, automatic documentation, multi-user support, git integration, and full customization.
 
-**Result:** Claude Code transforms from a helpful assistant into a **reliable, structured, accountable co-pilot** for software development.
+**Result:** Claude Code transforms from a helpful assistant into a reliable, structured, accountable co-pilot.
 
 ---
 
-**Next:** See [ARCHITECTURE.md](ARCHITECTURE.md) for how the system works internally, or [COMMANDS-REFERENCE.md](COMMANDS-REFERENCE.md) for complete command documentation.
+**Questions?** Open an issue at [github.com/contactTAM/q-command-system](https://github.com/contactTAM/q-command-system)

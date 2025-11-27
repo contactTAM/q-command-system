@@ -99,7 +99,7 @@ Type `/q-` and press Tab to see all 15 commands:
 | `/q-reconfigure-domain` | Update configuration |
 | `/q-upgrade` | Upgrade to latest version |
 
-Full reference: [docs/commands-reference.md](docs/commands-reference.md)
+Full reference: [docs/features.md](docs/features.md)
 
 ---
 
@@ -108,10 +108,9 @@ Full reference: [docs/commands-reference.md](docs/commands-reference.md)
 | Doc | Description |
 |-----|-------------|
 | [getting-started.md](getting-started.md) | Installation and setup |
-| [docs/commands-reference.md](docs/commands-reference.md) | All commands |
+| [docs/features.md](docs/features.md) | All commands and features |
 | [docs/workflow.md](docs/workflow.md) | Daily workflow |
 | [docs/context-management.md](docs/context-management.md) | Managing the 200K token limit |
-| [docs/features.md](docs/features.md) | Feature details |
 | [CHANGELOG.md](CHANGELOG.md) | Version history |
 
 ---
@@ -126,7 +125,7 @@ Full reference: [docs/commands-reference.md](docs/commands-reference.md)
 │   └── CLAUDE.md             <- Template for your CLAUDE.md
 ├── docs/                     <- Documentation
 │   ├── install/              <- Platform installation guides
-│   ├── commands-reference.md
+│   ├── features.md
 │   └── ...
 └── GeneratedMDs/             <- Session files (for this repo)
 ```

@@ -10,9 +10,9 @@ Claude Code has a ~200,000 token context limit. This guide explains how to monit
 |---------|--------------|
 | `/context` | Show current context usage (visual) |
 | `/usage` | Show plan usage and rate limits |
-| `Q-STATUS` | Show session state including context health |
-| `Q-CHECKPOINT` | Save progress to file (insurance) |
-| `Q-COMPACT` | Save checkpoint, then compact (recommended) |
+| `/q-status` | Show session state including context health |
+| `/q-checkpoint` | Save progress to file (insurance) |
+| `/q-compact` | Save checkpoint, then compact (recommended) |
 | `/compact` | Compact context directly (loses detail) |
 
 ---
@@ -21,7 +21,7 @@ Claude Code has a ~200,000 token context limit. This guide explains how to monit
 
 ### The Simple Rule
 
-**Every 60-90 minutes, run `Q-CHECKPOINT`.**
+**Every 60-90 minutes, run `/q-checkpoint`.**
 
 This saves your work to a file. If anything goes wrong with context, your progress is safe.
 
@@ -35,19 +35,19 @@ Your context is getting full when:
 ### What to Do
 
 1. Run `/context` to check usage
-2. If above 70%, run `Q-COMPACT`
+2. If above 70%, run `/q-compact`
 3. Continue working with fresh context
 
 ### The Safe Workflow
 
 ```text
-Q-BEGIN                    ← Start session
+/q-begin                    ← Start session
 [Work for 60-90 minutes]
-Q-CHECKPOINT               ← Save progress
+/q-checkpoint               ← Save progress
 [Work more]
-Q-COMPACT                  ← If context is high
+/q-compact                  ← If context is high
 [Continue working]
-Q-END                      ← End session
+/q-end                      ← End session
 ```
 
 ---
@@ -74,13 +74,13 @@ When auto-compact happens:
 
 If you didn't checkpoint, work details may be gone.
 
-### Manual Control with Q-COMPACT
+### Manual Control with /q-compact
 
-`Q-COMPACT` gives you control:
+`/q-compact` gives you control:
 
 1. **Saves checkpoint first** — detailed progress preserved in file
 2. **Then compacts** — frees context space
-3. **Q-END merges later** — checkpoint + remaining work = complete docs
+3. **/q-end merges later** — checkpoint + remaining work = complete docs
 
 This is safer than `/compact` alone because your details are preserved.
 
@@ -90,7 +90,7 @@ This is safer than `/compact` alone because your details are preserved.
 
 **`/usage`** — Plan limits and rate status
 
-**`Q-STATUS`** — Session state with context health warnings
+**`/q-status`** — Session state with context health warnings
 
 ### Configuring Context Display
 
@@ -148,10 +148,10 @@ Metrics available:
 
 ### Do
 
-- Run `Q-CHECKPOINT` every 60-90 minutes
+- Run `/q-checkpoint` every 60-90 minutes
 - Check `/context` before major tasks
-- Use `Q-COMPACT` when above 70%
-- Let `Q-END` merge checkpoints automatically
+- Use `/q-compact` when above 70%
+- Let `/q-end` merge checkpoints automatically
 
 ### Don't
 
@@ -166,24 +166,23 @@ Metrics available:
 
 **"Claude is forgetting what we did earlier"**
 
-Context may have auto-compacted. Run `Q-CHECKPOINT` now to save current state, then continue. Your earlier work is in the conversation summary.
+Context may have auto-compacted. Run `/q-checkpoint` now to save current state, then continue. Your earlier work is in the conversation summary.
 
 **"Auto-compact happened and I lost details"**
 
-Check `GeneratedMDs/checkpoints/` for any checkpoint files from this session. Q-END will merge them with the summary.
+Check `GeneratedMDs/checkpoints/` for any checkpoint files from this session. /q-end will merge them with the summary.
 
 **"How do I know when to compact?"**
 
-Run `/context` regularly. Above 70% = time to `Q-COMPACT`.
+Run `/context` regularly. Above 70% = time to `/q-compact`.
 
 **"I forgot to checkpoint before auto-compact"**
 
-The conversation summary still has key information. Claude will do its best with Q-END. For future sessions, checkpoint every 60-90 minutes.
+The conversation summary still has key information. Claude will do its best with /q-end. For future sessions, checkpoint every 60-90 minutes.
 
 ---
 
 ## Related
 
 - [workflow.md](workflow.md) — Daily workflow including checkpoints
-- [commands-reference.md](commands-reference.md) — All Q-commands
-- [features.md](features.md) — Context protection features
+- [features.md](features.md) — All commands and features

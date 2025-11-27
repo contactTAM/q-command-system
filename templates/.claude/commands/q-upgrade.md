@@ -4,116 +4,117 @@ description: Upgrade to latest Q-Command System version
 
 # Upgrade Q-Command System
 
-**Purpose:** Check current version and guide upgrade to latest Q-Command System.
+**Purpose:** Check current version and upgrade to the latest Q-Command System.
 
 ## Process
 
-### Step 1: Read Current Version
+### Step 1: Check Current Version
 
-1. Read `GeneratedMDs/SHORTCUTS.md`
-2. Find version line: `**Version:** X.X.X`
+1. Count files in `.claude/commands/` that start with `q-`
+2. Check if key files exist (q-begin.md, q-end.md, etc.)
 3. Report to user:
 
 ```text
-Current Q-Command System version: [version]
-Installed at: GeneratedMDs/SHORTCUTS.md
+Current Q-Command System installation:
+- Location: .claude/commands/
+- Command files found: [N]
+- Key commands: [present/missing]
 ```
 
-### Step 2: Ask for Latest Version
+### Step 2: Fetch Latest Version Info
 
-```text
-To check for upgrades, I need the latest version.
-
-Option A: Tell me the latest version number (if you know it)
-Option B: Paste the header of the new SHORTCUTS.md (first 10 lines)
-Option C: Provide path to downloaded SHORTCUTS.md file
-
-Which would you like to do?
+Fetch the README from the Q-Command System repo:
+```
+https://raw.githubusercontent.com/contactTAM/q-command-system/main/README.md
 ```
 
-### Step 3: Compare Versions
+Look for version information and command count.
 
-- If current >= latest: "You're up to date!" → Stop
-- If current < latest: Continue to Step 4
-
-### Step 4: Check for Custom Commands
-
-1. Read current SHORTCUTS.md
-2. Identify standard commands (Q-BEGIN, Q-END, etc.)
-3. Find any additional `## Q-` sections (custom commands)
+### Step 3: Compare and Report
 
 ```text
 === Upgrade Analysis ===
 
-Current version: [X.X]
-Latest version: [Y.Y]
+Your installation: [N] command files
+Latest version: [N] command files
 
-Custom commands found: [N]
-[List or "None"]
+Status: [Up to date / Upgrade available]
 ```
 
-### Step 5: Offer Upgrade Options
+### Step 4: If Upgrade Available
 
+Ask user:
 ```text
-How would you like to proceed?
+Would you like to upgrade?
 
-Option 1: Full replacement (if no custom commands)
-   - Replace SHORTCUTS.md entirely
-   - Fast and clean
+This will:
+- Fetch latest command files from GitHub
+- Replace your .claude/commands/q-*.md files
+- Preserve any custom (non q-*) commands you've added
 
-Option 2: Guided merge (if you have custom commands)
-   - Update standard commands
-   - Preserve your custom commands
-
-Option 3: Manual upgrade
-   - I'll show what changed
-   - You make the edits
+Proceed? [yes/no]
 ```
 
-### Step 6: Execute Upgrade
+### Step 5: Execute Upgrade
 
-**Full replacement:**
-1. Back up current: `GeneratedMDs/SHORTCUTS-backup-YYYY-MM-DD.md`
-2. Replace with new content
-3. Verify
+If user confirms:
 
-**Guided merge:**
-1. Back up current
-2. Start with new version
-3. Append user's custom commands
-4. Verify
+1. **Backup existing** (optional):
+   ```bash
+   cp -r .claude/commands .claude/commands-backup-YYYY-MM-DD
+   ```
 
-**Manual:**
-1. Show what's new
-2. Explain each change
-3. Guide user through edits
+2. **Fetch and install each command file** from:
+   ```
+   https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/
+   ```
 
-### Step 7: Report
+   Files to fetch:
+   - q-begin.md
+   - q-end.md
+   - q-checkpoint.md
+   - q-status.md
+   - q-save.md
+   - q-verify.md
+   - q-commit.md
+   - q-compact.md
+   - q-dump.md
+   - q-learnings.md
+   - q-pare.md
+   - q-prompts.md
+   - q-setup-domain.md
+   - q-reconfigure-domain.md
+   - q-upgrade.md
+
+3. **Verify** all files were written correctly
+
+### Step 6: Report Success
 
 ```text
 === Upgrade Complete ===
 
-Previous: [X.X] (backed up)
-New: [Y.Y]
+Updated: .claude/commands/ (15 files)
+Backup: .claude/commands-backup-YYYY-MM-DD/ (if created)
 
-Custom commands preserved: [list or "N/A"]
+Changes in this version:
+[List key changes from CHANGELOG if available]
 
-Next: Run /q-begin to verify everything works.
+Run /q-begin to verify everything works.
 ```
 
 ## Error Handling
 
-- If backup fails: Stop and report
-- If write fails: Restore from backup
-- Never lose custom commands without permission
+- If fetch fails: Report which file failed, continue with others
+- If write fails: Report error, suggest manual installation
+- Never delete user's custom commands (non q-* files)
 
 ## When to Use
 
-- New version of Q-Command System released
-- Want to check if you're up to date
-- Have custom commands and need safe upgrade
+- Periodically check for updates
+- After seeing announcement of new version
+- If commands seem outdated or missing features
 
 ## See Also
 
-- [CHANGELOG.md](../CHANGELOG.md) - What changed in each version
-- `/q-setup-domain` - Initial setup
+- [CHANGELOG.md](https://github.com/contactTAM/q-command-system/blob/main/CHANGELOG.md) - Version history
+- `/q-setup-domain` - Initial domain configuration

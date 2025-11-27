@@ -62,16 +62,14 @@ Type `/q-` and press Tab to see all commands.
 | `/q-status` | Check session state |
 | `/context` | Check context usage (built-in) |
 
-Full command list: [docs/commands-reference.md](docs/commands-reference.md)
+Full command list: [docs/features.md](docs/features.md)
 
 ---
 
 ## Learn More
 
-- [How it works](docs/architecture.md)
 - [All features](docs/features.md)
 - [Daily workflow](docs/workflow.md)
-- [Detailed setup options](docs/setup.md)
 
 ---
 
@@ -104,4 +102,4 @@ Check that `.claude/commands/` folder exists with the q-*.md files inside.
 
 **Need more help?**
 
-See [docs/setup.md](docs/setup.md) for detailed instructions.
+See [docs/features.md](docs/features.md) or open an issue on GitHub.

@@ -7,7 +7,7 @@ How to use Q-Command System in your daily work.
 ## Starting a Session
 
 ```
-Q-BEGIN
+/q-begin
 ```
 
 Claude will:
@@ -22,7 +22,7 @@ Claude will:
 ### Check status anytime
 
 ```
-Q-STATUS
+/q-status
 ```
 
 Shows: session state, context health, files created, recommendations.
@@ -30,7 +30,7 @@ Shows: session state, context health, files created, recommendations.
 ### Save progress mid-session
 
 ```text
-Q-CHECKPOINT
+/q-checkpoint
 ```
 
 Creates a snapshot in `GeneratedMDs/checkpoints/`. Use this every 60-90 minutes for long sessions — protects against context limits.
@@ -46,7 +46,7 @@ Shows visual grid of your context usage. Claude Code has ~200,000 tokens — whe
 ### Free up context safely
 
 ```text
-Q-COMPACT
+/q-compact
 ```
 
 Saves a checkpoint first, then compacts. Use when `/context` shows 70%+ usage. See [context-management.md](context-management.md) for details.
@@ -58,7 +58,7 @@ Saves a checkpoint first, then compacts. Use when `/context` shows 70%+ usage. S
 ### Standard end (recommended)
 
 ```
-Q-END
+/q-end
 ```
 
 Creates:
@@ -69,7 +69,7 @@ Creates:
 ### Quick end (when short on time)
 
 ```
-Q-SAVE
+/q-save
 ```
 
 Lighter version — just transcript and commit, skips detailed notes.
@@ -77,7 +77,7 @@ Lighter version — just transcript and commit, skips detailed notes.
 ### Verify it worked
 
 ```
-Q-VERIFY
+/q-verify
 ```
 
 Confirms files were created successfully.
@@ -100,13 +100,13 @@ You control when to push. Claude never pushes automatically.
 
 | Command | When to use |
 |---------|-------------|
-| `Q-BEGIN` | Start of every session |
-| `Q-STATUS` | Anytime — check progress |
-| `Q-CHECKPOINT` | Every 60-90 min in long sessions |
-| `Q-COMPACT` | When context is 70%+ full |
-| `Q-END` | End of session (standard) |
-| `Q-SAVE` | End of session (quick) |
-| `Q-VERIFY` | After Q-END to confirm success |
+| `/q-begin` | Start of every session |
+| `/q-status` | Anytime — check progress |
+| `/q-checkpoint` | Every 60-90 min in long sessions |
+| `/q-compact` | When context is 70%+ full |
+| `/q-end` | End of session (standard) |
+| `/q-save` | End of session (quick) |
+| `/q-verify` | After /q-end to confirm success |
 | `/context` | Check context usage |
 
 ---
@@ -126,12 +126,12 @@ This prevents conflicts when multiple people work the same day.
 
 ## Tips
 
-1. **Always start with Q-BEGIN** — loads context from previous sessions
-2. **Use Q-CHECKPOINT every 60-90 minutes** — insurance against context limits
+1. **Always start with /q-begin** — loads context from previous sessions
+2. **Use /q-checkpoint every 60-90 minutes** — insurance against context limits
 3. **Check `/context` periodically** — know your context usage
-4. **Use Q-COMPACT when above 70%** — safe way to free space
-5. **End with Q-END, not just closing the window** — saves your work properly
-6. **Run Q-VERIFY if unsure** — confirms everything saved
+4. **Use /q-compact when above 70%** — safe way to free space
+5. **End with /q-end, not just closing the window** — saves your work properly
+6. **Run /q-verify if unsure** — confirms everything saved
 
 ---
 

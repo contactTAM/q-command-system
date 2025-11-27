@@ -75,12 +75,9 @@ Q-command-system/
 │
 ├── docs/
 │   ├── install/              <- Platform installation guides
-│   ├── commands-reference.md
 │   ├── features.md
-│   ├── architecture.md
 │   ├── workflow.md
-│   ├── context-management.md
-│   └── setup.md
+│   └── context-management.md
 │
 └── GeneratedMDs/             <- Session files for THIS repo
     ├── transcripts/
@@ -175,11 +172,9 @@ Type `/q-end` and Claude will automatically:
 
 **Documentation:**
 - `getting-started.md` - Quick start guide
-- `docs/commands-reference.md` - All commands
+- `docs/features.md` - All commands and features
 - `docs/workflow.md` - Daily workflow
 - `docs/context-management.md` - Managing the 200K token limit
-- `docs/features.md` - Feature details
-- `docs/architecture.md` - System internals
 
 **Q-Command System Files:**
 - `.claude/commands/` - Slash command definitions (15 files)
