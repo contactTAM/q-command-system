@@ -98,7 +98,7 @@ You should see your name and email listed.
 
 **Proceed to set up the Q-Command System:**
 
-**[Quick Start Guide](../QUICK-START-GUIDE.md)**
+**[Quick Start Guide](../../getting-started.md)**
 
 ---
 
@@ -124,4 +124,4 @@ If you're stuck, contact your AI Co-Pilot support with:
 
 **Previous:** [Mac Install](mac-install.md) | [Windows Install](windows-install.md)
 
-**Next:** [Quick Start Guide](../QUICK-START-GUIDE.md)
+**Next:** [Quick Start Guide](../../getting-started.md)

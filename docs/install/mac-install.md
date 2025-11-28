@@ -2,7 +2,7 @@
 
 **Install Claude Code and Prerequisites on macOS**
 
-This guide helps you install the tools needed to run your Personal AI Co-Pilot. After completing this guide, proceed to the [Quick Start Guide](../QUICK-START-GUIDE.md) to set up the Q-Command System.
+This guide helps you install the tools needed to run your Personal AI Co-Pilot. After completing this guide, proceed to the [Quick Start Guide](../../getting-started.md) to set up the Q-Command System.
 
 **Time required:** 10-15 minutes
 **Difficulty:** Beginner-friendly
@@ -144,7 +144,7 @@ Before continuing, run the verification checklist:
 
 Once verified, proceed to set up the Q-Command System:
 
-**[Go to: Quick Start Guide](../QUICK-START-GUIDE.md)**
+**[Go to: Quick Start Guide](../../getting-started.md)**
 
 ---
 
@@ -191,4 +191,4 @@ If you run into any issues during setup, contact your AI Co-Pilot support.
 
 ---
 
-**Next:** [Verify Installation](verify-install.md) | [Quick Start Guide](../QUICK-START-GUIDE.md)
+**Next:** [Verify Installation](verify-install.md) | [Quick Start Guide](../../getting-started.md)
