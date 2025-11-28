@@ -36,7 +36,7 @@ Or if you can execute /compact directly, do so with that prompt.
 ```
 /q-compact complete!
 
-Checkpoint saved: GeneratedMDs/checkpoints/[filename]
+Checkpoint saved: .q-system/checkpoints/[filename]
 Context compacted: More space available
 
 Your detailed work is preserved in the checkpoint.

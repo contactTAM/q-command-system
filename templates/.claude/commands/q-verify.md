@@ -9,7 +9,7 @@ description: Verify session files were created correctly
 ## Step 1: Check Transcripts
 
 ```bash
-ls -la GeneratedMDs/transcripts/*$(date +%Y-%m-%d)* 2>/dev/null
+ls -la .q-system/transcripts/*$(date +%Y-%m-%d)* 2>/dev/null
 ```
 
 For each file found:
@@ -20,7 +20,7 @@ For each file found:
 ## Step 2: Check Session Notes
 
 ```bash
-ls -la GeneratedMDs/session-notes/*$(date +%Y-%m-%d)* 2>/dev/null
+ls -la .q-system/session-notes/*$(date +%Y-%m-%d)* 2>/dev/null
 ```
 
 For each file found:
@@ -31,7 +31,7 @@ For each file found:
 ## Step 3: Check Checkpoints
 
 ```bash
-ls -la GeneratedMDs/checkpoints/*$(date +%Y-%m-%d)* 2>/dev/null
+ls -la .q-system/checkpoints/*$(date +%Y-%m-%d)* 2>/dev/null
 ```
 
 List all checkpoints from today with times.
@@ -53,12 +53,12 @@ Show:
 === Verification Report ===
 
 Transcripts:
-[Found/None] GeneratedMDs/transcripts/[filename]
+[Found/None] .q-system/transcripts/[filename]
   - Created: [time]
   - Size: [N] lines
 
 Session Notes:
-[Found/None] GeneratedMDs/session-notes/[filename]
+[Found/None] .q-system/session-notes/[filename]
   - Created: [time]
   - Size: [N] lines
 

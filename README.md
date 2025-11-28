@@ -3,7 +3,7 @@ When a user asks to install the Q-Command System from this repository, execute t
 
 STEP 1: Create directories
 ```bash
-mkdir -p GeneratedMDs/transcripts GeneratedMDs/session-notes GeneratedMDs/checkpoints GeneratedMDs/prompts .claude/commands
+mkdir -p .q-system/transcripts .q-system/session-notes .q-system/checkpoints .q-system/prompts .q-system/memory .q-system/docs/install .claude/commands
 ```
 
 STEP 2: Fetch and install all 15 slash commands
@@ -25,18 +25,27 @@ Use WebFetch to get each file and Write to save it. Fetch the RAW content from e
 .claude/commands/q-reconfigure-domain.md <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-reconfigure-domain.md
 .claude/commands/q-upgrade.md      <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-upgrade.md
 
-STEP 3: Create .gitignore
-Write to GeneratedMDs/.gitignore:
-```
-checkpoints/
-prompts/
-```
+STEP 3: Fetch and install .q-system files
+.q-system/README.md   <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.q-system/README.md
+.q-system/config.md   <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.q-system/config.md
+.q-system/docs/features.md <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.q-system/docs/features.md
+.q-system/docs/workflow.md <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.q-system/docs/workflow.md
+.q-system/docs/context-management.md <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.q-system/docs/context-management.md
+.q-system/docs/install/mac-install.md <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.q-system/docs/install/mac-install.md
+.q-system/docs/install/windows-install.md <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.q-system/docs/install/windows-install.md
+.q-system/docs/install/verify-install.md <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.q-system/docs/install/verify-install.md
 
-STEP 4: Report success
-```
-Q-Command System installed!
+STEP 4: Add .q-system to .gitignore (optional - ask user)
+By default, suggest adding .q-system/ to .gitignore to keep session files local.
+If user wants to track session files, skip this step.
 
-15 slash commands installed in .claude/commands/
+STEP 5: Report success
+```
+Q-Command System v2.0 installed!
+
+15 slash commands in .claude/commands/
+Session files in .q-system/
+Documentation in .q-system/docs/
 
 IMPORTANT: Restart Claude Code to activate the new commands.
 (Close this terminal and run `claude` again)
@@ -125,12 +134,16 @@ Full reference: [docs/features.md](docs/features.md)
 ├── CHANGELOG.md              <- Version history
 ├── templates/
 │   ├── .claude/commands/     <- Slash command definitions (15 files)
+│   ├── .q-system/            <- Q-System folder template
+│   │   ├── docs/             <- Documentation (installed with commands)
+│   │   ├── config.md         <- User preferences
+│   │   └── README.md         <- Folder explanation
 │   └── CLAUDE.md             <- Template for your CLAUDE.md
-├── docs/                     <- Documentation
-│   ├── install/              <- Platform installation guides
+├── docs/                     <- Source documentation
+│   ├── install/
 │   ├── features.md
 │   └── ...
-└── GeneratedMDs/             <- Session files (for this repo)
+└── .q-system/                <- Session files (for this repo)
 ```
 
 ---

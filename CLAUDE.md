@@ -2,7 +2,7 @@
 
 **A Robust Co-Pilot System for Claude Code**
 
-**Version:** 1.1
+**Version:** 2.0
 **Author:** Gabriel Rymberg
 **Repository:** github.com/contactTAM/q-command-system
 **License:** MIT
@@ -31,20 +31,20 @@ The Q-Command System transforms Claude Code from a simple AI assistant into a **
 **This repository contains:**
 - `/docs/` - Comprehensive documentation
 - `/templates/.claude/commands/` - Slash command definitions (15 files)
+- `/templates/.q-system/` - Q-System folder template (docs, config, session folders)
 - `/templates/CLAUDE.md` - Template for your CLAUDE.md
-- Implementation and migration guides
 
 ---
 
 ## Current Status
 
-**Version:** 1.1 (Released 2025-11-27)
+**Version:** 2.0 (Released 2025-11-28)
 
 **Latest Updates:**
-- Native slash commands (`/q-begin`, `/q-end`, etc.) with tab completion
-- One-liner install from GitHub
-- 15 commands total including `/q-pare` and `/q-prompts`
-- Simplified install (no SHORTCUTS.md needed)
+- Self-contained `.q-system/` folder for all Q-System files
+- Session files, docs, and config in one place
+- Native slash commands with tab completion
+- 15 commands total
 
 **Repository State:** Stable, ready for public use
 
@@ -71,18 +71,23 @@ Q-command-system/
 │
 ├── templates/
 │   ├── .claude/commands/     <- Slash command definitions (15 files)
+│   ├── .q-system/            <- Q-System folder template
+│   │   ├── docs/             <- Documentation (copied during install)
+│   │   ├── config.md         <- User preferences template
+│   │   └── README.md         <- Folder explanation
 │   └── CLAUDE.md             <- Template for your CLAUDE.md
 │
-├── docs/
-│   ├── install/              <- Platform installation guides
+├── docs/                     <- Source documentation
+│   ├── install/
 │   ├── features.md
 │   ├── workflow.md
 │   └── context-management.md
 │
-└── GeneratedMDs/             <- Session files for THIS repo
+└── .q-system/                <- Session files for THIS repo
     ├── transcripts/
     ├── session-notes/
-    └── checkpoints/
+    ├── checkpoints/
+    └── config.md
 ```
 
 ---
@@ -130,19 +135,19 @@ Before releasing updates:
 
 ### Session Workflow
 
-**File Organization (Q-Command System v1.1):**
+**File Organization (Q-Command System v2.0):**
 
-All generated session files use per-person-per-session naming to prevent collisions:
+All Q-System files live in the `.q-system/` folder:
 - **Format:** `YYYY-MM-DD-HHmm-[PersonName].md` (example: `2025-11-27-1405-Gabriel.md`)
-- **Transcripts:** `GeneratedMDs/transcripts/`
-- **Session Notes:** `GeneratedMDs/session-notes/`
-- **Checkpoints:** `GeneratedMDs/checkpoints/`
+- **Transcripts:** `.q-system/transcripts/`
+- **Session Notes:** `.q-system/session-notes/`
+- **Checkpoints:** `.q-system/checkpoints/`
 
 **Start of session:**
 
 Type `/q-begin` and Claude will automatically:
 1. Read `CLAUDE.md` for quick context refresh
-2. Review last session notes from `GeneratedMDs/session-notes/`
+2. Review last session notes from `.q-system/session-notes/`
 3. Review current status and pending tasks
 4. Provide brief summary of what was accomplished and current status
 5. Ask: "What would you like to work on today?"
@@ -158,8 +163,8 @@ Type `/q-begin` and Claude will automatically:
 **End of session:**
 
 Type `/q-end` and Claude will automatically:
-1. Create session transcript in `GeneratedMDs/transcripts/`
-2. Create session notes in `GeneratedMDs/session-notes/`
+1. Create session transcript in `.q-system/transcripts/`
+2. Create session notes in `.q-system/session-notes/`
 3. Stage and commit all changes
 4. Verify each step completed successfully
 5. Remind user to `git push` when ready
@@ -178,9 +183,11 @@ Type `/q-end` and Claude will automatically:
 
 **Q-Command System Files:**
 - `.claude/commands/` - Slash command definitions (15 files)
-- `GeneratedMDs/transcripts/` - Session transcripts
-- `GeneratedMDs/session-notes/` - Session summaries
-- `GeneratedMDs/checkpoints/` - Mid-session snapshots
+- `.q-system/` - All Q-System generated files
+  - `transcripts/` - Session transcripts
+  - `session-notes/` - Session summaries
+  - `checkpoints/` - Mid-session snapshots
+  - `config.md` - User preferences
 
 **Available Commands (type /q- and Tab):**
 - `/q-begin` - Start session with context refresh

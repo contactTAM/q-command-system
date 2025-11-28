@@ -12,7 +12,7 @@ Execute these steps in order with verification:
 
 1. Look for message: "This session is being continued from a previous conversation"
 2. If present, read conversation summary - it contains work before auto-compact
-3. Check for checkpoint files from today in `GeneratedMDs/checkpoints/`
+3. Check for checkpoint files from today in `.q-system/checkpoints/`
 4. You MUST document ENTIRE session (summary + checkpoints + current work)
 
 ## Step 2: Generate Timestamp
@@ -30,8 +30,8 @@ Ask user if not known: "What name should I use for the session files? (e.g., Gab
 
 ## Step 4: Create Session Transcript
 
-1. Create directory: `mkdir -p GeneratedMDs/transcripts`
-2. Create file: `GeneratedMDs/transcripts/${TIMESTAMP}-[Name].md`
+1. Create directory: `mkdir -p .q-system/transcripts`
+2. Create file: `.q-system/transcripts/${TIMESTAMP}-[Name].md`
 3. Document complete session:
    - Session date and duration
    - Chronological flow of work
@@ -40,12 +40,12 @@ Ask user if not known: "What name should I use for the session files? (e.g., Gab
    - Key decisions made
 4. **VERIFY:** File exists and has content
 
-Report: "Transcript created: GeneratedMDs/transcripts/[filename]"
+Report: "Transcript created: .q-system/transcripts/[filename]"
 
 ## Step 5: Create Session Notes
 
-1. Create directory: `mkdir -p GeneratedMDs/session-notes`
-2. Create file: `GeneratedMDs/session-notes/${TIMESTAMP}-[Name].md`
+1. Create directory: `mkdir -p .q-system/session-notes`
+2. Create file: `.q-system/session-notes/${TIMESTAMP}-[Name].md`
 3. Include:
    - Summary (2-3 sentences)
    - Key Accomplishments (bullet list)
@@ -54,7 +54,7 @@ Report: "Transcript created: GeneratedMDs/transcripts/[filename]"
    - Next Actions (checklist)
 4. **VERIFY:** File exists and has content
 
-Report: "Session notes created: GeneratedMDs/session-notes/[filename]"
+Report: "Session notes created: .q-system/session-notes/[filename]"
 
 ## Step 6: Commit All Changes
 
@@ -78,8 +78,8 @@ Report: "Committed: [hash] - [message summary]"
 ```
 === Session Complete ===
 
-Transcript: GeneratedMDs/transcripts/[filename]
-Session Notes: GeneratedMDs/session-notes/[filename]
+Transcript: .q-system/transcripts/[filename]
+Session Notes: .q-system/session-notes/[filename]
 Git: Committed ([N] files changed)
 
 Ready to push! Run: git push

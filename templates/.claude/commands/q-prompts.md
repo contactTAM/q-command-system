@@ -15,7 +15,7 @@ TIMESTAMP=$(date +"%Y-%m-%d-%H%M")
 ## Step 2: Create Directory
 
 ```bash
-mkdir -p GeneratedMDs/prompts
+mkdir -p .q-system/prompts
 ```
 
 ## Step 3: Determine Participant Name
@@ -31,7 +31,7 @@ Review the entire conversation and extract:
 
 ## Step 5: Create Prompts File
 
-Create `GeneratedMDs/prompts/${TIMESTAMP}-[Name].md`:
+Create `.q-system/prompts/${TIMESTAMP}-[Name].md`:
 
 ```markdown
 # Session Prompts: [TIMESTAMP]
@@ -69,7 +69,7 @@ Create `GeneratedMDs/prompts/${TIMESTAMP}-[Name].md`:
 ## Step 6: Verify and Report
 
 ```
-Prompts saved: GeneratedMDs/prompts/[filename]
+Prompts saved: .q-system/prompts/[filename]
 
 Total prompts captured: [N]
 Highlighted [M] prompts as particularly useful for reuse.

@@ -12,7 +12,7 @@ Read `CLAUDE.md` for project context and guidelines.
 
 ## Step 2: Find Last Session Notes
 
-1. List files in `GeneratedMDs/session-notes/`
+1. List files in `.q-system/session-notes/`
 2. Find the most recent file (sort by date in filename)
 3. Read that file to understand what was accomplished last session
 
