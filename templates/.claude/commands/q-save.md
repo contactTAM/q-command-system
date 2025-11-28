@@ -14,7 +14,7 @@ TIMESTAMP=$(date +"%Y-%m-%d-%H%M")
 
 ## Step 2: Create Basic Transcript
 
-Create `GeneratedMDs/transcripts/${TIMESTAMP}-[Name].md` with lightweight content:
+Create `.q-system/transcripts/${TIMESTAMP}-[Name].md` with lightweight content:
 
 ```markdown
 # Session: [TIMESTAMP]
@@ -53,7 +53,7 @@ Keep it short - focus on essentials only.
 ```
 Quick Save Complete!
 
-Transcript: GeneratedMDs/transcripts/[filename] (basic)
+Transcript: .q-system/transcripts/[filename] (basic)
 Git: Committed
 
 Note: Skipped detailed session notes.

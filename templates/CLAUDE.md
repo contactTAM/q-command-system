@@ -17,13 +17,14 @@ Copy everything from "## Workflow with Claude Code" onwards and paste it into yo
 
 ### Session Workflow
 
-**File Organization (Q-Command System v1.1):**
+**File Organization (Q-Command System v2.0):**
 
-All generated session files use per-person-per-session naming to prevent collisions:
+All Q-System files live in the `.q-system/` folder:
 - **Format:** `YYYY-MM-DD-HHmm-[PersonName].md` (example: `2025-11-27-0913-Gabriel.md`)
-- **Transcripts:** `GeneratedMDs/transcripts/`
-- **Session Notes:** `GeneratedMDs/session-notes/`
-- **Checkpoints:** `GeneratedMDs/checkpoints/`
+- **Transcripts:** `.q-system/transcripts/`
+- **Session Notes:** `.q-system/session-notes/`
+- **Checkpoints:** `.q-system/checkpoints/`
+- **Documentation:** `.q-system/docs/`
 
 This allows multiple team members to work on the same day without file collisions.
 
@@ -31,7 +32,7 @@ This allows multiple team members to work on the same day without file collision
 
 Type `/q-begin` and Claude will automatically:
 1. Read `CLAUDE.md` for quick context refresh
-2. Review last session notes from `GeneratedMDs/session-notes/`
+2. Review last session notes from `.q-system/session-notes/`
    - Looks for files matching your name
    - Reads most recent session
 3. Review current status from project files
@@ -50,8 +51,8 @@ Type `/q-begin` and Claude will automatically:
 **End of session:**
 
 Type `/q-end` and Claude will automatically:
-1. Create session transcript in `GeneratedMDs/transcripts/`
-2. Create session notes in `GeneratedMDs/session-notes/`
+1. Create session transcript in `.q-system/transcripts/`
+2. Create session notes in `.q-system/session-notes/`
 3. Stage and commit all changes
 4. Verify each step completed successfully
 5. Remind user to `git push` when ready
@@ -66,9 +67,12 @@ Type `/q-end` and Claude will automatically:
 
 **Q-Command System Files:**
 - `.claude/commands/` - Slash command definitions (15 files)
-- `GeneratedMDs/transcripts/` - Session transcripts by person and date
-- `GeneratedMDs/session-notes/` - Session summaries by person and date
-- `GeneratedMDs/checkpoints/` - Mid-session progress snapshots
+- `.q-system/` - All Q-System generated files
+  - `transcripts/` - Session transcripts by person and date
+  - `session-notes/` - Session summaries by person and date
+  - `checkpoints/` - Mid-session progress snapshots
+  - `docs/` - Q-System documentation
+  - `config.md` - Your preferences
 
 **Available Commands (type /q- and Tab):**
 - `/q-begin` - Start session with context refresh

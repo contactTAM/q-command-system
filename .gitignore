@@ -1,3 +1,8 @@
+# Local Q-command installation (source is in templates/)
+# Use leading slash to only match root directory, not templates/.q-system
+/.claude/
+/.q-system/
+
 # macOS system files
 .DS_Store
 .DS_Store?

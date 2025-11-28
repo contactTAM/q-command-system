@@ -26,7 +26,7 @@ TIMESTAMP=$(date +"%Y-%m-%d-%H%M")
 ## Step 4: Create Transcript Directory
 
 ```bash
-mkdir -p GeneratedMDs/transcripts
+mkdir -p .q-system/transcripts
 ```
 
 ## Step 5: Determine Participant Name
@@ -35,7 +35,7 @@ Use known name or ask user.
 
 ## Step 6: Create Transcript File
 
-Create `GeneratedMDs/transcripts/${TIMESTAMP}-[Name].md`:
+Create `.q-system/transcripts/${TIMESTAMP}-[Name].md`:
 
 ```markdown
 # Session Transcript: [TIMESTAMP]
@@ -84,7 +84,7 @@ Create `GeneratedMDs/transcripts/${TIMESTAMP}-[Name].md`:
 **VERIFY:** File exists and has substantial content (>50 lines for real sessions)
 
 ```
-Transcript created: GeneratedMDs/transcripts/[filename]
+Transcript created: .q-system/transcripts/[filename]
   - Duration: [X hours Y minutes]
   - [N] lines documented
 ```

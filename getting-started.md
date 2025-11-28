@@ -27,7 +27,7 @@ Install Q-Command System from https://github.com/contactTAM/q-command-system
 
 Claude will fetch and install everything automatically:
 - 15 slash commands in `.claude/commands/`
-- Session file directories in `GeneratedMDs/`
+- Q-System folder in `.q-system/` (session files, docs, config)
 
 **After installation, restart Claude Code** (exit and run `claude` again) to activate the commands.
 
@@ -81,11 +81,12 @@ If you need to install offline or prefer manual setup:
 
 ```bash
 # 1. Create directories
-mkdir -p GeneratedMDs/transcripts GeneratedMDs/session-notes GeneratedMDs/checkpoints
+mkdir -p .q-system/transcripts .q-system/session-notes .q-system/checkpoints .q-system/prompts .q-system/memory
 mkdir -p .claude/commands
 
-# 2. Copy slash commands from downloaded Q-command-system repo
+# 2. Copy from downloaded Q-command-system repo
 cp -r /path/to/Q-command-system/templates/.claude/commands/* .claude/commands/
+cp -r /path/to/Q-command-system/templates/.q-system/* .q-system/
 ```
 
 Then open Claude Code and type `/q-begin` to verify it works.

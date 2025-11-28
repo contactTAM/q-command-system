@@ -16,7 +16,7 @@ echo "Checkpoint time: $CHECKPOINT_TIME"
 ## Step 2: Create Checkpoint Directory
 
 ```bash
-mkdir -p GeneratedMDs/checkpoints
+mkdir -p .q-system/checkpoints
 ```
 
 ## Step 3: Determine Participant Name
@@ -25,7 +25,7 @@ Use the same name as other session files, or ask user if unknown.
 
 ## Step 4: Create Checkpoint File
 
-Create `GeneratedMDs/checkpoints/${CHECKPOINT_TIME}-[Name].md` with:
+Create `.q-system/checkpoints/${CHECKPOINT_TIME}-[Name].md` with:
 
 ```markdown
 # Checkpoint: [CHECKPOINT_TIME]
@@ -57,13 +57,13 @@ Create `GeneratedMDs/checkpoints/${CHECKPOINT_TIME}-[Name].md` with:
 
 ## Step 5: Verify and Report
 
-**VERIFY:** File exists in `GeneratedMDs/checkpoints/`
+**VERIFY:** File exists in `.q-system/checkpoints/`
 
 Report:
 ```
 Checkpoint saved at [HH:MM]
 
-Location: GeneratedMDs/checkpoints/[filename]
+Location: .q-system/checkpoints/[filename]
 Progress preserved (insurance against auto-compact)
 
 Continue working - /q-end will merge checkpoint + final work.

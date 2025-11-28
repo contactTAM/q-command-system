@@ -8,7 +8,7 @@ description: Show session state and recommendations
 
 ## Step 1: Gather Information
 
-1. Check for checkpoint files from today: `ls GeneratedMDs/checkpoints/*$(date +%Y-%m-%d)* 2>/dev/null`
+1. Check for checkpoint files from today: `ls .q-system/checkpoints/*$(date +%Y-%m-%d)* 2>/dev/null`
 2. Check git status: `git status --short`
 3. Count uncommitted files
 4. Estimate session duration (if start time known)
@@ -29,7 +29,7 @@ Progress:
 
 Checkpoints:
 - Last checkpoint: [time] ([X] minutes ago)
-- Location: GeneratedMDs/checkpoints/[filename]
+- Location: .q-system/checkpoints/[filename]
 [or "None yet"]
 
 Git Status:

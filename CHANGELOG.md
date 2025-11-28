@@ -4,6 +4,53 @@ All notable changes to the Q-Command System.
 
 ---
 
+## [2.0.0] - 2025-11-28
+
+**Self-contained `.q-system/` folder.**
+
+### Breaking Changes
+
+- **Session files moved** — All session files now live in `.q-system/` instead of `GeneratedMDs/`
+  - `.q-system/transcripts/` (was `GeneratedMDs/transcripts/`)
+  - `.q-system/session-notes/` (was `GeneratedMDs/session-notes/`)
+  - `.q-system/checkpoints/` (was `GeneratedMDs/checkpoints/`)
+  - `.q-system/prompts/` (was `GeneratedMDs/prompts/`)
+
+### Migration Guide
+
+If you have an existing installation with `GeneratedMDs/`:
+
+1. Rename folder: `mv GeneratedMDs .q-system`
+2. Update your `.gitignore` if needed (replace `GeneratedMDs/` with `.q-system/`)
+3. Copy new templates: Re-run install or manually update `.claude/commands/` files
+
+Your existing session files will continue to work in the new location.
+
+### Added
+
+- **`.q-system/` folder** — All Q-System files in one self-contained location
+- **`.q-system/config.md`** — User preferences (name, git tracking, etc.)
+- **`.q-system/README.md`** — Folder documentation
+- **`.q-system/docs/`** — Q-System documentation installed with commands
+- **`.q-system/memory/`** — Future: tiered memory system
+
+### Changed
+
+- All 15 slash commands updated to use `.q-system/` paths
+- Install creates `.q-system/` with full structure and docs
+- Documentation references updated throughout
+- Version number updated to 2.0 in CLAUDE.md and features.md
+
+### Rationale
+
+The `.q-system/` folder provides:
+- **Self-containment** — Everything Q-System needs in one place
+- **Clean repos** — Doesn't pollute project structure with multiple folders
+- **Portability** — Easy to understand what's Q-System vs project files
+- **Future-ready** — Room for config, memory, and other features
+
+---
+
 ## [1.1.0] - 2025-11-27
 
 **Native slash commands and simplified install.**

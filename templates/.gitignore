@@ -1,49 +1,33 @@
-# Q-Command System .gitignore
-# Place this file in your GeneratedMDs/ directory
+# Q-Command System .gitignore Template
+# Add these lines to your project's .gitignore
 
-# Ignore generated session files (optional - see note below)
-transcripts/*.md
-session-notes/*.md
-checkpoints/*.md
+# Option 1: Ignore entire .q-system folder (recommended for most projects)
+# Keeps session files local only
+.q-system/
 
-# Keep system files (don't ignore these)
-!SHORTCUTS.md
-!MIGRATION-GUIDE-v2.md
-!README.md
-
-# Optional: Keep DS_Store out
-.DS_Store
+# Option 2: Track some .q-system content
+# If you want to track configuration but not session files, use these instead:
+# .q-system/transcripts/
+# .q-system/session-notes/
+# .q-system/checkpoints/
+# .q-system/prompts/
+# .q-system/memory/
 
 # ---
-# CONFIGURATION OPTION
+# CONFIGURATION OPTIONS
 # ---
 #
-# You have two choices for session files:
-#
-# OPTION 1: Exclude from git (current configuration)
+# OPTION 1: Exclude .q-system from git (recommended)
 #   - Keeps git history clean and lightweight
 #   - Session files only on your local machine
 #   - Good for personal projects or when using external backup
-#   - To use: Keep this .gitignore as-is
+#   - Use: Add ".q-system/" to your .gitignore
 #
 # OPTION 2: Include in git (full audit trail)
 #   - Complete work history in git
 #   - Team can review each other's sessions
 #   - Good for client work, compliance, or team transparency
-#   - To use: Comment out or remove the ignore rules above
+#   - Use: Don't add .q-system to .gitignore
 #
 # Choose based on your project needs.
-#
-# ---
-
-# Temporary files
-*.tmp
-*.swp
-*~
-
-# Editor files
-.vscode/
-.idea/
-
-# OS files
-Thumbs.db
+# You can also configure this in .q-system/config.md
