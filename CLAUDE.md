@@ -2,7 +2,7 @@
 
 **A Robust Co-Pilot System for Claude Code**
 
-**Version:** 2.0
+**Version:** 2.1
 **Author:** Gabriel Rymberg
 **Repository:** github.com/contactTAM/q-command-system
 **License:** MIT
@@ -38,13 +38,13 @@ The Q-Command System transforms Claude Code from a simple AI assistant into a **
 
 ## Current Status
 
-**Version:** 2.0 (Released 2025-11-28)
+**Version:** 2.1 (Released 2025-11-30)
 
 **Latest Updates:**
-- Self-contained `.q-system/` folder for all Q-System files
-- Session files, docs, and config in one place
-- Native slash commands with tab completion
-- 15 commands total
+- Consolidated `/q-setup` command (replaces `/q-setup-domain` and `/q-reconfigure-domain`)
+- Auto-detects new vs existing projects
+- Quick mode (2-3 min) and Detailed mode (10-15 min)
+- 14 commands total
 
 **Repository State:** Stable, ready for public use
 
@@ -202,8 +202,7 @@ Type `/q-end` and Claude will automatically:
 - `/q-learnings` - Summarize session insights
 - `/q-pare` - Optimize CLAUDE.md size
 - `/q-prompts` - Save session prompts
-- `/q-setup-domain` - Configure for project type
-- `/q-reconfigure-domain` - Update configuration
+- `/q-setup` - Configure Q-Command System
 - `/q-upgrade` - Upgrade Q-Command System
 
 ---

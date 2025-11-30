@@ -1,33 +1,31 @@
 # Q-Command System .gitignore Template
-# Add these lines to your project's .gitignore
+# Copy this file to your project's .gitignore (or merge with existing)
 
-# Option 1: Ignore entire .q-system folder (recommended for most projects)
-# Keeps session files local only
-.q-system/
+# Ignore .q-system session files (recommended)
+# Keeps session files local, but tracks config and version
+.q-system/transcripts/
+.q-system/session-notes/
+.q-system/checkpoints/
+.q-system/prompts/
+.q-system/memory/
 
-# Option 2: Track some .q-system content
-# If you want to track configuration but not session files, use these instead:
-# .q-system/transcripts/
-# .q-system/session-notes/
-# .q-system/checkpoints/
-# .q-system/prompts/
-# .q-system/memory/
+# Keep these tracked:
+# - .q-system/version (for upgrades)
+# - .q-system/config.md (your preferences)
+# - .q-system/README.md (folder documentation)
+# - .q-system/docs/ (Q-System documentation)
 
 # ---
-# CONFIGURATION OPTIONS
+# ALTERNATIVE: Ignore entire .q-system folder
 # ---
+# If you want to keep ALL session files local (not in git), use this instead:
+# .q-system/
 #
-# OPTION 1: Exclude .q-system from git (recommended)
-#   - Keeps git history clean and lightweight
-#   - Session files only on your local machine
-#   - Good for personal projects or when using external backup
-#   - Use: Add ".q-system/" to your .gitignore
-#
-# OPTION 2: Include in git (full audit trail)
-#   - Complete work history in git
-#   - Team can review each other's sessions
-#   - Good for client work, compliance, or team transparency
-#   - Use: Don't add .q-system to .gitignore
-#
-# Choose based on your project needs.
-# You can also configure this in .q-system/config.md
+# This keeps git history clean but means session files only exist locally.
+# Good for personal projects or when using external backup.
+
+# ---
+# ALTERNATIVE: Track everything
+# ---
+# If you want complete work history in git (for compliance, client work,
+# or team transparency), don't add any .q-system entries to .gitignore.

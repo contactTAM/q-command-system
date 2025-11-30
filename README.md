@@ -6,7 +6,7 @@ STEP 1: Create directories
 mkdir -p .q-system/transcripts .q-system/session-notes .q-system/checkpoints .q-system/prompts .q-system/memory .q-system/docs/install .claude/commands
 ```
 
-STEP 2: Fetch and install all 15 slash commands
+STEP 2: Fetch and install all 14 slash commands
 Use WebFetch to get each file and Write to save it. Fetch the RAW content from each URL:
 
 .claude/commands/q-begin.md        <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-begin.md
@@ -21,11 +21,11 @@ Use WebFetch to get each file and Write to save it. Fetch the RAW content from e
 .claude/commands/q-learnings.md    <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-learnings.md
 .claude/commands/q-pare.md         <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-pare.md
 .claude/commands/q-prompts.md      <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-prompts.md
-.claude/commands/q-setup-domain.md <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-setup-domain.md
-.claude/commands/q-reconfigure-domain.md <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-reconfigure-domain.md
+.claude/commands/q-setup.md        <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-setup.md
 .claude/commands/q-upgrade.md      <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/q-upgrade.md
 
 STEP 3: Fetch and install .q-system files
+.q-system/version     <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.q-system/version
 .q-system/README.md   <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.q-system/README.md
 .q-system/config.md   <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.q-system/config.md
 .q-system/docs/features.md <- https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.q-system/docs/features.md
@@ -41,9 +41,9 @@ If user wants to track session files, skip this step.
 
 STEP 5: Report success
 ```
-Q-Command System v2.0 installed!
+Q-Command System v2.1 installed!
 
-15 slash commands in .claude/commands/
+14 slash commands in .claude/commands/
 Session files in .q-system/
 Documentation in .q-system/docs/
 
@@ -91,7 +91,7 @@ After restart, type `/q-begin` to start your first session.
 
 ## Commands
 
-Type `/q-` and press Tab to see all 15 commands:
+Type `/q-` and press Tab to see all 14 commands:
 
 | Command | Purpose |
 |---------|---------|
@@ -107,8 +107,7 @@ Type `/q-` and press Tab to see all 15 commands:
 | `/q-learnings` | Summarize session insights |
 | `/q-pare` | Optimize CLAUDE.md size |
 | `/q-prompts` | Save session prompts |
-| `/q-setup-domain` | Configure for your project type |
-| `/q-reconfigure-domain` | Update configuration |
+| `/q-setup` | Configure Q-Command System |
 | `/q-upgrade` | Upgrade to latest version |
 
 Full reference: [docs/features.md](docs/features.md)
@@ -133,7 +132,7 @@ Full reference: [docs/features.md](docs/features.md)
 ├── getting-started.md        <- Start here
 ├── CHANGELOG.md              <- Version history
 ├── templates/
-│   ├── .claude/commands/     <- Slash command definitions (15 files)
+│   ├── .claude/commands/     <- Slash command definitions (14 files)
 │   ├── .q-system/            <- Q-System folder template
 │   │   ├── docs/             <- Documentation (installed with commands)
 │   │   ├── config.md         <- User preferences

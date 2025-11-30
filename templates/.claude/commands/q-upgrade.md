@@ -4,117 +4,223 @@ description: Upgrade to latest Q-Command System version
 
 # Upgrade Q-Command System
 
-**Purpose:** Check current version and upgrade to the latest Q-Command System.
+**Purpose:** Check current version, compare with latest, and upgrade with changelog-driven guidance.
 
-## Process
+## Step 1: Check Current Version
 
-### Step 1: Check Current Version
+Read the local version file:
 
-1. Count files in `.claude/commands/` that start with `q-`
-2. Check if key files exist (q-begin.md, q-end.md, etc.)
-3. Report to user:
-
-```text
-Current Q-Command System installation:
-- Location: .claude/commands/
-- Command files found: [N]
-- Key commands: [present/missing]
+```bash
+cat .q-system/version 2>/dev/null || echo "unknown"
 ```
 
-### Step 2: Fetch Latest Version Info
+**If version file missing:** Assume pre-2.1 installation (version file added in 2.1)
 
-Fetch the README from the Q-Command System repo:
+## Step 2: Fetch Latest Version
+
+Fetch the latest version from GitHub:
+
 ```
-https://raw.githubusercontent.com/contactTAM/q-command-system/main/README.md
+https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.q-system/version
 ```
 
-Look for version information and command count.
+## Step 3: Compare Versions
 
-### Step 3: Compare and Report
+Display comparison:
 
-```text
-=== Upgrade Analysis ===
+```
+=== Q-Command System Version Check ===
 
-Your installation: [N] command files
-Latest version: [N] command files
+Your version:   [local version or "unknown (pre-2.1)"]
+Latest version: [fetched version]
 
 Status: [Up to date / Upgrade available]
 ```
 
-### Step 4: If Upgrade Available
+**If up to date:** Report success and exit.
 
-Ask user:
-```text
-Would you like to upgrade?
+**If upgrade available:** Continue to Step 4.
 
-This will:
-- Fetch latest command files from GitHub
-- Replace your .claude/commands/q-*.md files
-- Preserve any custom (non q-*) commands you've added
+## Step 4: Fetch and Show Changelog
 
-Proceed? [yes/no]
+Fetch the CHANGELOG from GitHub:
+
+```
+https://raw.githubusercontent.com/contactTAM/q-command-system/main/CHANGELOG.md
 ```
 
-### Step 5: Execute Upgrade
+Parse and show relevant changes between current version and latest:
+
+```
+=== Changes Since Your Version ===
+
+## [2.1.0] - 2025-11-30
+- [Summary of changes]
+- [New features]
+- [Breaking changes if any]
+
+[Additional versions if multiple upgrades needed]
+```
+
+## Step 5: Show Upgrade Plan
+
+Based on changelog, show what will be updated:
+
+```
+=== Upgrade Plan ===
+
+Files to update:
+- .claude/commands/*.md (14 command files)
+- .q-system/version
+- .q-system/docs/* (documentation)
+
+Files preserved (never touched):
+- .q-system/session-notes/*
+- .q-system/transcripts/*
+- .q-system/checkpoints/*
+- .q-system/config.md (your preferences)
+- CLAUDE.md (your customizations)
+
+Backup will be created at:
+- .claude/commands-backup-YYYY-MM-DD/
+```
+
+## Step 6: Get Permission
+
+Ask explicit permission:
+
+```
+Proceed with upgrade?
+
+This will:
+1. Backup your current commands to .claude/commands-backup-YYYY-MM-DD/
+2. Fetch latest command files from GitHub
+3. Update .q-system/version
+4. Update documentation in .q-system/docs/
+
+Your session files and customizations will NOT be touched.
+
+Type 'yes' to proceed, 'no' to cancel:
+```
+
+## Step 7: Execute Upgrade
 
 If user confirms:
 
-1. **Backup existing** (optional):
-   ```bash
-   cp -r .claude/commands .claude/commands-backup-YYYY-MM-DD
-   ```
+### 7a. Create Backup
 
-2. **Fetch and install each command file** from:
-   ```
-   https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/
-   ```
+```bash
+cp -r .claude/commands .claude/commands-backup-$(date +%Y-%m-%d)
+```
 
-   Files to fetch:
-   - q-begin.md
-   - q-end.md
-   - q-checkpoint.md
-   - q-status.md
-   - q-save.md
-   - q-verify.md
-   - q-commit.md
-   - q-compact.md
-   - q-dump.md
-   - q-learnings.md
-   - q-pare.md
-   - q-prompts.md
-   - q-setup-domain.md
-   - q-reconfigure-domain.md
-   - q-upgrade.md
+### 7b. Fetch All Command Files
 
-3. **Verify** all files were written correctly
+Fetch each file from:
+```
+https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/
+```
 
-### Step 6: Report Success
+Files to fetch:
+- q-begin.md
+- q-end.md
+- q-checkpoint.md
+- q-status.md
+- q-save.md
+- q-verify.md
+- q-commit.md
+- q-compact.md
+- q-dump.md
+- q-learnings.md
+- q-pare.md
+- q-prompts.md
+- q-setup.md
+- q-upgrade.md
 
-```text
+### 7c. Update Version File
+
+Fetch and write:
+```
+https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.q-system/version
+```
+
+### 7d. Update Documentation (Optional)
+
+Ask if user wants to update docs:
+
+```
+Update documentation in .q-system/docs/?
+(Your existing docs may have local notes - this will replace them)
+
+[yes/no]:
+```
+
+If yes, fetch:
+- .q-system/docs/features.md
+- .q-system/docs/workflow.md
+- .q-system/docs/context-management.md
+- .q-system/docs/install/*.md
+
+### 7e. Verify
+
+Confirm all files were written successfully.
+
+## Step 8: Report Success
+
+```
 === Upgrade Complete ===
 
-Updated: .claude/commands/ (15 files)
-Backup: .claude/commands-backup-YYYY-MM-DD/ (if created)
+Previous version: [old]
+New version: [new]
 
-Changes in this version:
-[List key changes from CHANGELOG if available]
+Updated:
+- .claude/commands/ (14 files)
+- .q-system/version
+- .q-system/docs/ (if selected)
 
-Run /q-begin to verify everything works.
+Backup created:
+- .claude/commands-backup-YYYY-MM-DD/
+
+Preserved (untouched):
+- .q-system/session-notes/
+- .q-system/transcripts/
+- .q-system/checkpoints/
+- .q-system/config.md
+- CLAUDE.md
+
+Key changes in this version:
+[Summary from changelog]
+
+IMPORTANT: Restart Claude Code to load the new commands.
+(Close terminal and run 'claude' again)
+
+Run /q-begin to verify everything works!
 ```
 
 ## Error Handling
 
-- If fetch fails: Report which file failed, continue with others
-- If write fails: Report error, suggest manual installation
-- Never delete user's custom commands (non q-* files)
+- **If fetch fails:** Report which file failed, offer to retry or skip
+- **If write fails:** Report error, suggest checking permissions
+- **If backup fails:** Abort upgrade, don't overwrite without backup
+- **Never delete:** User's custom commands (non q-* files) are preserved
+
+## Rollback
+
+If upgrade causes issues, user can restore:
+
+```bash
+rm -rf .claude/commands
+mv .claude/commands-backup-YYYY-MM-DD .claude/commands
+```
 
 ## When to Use
 
-- Periodically check for updates
+- Check for updates periodically (monthly recommended)
 - After seeing announcement of new version
-- If commands seem outdated or missing features
+- When commands seem outdated or missing features
+- When docs reference features you don't have
 
 ## See Also
 
 - [CHANGELOG.md](https://github.com/contactTAM/q-command-system/blob/main/CHANGELOG.md) - Version history
-- `/q-setup-domain` - Initial domain configuration
+- `/q-setup` - Configure Q-Command System
+- `/q-status` - Check current session state

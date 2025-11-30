@@ -57,7 +57,26 @@ Type `/q-end` and Claude will automatically:
 4. Verify each step completed successfully
 5. Remind user to `git push` when ready
 
-**All commands:** Type `/q-` and press Tab to see all 15 commands.
+**All commands:** Type `/q-` and press Tab to see all 14 commands.
+
+### Context Monitoring Protocol
+
+**IMPORTANT:** Monitor context usage proactively throughout sessions.
+
+**Why this matters:** Q-END generates extensive documentation (800-1000 lines). At high context (>90%), this generation can fail mid-execution, losing all work. Proactive monitoring warns users BEFORE this happens.
+
+**Implementation:** Add context status every ~10 responses, or every response when context >70%:
+
+| Context | Status | Message |
+|---------|--------|---------|
+| 0-70% | Healthy | `Context: ~XX% - Healthy` |
+| 70-85% | Caution | `Context: ~XX% - Consider /q-checkpoint soon` |
+| 85-90% | Warning | `Context: ~XX% - /q-checkpoint recommended NOW` |
+| 90%+ | Critical | `Context: ~XX% - Use /q-save immediately, /q-end may fail` |
+
+**Estimation method:** Track conversation length and message count. ~80% accuracy is sufficient for warnings.
+
+**Key insight for users:** At 90%+ context, /q-save (basic documentation, likely to succeed) is better than /q-end (full documentation, may fail and lose everything).
 
 ---
 
@@ -66,7 +85,7 @@ Type `/q-end` and Claude will automatically:
 [Add your project-specific reference documents here]
 
 **Q-Command System Files:**
-- `.claude/commands/` - Slash command definitions (15 files)
+- `.claude/commands/` - Slash command definitions (14 files)
 - `.q-system/` - All Q-System generated files
   - `transcripts/` - Session transcripts by person and date
   - `session-notes/` - Session summaries by person and date
@@ -87,8 +106,7 @@ Type `/q-end` and Claude will automatically:
 - `/q-learnings` - Summarize session insights
 - `/q-pare` - Optimize CLAUDE.md size
 - `/q-prompts` - Save session prompts
-- `/q-setup-domain` - Configure for project type
-- `/q-reconfigure-domain` - Update configuration
+- `/q-setup` - Configure Q-Command System
 - `/q-upgrade` - Upgrade Q-Command System
 
 ---

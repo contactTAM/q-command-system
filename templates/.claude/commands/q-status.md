@@ -37,16 +37,39 @@ Git Status:
 - Last commit: [message] ([time] ago)
 
 Context Health:
-- Messages in conversation: [estimated]
+- Estimated usage: ~[XX]%
+- Status: [Healthy / Caution / Warning / Critical]
 - Time since checkpoint: [X] minutes
 
 Recommendations:
 [Based on status, show relevant recommendations]
 ```
 
+### Context Health Thresholds
+
+| Usage | Status | Recommendation |
+|-------|--------|----------------|
+| 0-70% | Healthy | Continue normally |
+| 70-85% | Caution | Consider /q-checkpoint soon |
+| 85-90% | Warning | /q-checkpoint NOW |
+| 90%+ | Critical | Use /q-save, /q-end may fail |
+
 ## Step 3: Recommendations Logic
 
-Show relevant recommendations:
+Show relevant recommendations based on context and session state:
+
+**Context-based (highest priority):**
+
+- **If context 90%+:**
+  "CRITICAL: Use /q-save immediately. /q-end may fail at this context level."
+
+- **If context 85-90%:**
+  "WARNING: /q-checkpoint recommended NOW. Consider wrapping up soon."
+
+- **If context 70-85%:**
+  "CAUTION: Consider /q-checkpoint after current task."
+
+**Time-based:**
 
 - **If no checkpoint and session > 60 min:**
   "Consider /q-checkpoint to preserve progress"
@@ -57,8 +80,12 @@ Show relevant recommendations:
 - **If session > 2 hours:**
   "Long session - consider wrapping up with /q-end soon"
 
+**Git-based:**
+
 - **If uncommitted changes:**
   "You have uncommitted changes - remember to commit"
+
+**Session-based:**
 
 - **If continued session:**
   "Remember: Document ALL work including from before auto-compact"

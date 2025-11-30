@@ -4,6 +4,57 @@ All notable changes to the Q-Command System.
 
 ---
 
+## [2.1.0] - 2025-11-30
+
+**Proactive context monitoring, consolidated setup, robust upgrades.**
+
+### Added
+
+- **Proactive context monitoring** — Claude now shows context status periodically during sessions
+  - 0-70%: Healthy (continue normally)
+  - 70-85%: Caution (consider checkpoint)
+  - 85-90%: Warning (checkpoint NOW)
+  - 90%+: Critical (use /q-save, /q-end may fail)
+  - Prevents the worst failure mode: Q-END failing at high context and losing all work
+  - Credit: Brian LeBlanc (PeerLoop project) for the proposal and testing
+
+- **Version file** — `.q-system/version` tracks installed Q-System version
+  - Enables proper version comparison in /q-upgrade
+  - Pre-2.1 installations show as "unknown"
+
+- **Changelog-driven upgrades** — `/q-upgrade` now shows what changed between versions
+  - Fetches and parses CHANGELOG.md
+  - Shows relevant changes since your version
+  - Creates backup before upgrading
+  - Preserves user files (session notes, config, CLAUDE.md)
+
+### Changed
+
+- **`/q-setup` replaces two commands** — `/q-setup-domain` and `/q-reconfigure-domain` consolidated
+  - Auto-detects context (new vs existing project)
+  - New projects: Quick mode (2-3 min) or Detailed mode (10-15 min)
+  - Existing projects: Update, Reset, or Cancel
+  - Command count reduced from 15 to 14
+
+- **`/q-status` enhanced** — Now shows context health with thresholds and recommendations
+
+- **`/q-save` clarified** — Documents the Q-SAVE vs Q-END trade-off at high context
+
+### Removed
+
+- `/q-setup-domain` — Absorbed into `/q-setup`
+- `/q-reconfigure-domain` — Absorbed into `/q-setup`
+
+### Rationale
+
+**Context monitoring:** The most frustrating Q-System failure is Q-END failing at high context, losing hours of work. Proactive monitoring warns users BEFORE this happens, allowing them to checkpoint or use Q-SAVE.
+
+**Setup consolidation:** One command to remember instead of two. System auto-detects your situation.
+
+**Robust upgrades:** Version tracking and changelog display make upgrades transparent and safe.
+
+---
+
 ## [2.0.0] - 2025-11-28
 
 **Self-contained `.q-system/` folder.**
