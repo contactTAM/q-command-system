@@ -1,33 +1,51 @@
 ---
 description: Configure Q-Command System for your project
+version: 2.1.1
 ---
 
 # Setup
 
 **Purpose:** One smart command to set up or reconfigure Q-Command System based on your project's context.
 
-## How It Works
+---
 
-This command auto-detects your situation and adapts accordingly.
+## MANDATORY PRE-FLIGHT CHECKLIST
+
+**STOP. Before proceeding, confirm:**
+
+- [ ] 1. I will detect context BEFORE asking questions
+- [ ] 2. I will create version.yaml with provenance information
+- [ ] 3. I will VERIFY all created files
+- [ ] 4. I will NEVER delete user's existing work
 
 ---
 
 ## Step 1: Detect Context
 
-Check if `.q-system/` folder exists:
+### 1.1 Check for Existing Installation
 
-**If NO `.q-system/` exists → New Setup (go to Step 2)**
+```bash
+ls -la .q-system/ 2>/dev/null || echo "No .q-system folder"
+ls -la .q-system/version.yaml 2>/dev/null || echo "No version.yaml"
+ls -la .q-system/config.md 2>/dev/null || echo "No config.md"
+```
 
-**If `.q-system/` exists → Existing Setup (go to Step 3)**
+- [ ] Checked for .q-system folder
+- [ ] Checked for version.yaml
+- [ ] Checked for config.md
+
+**Decision logic:**
+- **NO .q-system/:** → New Setup (Step 2)
+- **.q-system/ exists with config:** → Existing Setup (Step 3)
 
 ---
 
 ## Step 2: New Setup
 
-Display:
+**Display to user:**
 
 ```
-Q-Command System Setup
+=== Q-Command System Setup ===
 
 I'll configure Q-System for your project. How detailed do you want setup to be?
 
@@ -37,15 +55,17 @@ I'll configure Q-System for your project. How detailed do you want setup to be?
 
 2. Detailed (10-15 minutes)
    - Domain-specific questions, full configuration
-   - Adaptive triggers that grow with your project
-   - Good for serious projects or when you want maximum customization
+   - Good for serious projects needing maximum customization
 
-Which would you prefer?
+Which would you prefer? [1/2]:
 ```
+
+- [ ] Options presented
+- [ ] User choice recorded: ____________________
 
 ### Quick Mode (Option 1)
 
-Ask these 4 essential questions:
+**Ask these 4 essential questions:**
 
 **Q1: What kind of project is this?**
 - Software/Code
@@ -58,7 +78,7 @@ Ask these 4 essential questions:
 - Solo
 - With collaborators (need multi-user file naming)
 
-**Q3: What's your experience with this type of project?**
+**Q3: What's your experience level with this type of project?**
 - Beginner (more guidance helpful)
 - Intermediate (some guidance)
 - Advanced (minimal guidance)
@@ -66,119 +86,271 @@ Ask these 4 essential questions:
 **Q4: Anything special I should know about your project?**
 - [Free text, optional]
 
-Then:
-1. Create `.q-system/` folder structure
-2. Create `.q-system/config.md` with answers
-3. Show what was created
-4. Suggest: "Run `/q-begin` to start your first session"
+- [ ] All 4 questions answered
+- [ ] Answers recorded
+
+**Then execute Quick Setup (Step 2.1)**
 
 ### Detailed Mode (Option 2)
 
-Run the full 7-question adaptive wizard:
+**Run the full 7-question wizard:**
 
 **Q1: Starting Point** - What do you have now?
-- Nothing yet (just an idea)
-- Source materials to adapt
-- Basic documents (vision doc, notes)
-- Partial work already started
-
 **Q2: Project Goal** - What are you creating?
-- Explore concept
-- Pitch package
-- Complete deliverable
-- Ongoing/long-term project
-
-**Q3: Experience Level** - How much guidance do you need?
-- Complete beginner (high guidance)
-- Learning (moderate guidance)
-- Intermediate (standard guidance)
-- Advanced (minimal guidance)
-
+**Q3: Experience Level** - How much guidance?
 **Q4: Collaboration** - Solo or team?
-- Solo
-- Occasional feedback
-- Active collaboration
-- Professional team
-
 **Q5: Visual Needs** - Need visual development?
-- Yes / Maybe later / No / Already have
+**Q6: Source Material Complexity** - How complex are sources?
+**Q7: Repository State** - New or existing files?
 
-**Q6: Source Material Complexity**
-- No sources (original work)
-- Single source
-- Multiple sources
-- Complex research
+- [ ] All 7 questions answered
+- [ ] Answers recorded
 
-**Q7: Repository State**
-- New empty repo
-- Existing files
-- Existing Q-Command setup
+**Then execute Detailed Setup (Step 2.2)**
 
-Then:
-1. Generate configuration profile
-2. Create `.q-system/domain-config.json` with answers and settings
-3. Set up progressive scaffolding triggers
-4. Create infrastructure based on answers
-5. Show summary of what was created
-6. Explain what will be offered later (triggers)
-7. Suggest: "Run `/q-begin` to start your first session"
+---
+
+### Step 2.1: Execute Quick Setup
+
+**MANDATORY: Create all required files with verification**
+
+#### 2.1.1 Create Directory Structure
+
+```bash
+mkdir -p .q-system/transcripts
+mkdir -p .q-system/session-notes
+mkdir -p .q-system/checkpoints
+mkdir -p .q-system/docs
+```
+
+- [ ] All directories created
+
+#### 2.1.2 Create version.yaml (CRITICAL)
+
+**Generate timestamp:**
+```bash
+INSTALL_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ") && echo "Install time: $INSTALL_TIME"
+```
+
+**Create `.q-system/version.yaml`:**
+
+```yaml
+# Q-Command System - Version & Provenance
+# Installed via /q-setup on [DATE]
+
+q_system:
+  version: "2.1.1"
+  installed: "[INSTALL_TIME]"
+  source: "github.com/contactTAM/q-command-system"
+  branch: "main"
+
+commands:
+  q-begin: "2.1.1"
+  q-checkpoint: "2.1.1"
+  q-commit: "2.1.1"
+  q-compact: "2.1.1"
+  q-dump: "2.1.1"
+  q-end: "2.1.1"
+  q-learnings: "2.1.1"
+  q-pare: "2.1.1"
+  q-prompts: "2.1.1"
+  q-save: "2.1.1"
+  q-setup: "2.1.1"
+  q-status: "2.1.1"
+  q-upgrade: "2.1.1"
+  q-verify: "2.1.1"
+
+upgrade_history: []
+```
+
+- [ ] version.yaml created with actual timestamp
+- [ ] Source and branch recorded
+
+#### 2.1.3 Create config.md
+
+**Create `.q-system/config.md`:**
+
+```markdown
+# Q-System Configuration
+
+**Created:** [DATE]
+**Setup mode:** Quick
+
+---
+
+## User Identity
+
+```
+user_name: [from Q2 if collaborators, otherwise "User"]
+```
+
+---
+
+## Project Profile
+
+```
+project_type: [from Q1]
+collaboration: [from Q2]
+experience_level: [from Q3]
+special_notes: [from Q4 or "none"]
+```
+
+---
+
+## Git Tracking
+
+```
+track_in_git: no
+```
+
+---
+
+## Session Behavior
+
+```
+friction_prompt: yes
+auto_checkpoint_minutes: 0
+```
+```
+
+- [ ] config.md created with user's answers
+
+#### 2.1.4 VERIFY Quick Setup
+
+```bash
+ls -la .q-system/
+cat .q-system/version.yaml | head -10
+```
+
+- [ ] .q-system/ folder exists
+- [ ] version.yaml exists with correct version
+- [ ] config.md exists
+- [ ] All subdirectories exist
+
+**VERIFICATION GATE (Quick):**
+```
+Quick Setup verification:
+- Directories: [N]/4 created
+- version.yaml: [YES/NO]
+- config.md: [YES/NO]
+```
+
+---
+
+### Step 2.2: Execute Detailed Setup
+
+**Same as Quick Setup PLUS:**
+
+#### 2.2.1 Create domain-config.json
+
+```json
+{
+  "setup_date": "[INSTALL_TIME]",
+  "setup_mode": "detailed",
+  "profile": {
+    "starting_point": "[Q1 answer]",
+    "project_goal": "[Q2 answer]",
+    "experience_level": "[Q3 answer]",
+    "collaboration": "[Q4 answer]",
+    "visual_needs": "[Q5 answer]",
+    "source_complexity": "[Q6 answer]",
+    "repository_state": "[Q7 answer]"
+  },
+  "triggers": []
+}
+```
+
+- [ ] domain-config.json created
+
+#### 2.2.2 VERIFY Detailed Setup
+
+- [ ] All Quick Setup items verified
+- [ ] domain-config.json exists
 
 ---
 
 ## Step 3: Existing Setup
 
-Display:
+**Display to user:**
 
 ```
-Q-Command System Already Configured
+=== Q-Command System Already Configured ===
 
-I found an existing Q-System configuration. What would you like to do?
+I found an existing Q-System configuration.
+
+Current version: [from version.yaml or "unknown"]
+Installed: [date from version.yaml or "unknown"]
+
+What would you like to do?
 
 1. Update configuration
-   - Project has evolved, need to adjust settings
-   - Add infrastructure that wasn't set up initially
+   - Adjust settings without losing data
 
 2. Start fresh
-   - Reset everything (preserves your session notes and work)
-   - Run setup wizard again
+   - Reset configuration (preserves session notes)
 
 3. Cancel
    - Keep current configuration
 ```
 
+- [ ] Options presented
+- [ ] User choice recorded: ____________________
+
 ### Update Configuration (Option 1)
 
-1. Read current configuration from `.q-system/config.md` or `.q-system/domain-config.json`
+1. Read current config from `.q-system/config.md`
 2. Ask: "What's changed in your project or needs?"
-3. Re-ask relevant questions, showing current answers
-4. Allow keeping previous answers or changing them
-5. Show before/after comparison:
+3. Show current settings, allow changes
+4. Update files preserving what's unchanged
+5. Update version.yaml `upgraded` field
 
-```
-=== Configuration Changes ===
-
-CURRENT → NEW:
-- [Setting]: [old] → [new]
-
-WILL ADD:
-- [new infrastructure]
-
-WILL PRESERVE:
-- All existing session notes
-- All existing checkpoints
-- All your work files
-
-Proceed with changes? (yes/no)
-```
-
-6. Get explicit permission
-7. Execute changes
-8. Create change log in `.q-system/RECONFIGURATION-LOG-YYYY-MM-DD.md`
+- [ ] Changes made with user permission
+- [ ] Reconfiguration logged
 
 ### Start Fresh (Option 2)
 
-1. Confirm: "This will reset your Q-System configuration. Your session notes, checkpoints, and work files will be preserved. Continue?"
-2. If yes, archive current config and run New Setup (Step 2)
+1. Confirm: "This will reset configuration. Session notes preserved. Continue?"
+2. If yes:
+   - Archive current config: `mv .q-system/config.md .q-system/config.md.backup-YYYY-MM-DD`
+   - Run New Setup (Step 2)
+3. If no: Cancel
+
+- [ ] User confirmed
+- [ ] Old config archived
+- [ ] New setup completed
+
+---
+
+## Step 4: Final Report
+
+**MANDATORY output format (New Setup):**
+
+```
+=== Q-Command System Configured ===
+
+Version: 2.1.1
+Mode: [Quick/Detailed]
+Installed: [timestamp]
+
+Created:
+- .q-system/version.yaml (provenance tracking)
+- .q-system/config.md (your preferences)
+- .q-system/transcripts/ (session transcripts)
+- .q-system/session-notes/ (session summaries)
+- .q-system/checkpoints/ (mid-session saves)
+
+Your configuration:
+- Project type: [type]
+- Collaboration: [solo/team]
+- Experience: [level]
+
+Next steps:
+1. Run /q-begin to start your first session
+2. At session end, run /q-end to save documentation
+3. Run /q-upgrade periodically to get updates
+
+Ready to go!
+```
 
 ---
 
@@ -187,46 +359,26 @@ Proceed with changes? (yes/no)
 **NEVER:**
 - Delete user's work files
 - Delete session notes or checkpoints
-- Move files without permission
+- Delete transcripts
 - Overwrite without asking
 
 **ALWAYS:**
-- Show preview before making changes
+- Show preview before changes
 - Get explicit permission
-- Preserve all existing work
-- Create logs of changes
+- Preserve existing work
+- Create version.yaml with provenance
 
 ---
 
-## Output Files
+## FINAL CHECKLIST
 
-**Quick Mode creates:**
-- `.q-system/` folder structure
-- `.q-system/config.md`
+Before reporting setup complete:
 
-**Detailed Mode creates:**
-- `.q-system/` folder structure
-- `.q-system/domain-config.json` (full configuration profile)
-- `.q-system/triggers.json` (progressive scaffolding triggers)
+- [ ] version.yaml created with correct version (2.1.1)
+- [ ] version.yaml has installation timestamp
+- [ ] version.yaml has source repository info
+- [ ] config.md created with user preferences
+- [ ] All directories created and verified
+- [ ] User told next steps (/q-begin)
 
-**Update creates:**
-- Updated configuration files
-- `.q-system/RECONFIGURATION-LOG-YYYY-MM-DD.md`
-
----
-
-## When to Use
-
-- First time setting up Q-Command System
-- Switching to a new project type
-- Project needs have evolved
-- Adding team members
-- Want more/less structure
-
----
-
-## See Also
-
-- `/q-begin` - Start a session after setup
-- `/q-status` - Check current configuration
-- `/q-upgrade` - Upgrade Q-Command System version
+**If any item is unchecked, go back and complete it.**

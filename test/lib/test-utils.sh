@@ -159,8 +159,8 @@ verify_qsystem_installation() {
     done
 
     # Check essential files
-    if [[ ! -f "$install_path/.q-system/version" ]]; then
-        echo "Missing: .q-system/version" >&2
+    if [[ ! -f "$install_path/.q-system/version.yaml" ]]; then
+        echo "Missing: .q-system/version.yaml" >&2
         all_passed=false
     fi
 
@@ -221,7 +221,14 @@ is_valid_markdown() {
 # Get current version from templates
 # Usage: get_template_version
 get_template_version() {
-    cat "$PROJECT_ROOT/templates/.q-system/version" 2>/dev/null || echo "unknown"
+    # Try version.yaml first (v2.1.1+), then fall back to version file (pre-2.1.1)
+    if [[ -f "$PROJECT_ROOT/templates/.q-system/version.yaml" ]]; then
+        grep 'version:' "$PROJECT_ROOT/templates/.q-system/version.yaml" | head -1 | sed 's/.*:[[:space:]]*//' | tr -d '"' | tr -d ' '
+    elif [[ -f "$PROJECT_ROOT/templates/.q-system/version" ]]; then
+        cat "$PROJECT_ROOT/templates/.q-system/version" 2>/dev/null
+    else
+        echo "unknown"
+    fi
 }
 
 # Validate version format (semver)

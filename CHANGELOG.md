@@ -4,6 +4,81 @@ All notable changes to the Q-Command System.
 
 ---
 
+## [2.1.1] - 2025-12-02
+
+**Strict checklists, YAML versioning, efficient upgrades, and command adherence improvements.**
+
+### Added
+
+- **YAML versioning system** — `.q-system/version.yaml` replaces simple `version` file
+  - Full provenance tracking (source repo, branch, install date)
+  - Individual command version tracking
+  - Upgrade history log
+  - Enables precise version comparison and targeted updates
+
+- **Command-level version headers** — Each command file now has `version: 2.1.1` in frontmatter
+  - `/q-upgrade` can now identify which commands need updating
+  - Users can verify command versions match installed system version
+
+- **Mandatory pre-flight checklists** — All critical commands now have strict adherence protocols
+  - Explicit checkbox items Claude must confirm before proceeding
+  - VERIFICATION GATES between major steps
+  - FINAL CHECKLISTS before completion reports
+  - Designed to prevent instruction drift at high context usage
+
+- **Efficient script-based upgrades** — New upgrade infrastructure
+  - `scripts/upgrade.sh` — Shell script for bulk curl operations
+  - `releases.yaml` — Machine-readable release metadata
+  - Reduces upgrade token usage by ~85% (1 WebFetch + 1 Bash vs 16 fetches + 14 writes)
+  - Supports differential upgrades (only update changed commands)
+
+### Changed
+
+- **`/q-end` significantly strengthened**
+  - MANDATORY checkpoint gathering step (non-negotiable)
+  - Explicit verification that ALL checkpoints from today were read
+  - 4 verification gates throughout execution
+  - Final reminder checklist before completion
+
+- **`/q-begin` strengthened** — Added verification gates and mandatory session notes reading
+
+- **`/q-checkpoint` strengthened** — Added verification gates and mandatory work documentation
+
+- **`/q-save` strengthened** — Added verification gates even for quick saves
+
+- **`/q-upgrade` completely rewritten for efficiency**
+  - Uses `releases.yaml` to determine what changed between versions
+  - Executes `upgrade.sh` script instead of individual file fetches
+  - Supports differential upgrades (only fetch changed commands)
+  - Updates version.yaml with detailed upgrade history
+  - ~85% reduction in token usage
+
+- **`/q-setup` updated for YAML versioning**
+  - Creates version.yaml with full provenance on install
+  - Records all command versions
+
+### Rationale
+
+**Strict checklists:** When context is stretched (70%+), Claude's adherence to CLAUDE.md instructions degrades. Commands need their own strict checklists that Claude reads at execution time, not just instructions in CLAUDE.md that may be "forgotten."
+
+**YAML versioning:** A single version number isn't enough. Each Q-System installation should know:
+- Where it came from (provenance)
+- What version of each command is installed
+- History of upgrades
+
+**Efficient upgrades:** The old upgrade approach required Claude to fetch and write 14+ files individually, using significant tokens and time. The new script-based approach uses native `curl` which is faster, more reliable, and token-efficient.
+
+This enables smarter upgrades, better debugging, and marketplace-ready versioning.
+
+### Bug Fixes
+
+- Fixed: `/q-end` not reliably reading all checkpoints in long sessions
+- Fixed: Timestamp generation not consistently executed
+- Fixed: File verification sometimes skipped under context pressure
+- Fixed: Upgrade process using excessive tokens
+
+---
+
 ## [2.1.0] - 2025-11-30
 
 **Proactive context monitoring, consolidated setup, robust upgrades.**

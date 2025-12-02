@@ -2,7 +2,7 @@
 
 **A Robust Co-Pilot System for Claude Code**
 
-**Version:** 2.1
+**Version:** 2.1.1
 **Author:** Gabriel Rymberg
 **Repository:** github.com/contactTAM/q-command-system
 **License:** MIT
@@ -38,13 +38,13 @@ The Q-Command System transforms Claude Code from a simple AI assistant into a **
 
 ## Current Status
 
-**Version:** 2.1 (Released 2025-11-30)
+**Version:** 2.1.1 (Released 2025-12-02)
 
 **Latest Updates:**
-- Consolidated `/q-setup` command (replaces `/q-setup-domain` and `/q-reconfigure-domain`)
-- Auto-detects new vs existing projects
-- Quick mode (2-3 min) and Detailed mode (10-15 min)
-- 14 commands total
+- YAML versioning system with provenance tracking (`.q-system/version.yaml`)
+- Command-level version headers in all 14 commands
+- Strict checklists for command adherence at high context
+- Strengthened /q-end, /q-begin, /q-checkpoint, /q-save with verification gates
 
 **Repository State:** Stable, ready for public use
 

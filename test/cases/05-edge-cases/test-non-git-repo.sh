@@ -43,7 +43,7 @@ assert_true "true" "Q-System installed without git"
 # Verify structure
 assert_dir_exists "$SANDBOX_DIR/.claude/commands" "Commands directory exists"
 assert_dir_exists "$SANDBOX_DIR/.q-system" "Q-System directory exists"
-assert_file_exists "$SANDBOX_DIR/.q-system/version" "Version file exists"
+assert_file_exists "$SANDBOX_DIR/.q-system/version.yaml" "version.yaml file exists"
 
 # ------------------------------------------------------------
 # Session Files Can Be Created

@@ -1,5 +1,6 @@
 ---
 description: Show session state and recommendations
+version: 2.1.1
 ---
 
 # Session Status

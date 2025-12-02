@@ -1,0 +1,142 @@
+# Q-Command System Release Information
+# Machine-readable release metadata for efficient upgrades
+# Used by /q-upgrade to determine what changed between versions
+
+current_version: "2.1.1"
+minimum_supported: "2.0.0"
+
+# All available commands (for validation)
+all_commands:
+  - q-begin
+  - q-checkpoint
+  - q-commit
+  - q-compact
+  - q-dump
+  - q-end
+  - q-learnings
+  - q-pare
+  - q-prompts
+  - q-save
+  - q-setup
+  - q-status
+  - q-upgrade
+  - q-verify
+
+# Release history (newest first)
+releases:
+  - version: "2.1.1"
+    date: "2025-12-02"
+    type: "patch"
+    summary: "Strict checklists, YAML versioning, efficient upgrades"
+    highlights:
+      - "YAML versioning with provenance tracking"
+      - "Command-level version headers"
+      - "Strict verification checklists for high-context reliability"
+      - "Script-based efficient upgrades"
+    commands_changed:
+      - q-begin
+      - q-checkpoint
+      - q-end
+      - q-save
+      - q-setup
+      - q-upgrade
+    commands_added: []
+    commands_removed: []
+    files_added:
+      - ".q-system/version.yaml"
+      - "scripts/upgrade.sh"
+      - "releases.yaml"
+    files_removed:
+      - ".q-system/version"
+    breaking_changes: false
+    migration_notes: |
+      The version.yaml file replaces the old version file.
+      Upgrade script handles this transition automatically.
+
+  - version: "2.1.0"
+    date: "2025-11-30"
+    type: "minor"
+    summary: "Proactive context monitoring and consolidated setup"
+    highlights:
+      - "Context monitoring with thresholds (70%/85%/90%)"
+      - "Consolidated /q-setup command"
+      - "Changelog-driven upgrades"
+      - "Version file for tracking"
+    commands_changed:
+      - all
+    commands_added: []
+    commands_removed:
+      - q-setup-domain
+      - q-reconfigure-domain
+    files_added:
+      - ".q-system/version"
+    files_removed: []
+    breaking_changes: false
+    migration_notes: |
+      /q-setup-domain and /q-reconfigure-domain merged into /q-setup.
+      Old commands will no longer work.
+
+  - version: "2.0.0"
+    date: "2025-11-28"
+    type: "major"
+    summary: "Self-contained .q-system/ folder"
+    highlights:
+      - "All Q-System files in .q-system/ folder"
+      - "Clean repository structure"
+      - "Portable and self-contained"
+    commands_changed:
+      - all
+    commands_added: []
+    commands_removed: []
+    files_added:
+      - ".q-system/"
+      - ".q-system/config.md"
+      - ".q-system/docs/"
+    files_removed:
+      - "GeneratedMDs/"
+    breaking_changes: true
+    migration_notes: |
+      BREAKING: Session files moved from GeneratedMDs/ to .q-system/
+      Run: mv GeneratedMDs .q-system
+      Update .gitignore if needed.
+
+  - version: "1.1.0"
+    date: "2025-11-27"
+    type: "minor"
+    summary: "Native slash commands"
+    highlights:
+      - "All commands as /q-* slash commands"
+      - "Tab completion support"
+      - "One-liner install"
+    commands_changed:
+      - all
+    commands_added:
+      - q-pare
+      - q-prompts
+    commands_removed: []
+    breaking_changes: false
+
+  - version: "1.0.0"
+    date: "2025-11-26"
+    type: "major"
+    summary: "First public release"
+    highlights:
+      - "Complete session management system"
+      - "Multi-user support"
+      - "Context management"
+    commands_changed: []
+    commands_added:
+      - q-begin
+      - q-checkpoint
+      - q-commit
+      - q-compact
+      - q-dump
+      - q-end
+      - q-learnings
+      - q-save
+      - q-setup
+      - q-status
+      - q-upgrade
+      - q-verify
+    commands_removed: []
+    breaking_changes: false

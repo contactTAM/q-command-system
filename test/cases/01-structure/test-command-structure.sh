@@ -79,9 +79,9 @@ assert_file_contains "$TEMPLATES_CMD_DIR/q-status.md" "90%" "q-status has 90% th
 echo ""
 echo "  q-save.md Structure:"
 
-assert_file_contains "$TEMPLATES_CMD_DIR/q-save.md" "Q-SAVE" "q-save explains Q-SAVE"
-assert_file_contains "$TEMPLATES_CMD_DIR/q-save.md" "Q-END" "q-save compares to Q-END"
-assert_file_contains "$TEMPLATES_CMD_DIR/q-save.md" "lightweight" "q-save is lightweight"
+assert_file_contains "$TEMPLATES_CMD_DIR/q-save.md" "/q-save" "q-save explains /q-save command"
+assert_file_contains "$TEMPLATES_CMD_DIR/q-save.md" "/q-end" "q-save compares to /q-end"
+assert_file_contains "$TEMPLATES_CMD_DIR/q-save.md" "Lightweight" "q-save is lightweight"
 
 echo ""
 echo "  q-setup.md Structure:"
@@ -95,7 +95,7 @@ echo ""
 echo "  q-upgrade.md Structure:"
 
 assert_file_contains "$TEMPLATES_CMD_DIR/q-upgrade.md" "version" "q-upgrade checks version"
-assert_file_contains "$TEMPLATES_CMD_DIR/q-upgrade.md" "CHANGELOG" "q-upgrade uses changelog"
+assert_file_contains "$TEMPLATES_CMD_DIR/q-upgrade.md" "releases.yaml" "q-upgrade uses releases.yaml"
 assert_file_contains "$TEMPLATES_CMD_DIR/q-upgrade.md" "backup" "q-upgrade creates backup"
 assert_file_contains "$TEMPLATES_CMD_DIR/q-upgrade.md" "GitHub" "q-upgrade fetches from GitHub"
 

@@ -47,18 +47,19 @@ echo "  Q-System Structure:"
 TEMPLATES_QSYSTEM="$PROJECT_ROOT/templates/.q-system"
 
 assert_dir_exists "$TEMPLATES_QSYSTEM" ".q-system directory exists"
-assert_file_exists "$TEMPLATES_QSYSTEM/version" "version file exists"
+assert_file_exists "$TEMPLATES_QSYSTEM/version.yaml" "version.yaml file exists"
 assert_file_exists "$TEMPLATES_QSYSTEM/README.md" "README.md exists"
 assert_dir_exists "$TEMPLATES_QSYSTEM/docs" "docs directory exists"
 
 # ------------------------------------------------------------
-# Version File Format
+# Version File Format (YAML since v2.1.1)
 # ------------------------------------------------------------
 
 echo ""
 echo "  Version File:"
 
-VERSION=$(cat "$TEMPLATES_QSYSTEM/version" 2>/dev/null || echo "")
+# Read version from version.yaml (v2.1.1+)
+VERSION=$(grep 'version:' "$TEMPLATES_QSYSTEM/version.yaml" 2>/dev/null | head -1 | sed 's/.*:[[:space:]]*//' | tr -d '"' | tr -d ' ')
 assert_matches "$VERSION" "^[0-9]+\.[0-9]+\.[0-9]+$" "Version follows semver format"
 assert_not_equals "" "$VERSION" "Version is not empty"
 

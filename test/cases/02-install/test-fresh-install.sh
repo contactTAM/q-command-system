@@ -63,7 +63,7 @@ echo ""
 echo "  Q-System Structure:"
 
 assert_dir_exists "$SANDBOX_DIR/.q-system" ".q-system directory exists"
-assert_file_exists "$SANDBOX_DIR/.q-system/version" "version file exists"
+assert_file_exists "$SANDBOX_DIR/.q-system/version.yaml" "version.yaml file exists"
 
 for dir in "${EXPECTED_QSYSTEM_DIRS[@]}"; do
     assert_dir_exists "$SANDBOX_DIR/.q-system/$dir" ".q-system/$dir exists"
@@ -87,7 +87,8 @@ assert_file_contains "$SANDBOX_DIR/CLAUDE.md" "Q-Command System" "CLAUDE.md has 
 echo ""
 echo "  Version:"
 
-VERSION=$(cat "$SANDBOX_DIR/.q-system/version" 2>/dev/null || echo "")
+# Read version from version.yaml (v2.1.1+)
+VERSION=$(grep 'version:' "$SANDBOX_DIR/.q-system/version.yaml" 2>/dev/null | head -1 | sed 's/.*:[[:space:]]*//' | tr -d '"' | tr -d ' ')
 assert_matches "$VERSION" "^[0-9]+\.[0-9]+\.[0-9]+$" "Version is valid semver"
 
 # Compare with template version

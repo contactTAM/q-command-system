@@ -72,8 +72,8 @@ assert_file_contains "$CMD_DIR/q-checkpoint.md" "date" "q-checkpoint uses date f
 echo ""
 echo "  q-save Patterns:"
 
-assert_file_contains "$CMD_DIR/q-save.md" "lightweight" "q-save is lightweight"
-assert_file_contains "$CMD_DIR/q-save.md" "Q-END" "q-save compares to Q-END"
+assert_file_contains "$CMD_DIR/q-save.md" "Lightweight" "q-save is lightweight"
+assert_file_contains "$CMD_DIR/q-save.md" "/q-end" "q-save compares to /q-end"
 assert_file_contains "$CMD_DIR/q-save.md" "90%" "q-save mentions 90% threshold"
 
 # ------------------------------------------------------------
@@ -85,9 +85,9 @@ echo "  q-upgrade Patterns:"
 
 assert_file_contains "$CMD_DIR/q-upgrade.md" "version" "q-upgrade checks version"
 assert_file_contains "$CMD_DIR/q-upgrade.md" "GitHub" "q-upgrade fetches from GitHub"
-assert_file_contains "$CMD_DIR/q-upgrade.md" "CHANGELOG" "q-upgrade uses changelog"
+assert_file_contains "$CMD_DIR/q-upgrade.md" "releases.yaml" "q-upgrade uses releases.yaml"
 assert_file_contains "$CMD_DIR/q-upgrade.md" "backup" "q-upgrade creates backup"
-assert_file_contains "$CMD_DIR/q-upgrade.md" "preserved" "q-upgrade preserves user files"
+assert_file_contains "$CMD_DIR/q-upgrade.md" "Preserved" "q-upgrade preserves user files"
 
 # ------------------------------------------------------------
 # q-setup Expected Patterns

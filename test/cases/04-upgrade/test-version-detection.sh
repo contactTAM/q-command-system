@@ -54,20 +54,25 @@ SANDBOX_DIR=$(sandbox_create "version-detect")
 sandbox_git_init
 install_qsystem_to_sandbox
 
-VERSION=$(cat "$SANDBOX_DIR/.q-system/version" 2>/dev/null || echo "unknown")
+# Read version from version.yaml (v2.1.1+)
+VERSION=$(grep 'version:' "$SANDBOX_DIR/.q-system/version.yaml" 2>/dev/null | head -1 | sed 's/.*:[[:space:]]*//' | tr -d '"' | tr -d ' ')
+[[ -z "$VERSION" ]] && VERSION="unknown"
 assert_equals "$TEMPLATE_VERSION" "$VERSION" "Fresh install has current version"
 
 # ------------------------------------------------------------
-# Missing Version File (Pre-2.1)
+# Missing Version File (Pre-2.1.1)
 # ------------------------------------------------------------
 
 echo ""
 echo "  Missing Version File:"
 
-# Remove version file to simulate pre-2.1 install
+# Remove version.yaml to simulate pre-2.1.1 install
+rm -f "$SANDBOX_DIR/.q-system/version.yaml"
 rm -f "$SANDBOX_DIR/.q-system/version"
 
-VERSION=$(cat "$SANDBOX_DIR/.q-system/version" 2>/dev/null || echo "unknown")
+# Try to read version (should fail gracefully)
+VERSION=$(grep 'version:' "$SANDBOX_DIR/.q-system/version.yaml" 2>/dev/null | head -1 | sed 's/.*:[[:space:]]*//' | tr -d '"' | tr -d ' ')
+[[ -z "$VERSION" ]] && VERSION="unknown"
 assert_equals "unknown" "$VERSION" "Missing version returns unknown"
 
 # ------------------------------------------------------------
@@ -77,14 +82,15 @@ assert_equals "unknown" "$VERSION" "Missing version returns unknown"
 echo ""
 echo "  Corrupted Version File:"
 
-# Write invalid version
-echo "not-a-version" > "$SANDBOX_DIR/.q-system/version"
-VERSION=$(cat "$SANDBOX_DIR/.q-system/version" 2>/dev/null || echo "unknown")
+# Write invalid version.yaml content
+echo "invalid: not-yaml-we-expect" > "$SANDBOX_DIR/.q-system/version.yaml"
+VERSION=$(grep 'version:' "$SANDBOX_DIR/.q-system/version.yaml" 2>/dev/null | head -1 | sed 's/.*:[[:space:]]*//' | tr -d '"' | tr -d ' ')
+[[ -z "$VERSION" ]] && VERSION="invalid"
 assert_false "is_valid_version '$VERSION'" "Corrupted version is detected as invalid"
 
 # Write empty file
-echo "" > "$SANDBOX_DIR/.q-system/version"
-VERSION=$(cat "$SANDBOX_DIR/.q-system/version" 2>/dev/null | tr -d '[:space:]')
+echo "" > "$SANDBOX_DIR/.q-system/version.yaml"
+VERSION=$(grep 'version:' "$SANDBOX_DIR/.q-system/version.yaml" 2>/dev/null | head -1 | sed 's/.*:[[:space:]]*//' | tr -d '"' | tr -d ' ')
 assert_equals "" "$VERSION" "Empty version file detected"
 
 suite_end

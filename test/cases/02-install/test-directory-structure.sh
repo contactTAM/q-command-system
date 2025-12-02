@@ -70,7 +70,7 @@ assert_dir_exists "$SANDBOX_DIR/.q-system/memory" "memory/"
 assert_dir_exists "$SANDBOX_DIR/.q-system/docs" "docs/"
 
 # Required files
-assert_file_exists "$SANDBOX_DIR/.q-system/version" "version file"
+assert_file_exists "$SANDBOX_DIR/.q-system/version.yaml" "version.yaml file"
 
 # ------------------------------------------------------------
 # Session Directories Are Empty Initially

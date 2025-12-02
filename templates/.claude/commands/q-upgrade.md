@@ -1,181 +1,274 @@
 ---
 description: Upgrade to latest Q-Command System version
+version: 2.1.1
 ---
 
 # Upgrade Q-Command System
 
-**Purpose:** Check current version, compare with latest, and upgrade with changelog-driven guidance.
+**Purpose:** Efficiently check and upgrade to the latest Q-Command System version.
 
-## Step 1: Check Current Version
+**Efficiency:** This command uses a script-based approach that reduces token usage by ~85% compared to individual file fetches.
 
-Read the local version file:
+---
+
+## MANDATORY PRE-FLIGHT CHECKLIST
+
+**STOP. Before proceeding, confirm:**
+
+- [ ] 1. I will check versions BEFORE making changes
+- [ ] 2. I will get explicit user permission before upgrading
+- [ ] 3. I will use the upgrade SCRIPT (not individual WebFetch calls)
+- [ ] 4. I will verify the upgrade completed successfully
+
+---
+
+## Step 1: Check Local Version
+
+### 1.1 Read Local Version Info
 
 ```bash
-cat .q-system/version 2>/dev/null || echo "unknown"
+cat .q-system/version.yaml 2>/dev/null || cat .q-system/version 2>/dev/null || echo "No version file found"
 ```
 
-**If version file missing:** Assume pre-2.1 installation (version file added in 2.1)
+- [ ] Command executed
+- [ ] Local version identified: ____________________
 
-## Step 2: Fetch Latest Version
+**Parse the version:**
+- If `version.yaml`: Look for `q_system.version`
+- If `version` file: Single line with version number
+- If neither: Assume pre-2.1 installation
 
-Fetch the latest version from GitHub:
+### 1.2 Check for releases.yaml (if exists locally)
 
+```bash
+cat .q-system/releases.yaml 2>/dev/null | head -5 || echo "No local releases.yaml"
 ```
-https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.q-system/version
+
+**VERIFICATION GATE 1:**
+```
+Local installation:
+- Version: [version or "unknown"]
+- Version file type: [version.yaml / version / none]
 ```
 
-## Step 3: Compare Versions
+---
 
-Display comparison:
+## Step 2: Fetch Remote Version Info
+
+### 2.1 Fetch releases.yaml (Small File - Efficient)
+
+Use WebFetch to get:
+```
+https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/releases.yaml
+```
+
+- [ ] Fetch attempted
+- [ ] Latest version identified: ____________________
+- [ ] Commands changed since local version: ____________________
+
+### 2.2 Parse Release Information
+
+From `releases.yaml`, identify:
+- `current_version`: The latest available version
+- Find releases between local version and current version
+- Aggregate `commands_changed` from all intermediate releases
+- Note any `breaking_changes` or `migration_notes`
+
+**VERIFICATION GATE 2:**
+```
+Version comparison:
+- Local version:  [local]
+- Latest version: [remote]
+- Status: [Up to date / Upgrade available]
+- Commands changed: [list or "all"]
+```
+
+---
+
+## Step 3: Display Upgrade Information
+
+**If already up to date:**
 
 ```
 === Q-Command System Version Check ===
 
-Your version:   [local version or "unknown (pre-2.1)"]
-Latest version: [fetched version]
+Your version:   [version]
+Latest version: [version]
 
-Status: [Up to date / Upgrade available]
+Status: Up to date!
+
+No upgrade needed.
 ```
 
-**If up to date:** Report success and exit.
+**STOP HERE if up to date.**
 
-**If upgrade available:** Continue to Step 4.
-
-## Step 4: Fetch and Show Changelog
-
-Fetch the CHANGELOG from GitHub:
+**If upgrade available:**
 
 ```
-https://raw.githubusercontent.com/contactTAM/q-command-system/main/CHANGELOG.md
+=== Q-Command System Upgrade Available ===
+
+Current version: [local]
+Latest version:  [remote]
+
+Changes since your version:
+
+[Version X.Y.Z] - [date]
+  - [highlight 1]
+  - [highlight 2]
+
+[Version A.B.C] - [date]
+  - [highlight 1]
+  - [highlight 2]
+
+Commands to update: [N] ([list or "all 14"])
+Breaking changes: [Yes/No]
 ```
 
-Parse and show relevant changes between current version and latest:
+---
 
-```
-=== Changes Since Your Version ===
+## Step 4: Show Upgrade Plan
 
-## [2.1.0] - 2025-11-30
-- [Summary of changes]
-- [New features]
-- [Breaking changes if any]
+**Determine upgrade mode:**
 
-[Additional versions if multiple upgrades needed]
-```
-
-## Step 5: Show Upgrade Plan
-
-Based on changelog, show what will be updated:
+- **Full upgrade**: If `commands_changed: [all]` in any release, or upgrading from pre-2.1
+- **Differential upgrade**: If only specific commands changed
 
 ```
 === Upgrade Plan ===
 
-Files to update:
-- .claude/commands/*.md (14 command files)
-- .q-system/version
-- .q-system/docs/* (documentation)
+Mode: [Full / Differential]
 
-Files preserved (never touched):
+Will update:
+- Commands: [list or "all 14 commands"]
+- .q-system/version.yaml
+- .q-system/releases.yaml (for future upgrades)
+
+Will preserve:
 - .q-system/session-notes/*
 - .q-system/transcripts/*
 - .q-system/checkpoints/*
-- .q-system/config.md (your preferences)
-- CLAUDE.md (your customizations)
+- .q-system/config.md
+- CLAUDE.md
 
 Backup will be created at:
 - .claude/commands-backup-YYYY-MM-DD/
 ```
 
-## Step 6: Get Permission
+---
 
-Ask explicit permission:
+## Step 5: Get Explicit Permission
+
+**MANDATORY - Ask user:**
 
 ```
-Proceed with upgrade?
+Proceed with upgrade from [current] to [latest]?
 
-This will:
-1. Backup your current commands to .claude/commands-backup-YYYY-MM-DD/
-2. Fetch latest command files from GitHub
-3. Update .q-system/version
-4. Update documentation in .q-system/docs/
+This will run a script that:
+1. Creates backup of current commands
+2. Downloads [N] command files via curl
+3. Updates version.yaml and releases.yaml
 
-Your session files and customizations will NOT be touched.
+Your session files and CLAUDE.md will NOT be touched.
 
 Type 'yes' to proceed, 'no' to cancel:
 ```
 
-## Step 7: Execute Upgrade
+- [ ] Permission requested
+- [ ] User responded: ____________________
 
-If user confirms:
+**If user says 'no':** Report "Upgrade cancelled" and exit.
 
-### 7a. Create Backup
+---
+
+## Step 6: Execute Upgrade (EFFICIENT)
+
+**CRITICAL: Use the script for efficiency. Do NOT use individual WebFetch calls.**
+
+### 6.1 Full Upgrade (All Commands)
 
 ```bash
-cp -r .claude/commands .claude/commands-backup-$(date +%Y-%m-%d)
+curl -sL https://raw.githubusercontent.com/contactTAM/q-command-system/main/scripts/upgrade.sh | bash
 ```
 
-### 7b. Fetch All Command Files
+### 6.2 Differential Upgrade (Specific Commands)
 
-Fetch each file from:
-```
-https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.claude/commands/
-```
-
-Files to fetch:
-- q-begin.md
-- q-end.md
-- q-checkpoint.md
-- q-status.md
-- q-save.md
-- q-verify.md
-- q-commit.md
-- q-compact.md
-- q-dump.md
-- q-learnings.md
-- q-pare.md
-- q-prompts.md
-- q-setup.md
-- q-upgrade.md
-
-### 7c. Update Version File
-
-Fetch and write:
-```
-https://raw.githubusercontent.com/contactTAM/q-command-system/main/templates/.q-system/version
+```bash
+curl -sL https://raw.githubusercontent.com/contactTAM/q-command-system/main/scripts/upgrade.sh | bash -s -- [command1] [command2] [command3]
 ```
 
-### 7d. Update Documentation (Optional)
-
-Ask if user wants to update docs:
-
-```
-Update documentation in .q-system/docs/?
-(Your existing docs may have local notes - this will replace them)
-
-[yes/no]:
+**Example for v2.1.0 → v2.1.1:**
+```bash
+curl -sL https://raw.githubusercontent.com/contactTAM/q-command-system/main/scripts/upgrade.sh | bash -s -- q-begin q-checkpoint q-end q-save q-setup q-upgrade
 ```
 
-If yes, fetch:
-- .q-system/docs/features.md
-- .q-system/docs/workflow.md
-- .q-system/docs/context-management.md
-- .q-system/docs/install/*.md
+- [ ] Upgrade script executed
+- [ ] Script output shows success
 
-### 7e. Verify
+**VERIFICATION GATE 3:**
+```
+Script execution:
+- Exit status: [0 = success]
+- Commands updated: [N]
+- Backup created: [path]
+```
 
-Confirm all files were written successfully.
+---
 
-## Step 8: Report Success
+## Step 7: Update Upgrade History
+
+**Append to `.q-system/version.yaml` upgrade_history:**
+
+Read current version.yaml, then update the `upgrade_history` section:
+
+```yaml
+upgrade_history:
+  - from: "[OLD_VERSION]"
+    to: "[NEW_VERSION]"
+    date: "[ISO 8601 TIMESTAMP]"
+    mode: "[full/differential]"
+    commands_updated:
+      - [list of commands]
+```
+
+- [ ] Upgrade history appended
+
+---
+
+## Step 8: Verify Upgrade
+
+```bash
+cat .q-system/version.yaml | head -10
+head -5 .claude/commands/q-end.md
+```
+
+- [ ] version.yaml shows new version
+- [ ] Command files have new version in frontmatter
+
+**VERIFICATION GATE 4:**
+```
+Verification:
+- version.yaml version: [version]
+- Command version headers: [match/mismatch]
+- Backup exists: [yes/no]
+```
+
+---
+
+## Step 9: Final Report
+
+**MANDATORY output format:**
 
 ```
 === Upgrade Complete ===
 
 Previous version: [old]
-New version: [new]
+New version:      [new]
+Mode:             [Full/Differential]
 
 Updated:
-- .claude/commands/ (14 files)
-- .q-system/version
-- .q-system/docs/ (if selected)
+- Commands: [N] files
+- version.yaml
+- releases.yaml
 
 Backup created:
 - .claude/commands-backup-YYYY-MM-DD/
@@ -188,39 +281,75 @@ Preserved (untouched):
 - CLAUDE.md
 
 Key changes in this version:
-[Summary from changelog]
+[From releases.yaml highlights]
 
-IMPORTANT: Restart Claude Code to load the new commands.
+IMPORTANT: Restart Claude Code to load new commands.
 (Close terminal and run 'claude' again)
 
 Run /q-begin to verify everything works!
 ```
 
+---
+
 ## Error Handling
 
-- **If fetch fails:** Report which file failed, offer to retry or skip
-- **If write fails:** Report error, suggest checking permissions
-- **If backup fails:** Abort upgrade, don't overwrite without backup
-- **Never delete:** User's custom commands (non q-* files) are preserved
+**If script execution fails:**
 
-## Rollback
+1. Check the error message from curl/bash
+2. Verify internet connectivity
+3. Try running the script URL directly in browser
+4. If persistent, fall back to manual upgrade:
+   - Download files manually from GitHub
+   - Copy to .claude/commands/
 
-If upgrade causes issues, user can restore:
+**If backup fails:**
+
+1. ABORT upgrade immediately
+2. Report: "Backup failed - upgrade aborted for safety"
+3. Do NOT proceed without backup
+
+---
+
+## Rollback Instructions
+
+If upgrade causes issues:
 
 ```bash
+# Remove new commands
 rm -rf .claude/commands
+
+# Restore from backup
 mv .claude/commands-backup-YYYY-MM-DD .claude/commands
+
+# Restart Claude Code
 ```
 
-## When to Use
+---
 
-- Check for updates periodically (monthly recommended)
-- After seeing announcement of new version
-- When commands seem outdated or missing features
-- When docs reference features you don't have
+## Efficiency Notes
 
-## See Also
+**Why this approach is efficient:**
 
-- [CHANGELOG.md](https://github.com/contactTAM/q-command-system/blob/main/CHANGELOG.md) - Version history
-- `/q-setup` - Configure Q-Command System
-- `/q-status` - Check current session state
+| Method | Operations | Tokens |
+|--------|------------|--------|
+| Old: Individual WebFetch | 16 fetches + 14 writes | High |
+| New: Script-based | 1 WebFetch + 1 Bash | ~85% less |
+
+The upgrade script uses native `curl` which is:
+- Faster (parallel-capable)
+- More reliable (no Claude overhead)
+- Token-efficient (single operation)
+
+---
+
+## FINAL CHECKLIST
+
+Before reporting "Upgrade Complete":
+
+- [ ] User gave explicit permission
+- [ ] Upgrade script executed successfully
+- [ ] Upgrade history updated in version.yaml
+- [ ] New version verified in files
+- [ ] User told to restart Claude Code
+
+**If any item is unchecked, address it before completing.**

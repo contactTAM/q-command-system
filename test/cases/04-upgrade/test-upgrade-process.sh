@@ -70,10 +70,11 @@ assert_dir_exists "$BACKUP_DIR" "Backup created"
 # Copy new commands (simulating upgrade)
 cp "$PROJECT_ROOT/templates/.claude/commands/"*.md "$SANDBOX_DIR/.claude/commands/"
 
-# Update version
-cp "$PROJECT_ROOT/templates/.q-system/version" "$SANDBOX_DIR/.q-system/version"
+# Update version (now uses version.yaml since v2.1.1)
+cp "$PROJECT_ROOT/templates/.q-system/version.yaml" "$SANDBOX_DIR/.q-system/version.yaml"
 
-NEW_VERSION=$(cat "$SANDBOX_DIR/.q-system/version")
+# Read new version from version.yaml
+NEW_VERSION=$(grep 'version:' "$SANDBOX_DIR/.q-system/version.yaml" 2>/dev/null | head -1 | sed 's/.*:[[:space:]]*//' | tr -d '"' | tr -d ' ')
 assert_not_equals "$OLD_VERSION" "$NEW_VERSION" "Version updated"
 
 # ------------------------------------------------------------

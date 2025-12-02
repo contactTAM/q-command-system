@@ -1,5 +1,6 @@
 ---
 description: Summarize key learnings from session
+version: 2.1.1
 ---
 
 # Session Learnings

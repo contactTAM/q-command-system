@@ -1,5 +1,6 @@
 ---
 description: Save all user prompts from session
+version: 2.1.1
 ---
 
 # Save Session Prompts

@@ -1,17 +1,39 @@
 ---
 description: Save mid-session progress snapshot
+version: 2.1.1
 ---
 
 # Checkpoint
 
 **Purpose:** Save progress mid-session as insurance against auto-compact or crashes.
 
+---
+
+## MANDATORY PRE-FLIGHT CHECKLIST
+
+**STOP. Before proceeding, confirm:**
+
+- [ ] 1. I will generate and USE the timestamp
+- [ ] 2. I will document ALL work done since session start or last checkpoint
+- [ ] 3. I will VERIFY the file was created
+
+---
+
 ## Step 1: Generate Timestamp
 
+**EXECUTE this exact command:**
+
 ```bash
-CHECKPOINT_TIME=$(date +"%Y-%m-%d-%H%M")
-echo "Checkpoint time: $CHECKPOINT_TIME"
+CHECKPOINT_TIME=$(date +"%Y-%m-%d-%H%M") && echo "CHECKPOINT_TIME: $CHECKPOINT_TIME"
 ```
+
+- [ ] Command executed
+- [ ] Timestamp captured: ____________________
+- [ ] Format verified: YYYY-MM-DD-HHMM
+
+**STORE this timestamp. Use it for the checkpoint filename.**
+
+---
 
 ## Step 2: Create Checkpoint Directory
 
@@ -19,60 +41,190 @@ echo "Checkpoint time: $CHECKPOINT_TIME"
 mkdir -p .q-system/checkpoints
 ```
 
+- [ ] Directory exists or created
+
+---
+
 ## Step 3: Determine Participant Name
 
-Use the same name as other session files, or ask user if unknown.
+- [ ] Name known from session: ____________________
+- [ ] OR ask user: "What name should I use for the checkpoint file?"
 
-## Step 4: Create Checkpoint File
+**Participant name: ____________________**
 
-Create `.q-system/checkpoints/${CHECKPOINT_TIME}-[Name].md` with:
+---
 
-```markdown
-# Checkpoint: [CHECKPOINT_TIME]
+## Step 4: Gather All Work Since Last Save Point
 
-**Session started:** [original start time if known]
-**Checkpoint time:** [current time]
-**Participant:** [Name]
+**MANDATORY: Review and document ALL of the following:**
 
-## Accomplishments So Far
+### 4.1 Accomplishments
 
-- [Bullet list of work completed]
+- [ ] List every task completed
+- [ ] List every file created
+- [ ] List every file modified
+- [ ] List every bug fixed
 
-## Files Created/Modified
+### 4.2 Decisions Made
 
-- [List of files]
+- [ ] List every decision made
+- [ ] Note rationale for each
 
-## Key Decisions
+### 4.3 Current State
 
-- [Important decisions made]
+- [ ] What are you working on RIGHT NOW?
+- [ ] What is partially complete?
+- [ ] What remains to be done?
 
-## Current Status
-
-[What you're working on right now]
-
-## Next Steps
-
-- [What remains to be done]
+**VERIFICATION GATE 1:**
 ```
-
-## Step 5: Verify and Report
-
-**VERIFY:** File exists in `.q-system/checkpoints/`
-
-Report:
-```
-Checkpoint saved at [HH:MM]
-
-Location: .q-system/checkpoints/[filename]
-Progress preserved (insurance against auto-compact)
-
-Continue working - /q-end will merge checkpoint + final work.
+Work to document:
+- Accomplishments: [N] items
+- Files changed: [N] files
+- Decisions: [N] decisions
+- Current task: [description]
 ```
 
 ---
 
-**When to use:**
-- Every 90 minutes in long sessions
-- After completing major milestone
-- When context usage feels high
+## Step 5: Create Checkpoint File
+
+**Filename:** `.q-system/checkpoints/${CHECKPOINT_TIME}-[Name].md`
+
+**MANDATORY content structure:**
+
+```markdown
+# Checkpoint: [CHECKPOINT_TIME]-[Name]
+
+**Session started:** [time if known]
+**Checkpoint time:** [CHECKPOINT_TIME]
+**Participant:** [Name]
+
+---
+
+## Accomplishments So Far
+
+- [Accomplishment 1]
+- [Accomplishment 2]
+- [Continue for ALL accomplishments]
+
+---
+
+## Files Changed
+
+**Created:**
+- [file1]
+- [file2]
+
+**Modified:**
+- [file1]
+- [file2]
+
+---
+
+## Key Decisions
+
+| Decision | Rationale |
+|----------|-----------|
+| [decision] | [why] |
+
+---
+
+## Current Status
+
+**Working on:** [what you're doing right now]
+**Partially complete:** [what's in progress]
+
+---
+
+## Next Steps
+
+- [ ] [Next task 1]
+- [ ] [Next task 2]
+- [ ] [Continue for remaining work]
+```
+
+- [ ] File created with ALL sections filled in
+- [ ] No placeholder text remaining
+
+---
+
+## Step 6: VERIFY Checkpoint
+
+**EXECUTE:**
+
+```bash
+ls -la .q-system/checkpoints/${CHECKPOINT_TIME}* && wc -l .q-system/checkpoints/${CHECKPOINT_TIME}*
+```
+
+- [ ] File exists
+- [ ] File has substantial content (>30 lines)
+- [ ] Filename matches timestamp
+
+**VERIFICATION GATE 2:**
+```
+Checkpoint created: .q-system/checkpoints/[filename]
+- Lines: [N]
+- Timestamp matches: [YES]
+```
+
+---
+
+## Step 7: Report to User
+
+**MANDATORY output format:**
+
+```
+=== Checkpoint Saved ===
+
+Time: [HH:MM]
+File: .q-system/checkpoints/[filename]
+Lines: [N]
+
+Progress preserved:
+- Accomplishments: [N] items documented
+- Files tracked: [N] files
+- Decisions logged: [N] decisions
+
+Insurance status: PROTECTED
+(If auto-compact occurs, /q-end will incorporate this checkpoint)
+
+Continue working - checkpoint is your safety net.
+```
+
+---
+
+## Error Handling
+
+**If file creation fails:**
+
+1. Report the specific error
+2. Attempt alternative location
+3. If all fails, display checkpoint content in chat for manual save
+
+---
+
+## FINAL CHECKLIST
+
+Before reporting "Checkpoint Saved":
+
+- [ ] Timestamp generated and used correctly
+- [ ] All work since last save point documented
+- [ ] File verified to exist with content
+- [ ] User notified with file location
+
+**If any item is unchecked, go back and complete it.**
+
+---
+
+## When to Use /q-checkpoint
+
+**Proactively use when:**
+- 60+ minutes since session start (without checkpoint)
+- 60+ minutes since last checkpoint
+- Completing a major milestone
+- Context usage feels high (>70%)
 - Before risky operations
+- Before taking a break
+
+**The checkpoint is your insurance policy. Use it liberally.**
