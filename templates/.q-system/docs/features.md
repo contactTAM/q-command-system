@@ -1,7 +1,10 @@
 # Q-Command System Features
 
-**Version:** 2.0
-**Last Updated:** 2025-11-28
+All commands and features reference.
+
+**Version:** 2.1
+**Last updated:** 2025-12-03
+Part of **[The Q Marketplace](https://the-ai-masters.com/q-marketplace)**
 
 ---
 
@@ -69,8 +72,7 @@ That's it. Type `/q-` and press Tab to see all commands.
 
 | Command | Purpose |
 |---------|---------|
-| `/q-setup-domain` | Configure Q-Command System for your project type |
-| `/q-reconfigure-domain` | Update configuration as project evolves |
+| `/q-setup` | Configure Q-Command System (new or existing projects) |
 | `/q-upgrade` | Upgrade to latest Q-Command System version |
 
 **Detailed command info:** See `.claude/commands/q-*.md` files
@@ -225,22 +227,19 @@ Optimizes CLAUDE.md by moving verbose reference content to OFFLOAD.md.
 
 ---
 
-### /q-setup-domain
+### /q-setup
 
-Runs a setup wizard that configures Q-Command System for your project:
-- Asks about your domain (software, research, writing, etc.)
-- Asks about experience level
-- Creates appropriate directory structure
-- Installs relevant commands
+One smart command to set up or reconfigure Q-Command System:
 
----
+**New Projects:**
+- Offers Quick mode (2-3 min) or Detailed mode (10-15 min)
+- Quick: 4 essential questions, smart defaults
+- Detailed: 7 adaptive questions, progressive triggers
 
-### /q-reconfigure-domain
-
-Updates your configuration when your project evolves:
-- From exploration to execution
-- Experience level changes
-- Team size changes
+**Existing Projects:**
+- Auto-detects existing configuration
+- Offers: Update configuration, Start fresh, or Cancel
+- Preserves all your work when updating
 
 ---
 
@@ -268,16 +267,46 @@ No code, no plugins. Just markdown instructions that Claude follows.
 
 **How Q-Command protects you:**
 
-1. **Auto-compact detection** - `/q-end` detects if conversation was compacted and reads the summary
-2. **Checkpoint insurance** - `/q-checkpoint` saves detailed progress that survives compaction
-3. **Context health monitoring** - `/q-status` shows usage percentage and warns you
-4. **Safe compaction** - `/q-compact` saves checkpoint FIRST, then compacts
+1. **Proactive context monitoring** - Claude shows context status periodically (see below)
+2. **Auto-compact detection** - `/q-end` detects if conversation was compacted and reads the summary
+3. **Checkpoint insurance** - `/q-checkpoint` saves detailed progress that survives compaction
+4. **Context health monitoring** - `/q-status` shows usage percentage and warns you
+5. **Safe compaction** - `/q-compact` saves checkpoint FIRST, then compacts
 
 **Recovery hierarchy:**
 1. Current context (always available)
 2. Conversation summary (if auto-compacted)
 3. Checkpoints (if created)
 4. Previous session notes (for /q-begin)
+
+---
+
+### Context Monitoring (New in v2.1)
+
+**Purpose:** Prevent data loss from context limit failures
+
+**How it works:** Claude monitors approximate context usage and adds periodic status messages:
+
+| Context | Status | What to do |
+|---------|--------|------------|
+| 0-70% | Healthy | Continue normally |
+| 70-85% | Caution | Plan to `/q-checkpoint` soon |
+| 85-90% | Warning | `/q-checkpoint` NOW |
+| 90%+ | Critical | Use `/q-save` immediately |
+
+**Why it matters:**
+
+`/q-end` generates extensive documentation (800-1000 lines). At high context (>90%), this generation can exceed limits and fail, losing all work. Context monitoring warns you BEFORE this happens.
+
+**The Q-SAVE vs Q-END trade-off:**
+
+At 90%+ context:
+- **`/q-end`**: Full documentation, but 30-40% chance of failure → risk losing EVERYTHING
+- **`/q-save`**: Basic documentation, 95%+ success rate → some data saved
+
+**Key insight:** Basic saved data > risk of total loss.
+
+**Disabling:** If you find the monitoring noisy, add to your CLAUDE.md: "Skip context monitoring - I manage this manually"
 
 ---
 
@@ -500,3 +529,20 @@ Work...
 ---
 
 **Questions?** Open an issue at [github.com/contactTAM/q-command-system](https://github.com/contactTAM/q-command-system)
+
+---
+
+## Related
+
+- **Daily Workflow** — How to use Q-Command System day-to-day
+- **Context Management** — Managing the 200K token limit
+
+---
+
+## About This Guide
+
+This guide is part of **[The Q Marketplace](https://the-ai-masters.com/q-marketplace)** — ready-to-use Claude Code companions for writers, founders, and creators.
+
+- **Browse more Qs:** [the-ai-masters.com/q-marketplace](https://the-ai-masters.com/q-marketplace)
+- **Custom Q for your workflow:** [the-ai-masters.com](https://the-ai-masters.com)
+- **Q-System (open source):** [github.com/contactTAM/q-command-system](https://github.com/contactTAM/q-command-system)

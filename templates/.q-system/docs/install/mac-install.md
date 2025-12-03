@@ -1,8 +1,10 @@
 # Mac Installation Guide
 
-**Install Claude Code and Prerequisites on macOS**
+Install Claude Code and prerequisites on macOS.
 
-This guide helps you install the tools needed to run your Personal AI Co-Pilot. After completing this guide, proceed to the [Quick Start Guide](../QUICK-START-GUIDE.md) to set up the Q-Command System.
+**Version:** 1.0
+**Last updated:** 2025-12-03
+Part of **[The Q Marketplace](https://the-ai-masters.com/q-marketplace)**
 
 **Time required:** 10-15 minutes
 **Difficulty:** Beginner-friendly
@@ -144,7 +146,7 @@ Before continuing, run the verification checklist:
 
 Once verified, proceed to set up the Q-Command System:
 
-**[Go to: Quick Start Guide](../QUICK-START-GUIDE.md)**
+**[Go to: Quick Start Guide](../../getting-started.md)**
 
 ---
 
@@ -191,4 +193,21 @@ If you run into any issues during setup, contact your AI Co-Pilot support.
 
 ---
 
-**Next:** [Verify Installation](verify-install.md) | [Quick Start Guide](../QUICK-START-GUIDE.md)
+## Related
+
+- **Verify Installation** — Confirm everything is working
+- **Quick Start Guide** — Set up the Q-Command System
+
+---
+
+## About This Guide
+
+This guide is part of **[The Q Marketplace](https://the-ai-masters.com/q-marketplace)** — ready-to-use Claude Code companions for writers, founders, and creators.
+
+- **Browse more Qs:** [the-ai-masters.com/q-marketplace](https://the-ai-masters.com/q-marketplace)
+- **Custom Q for your workflow:** [the-ai-masters.com](https://the-ai-masters.com)
+- **Q-System (open source):** [github.com/contactTAM/q-command-system](https://github.com/contactTAM/q-command-system)
+
+---
+
+**Next:** [Verify Installation](verify-install.md) | [Quick Start Guide](../../getting-started.md)

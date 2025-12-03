@@ -1,6 +1,6 @@
 ---
 description: Configure Q-Command System for your project
-version: 2.1.1
+version: 2.1.2
 ---
 
 # Setup
@@ -139,26 +139,26 @@ INSTALL_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ") && echo "Install time: $INSTALL_TI
 # Installed via /q-setup on [DATE]
 
 q_system:
-  version: "2.1.1"
+  version: "2.1.2"
   installed: "[INSTALL_TIME]"
   source: "github.com/contactTAM/q-command-system"
   branch: "main"
 
 commands:
-  q-begin: "2.1.1"
-  q-checkpoint: "2.1.1"
-  q-commit: "2.1.1"
-  q-compact: "2.1.1"
-  q-dump: "2.1.1"
-  q-end: "2.1.1"
-  q-learnings: "2.1.1"
-  q-pare: "2.1.1"
-  q-prompts: "2.1.1"
-  q-save: "2.1.1"
-  q-setup: "2.1.1"
-  q-status: "2.1.1"
-  q-upgrade: "2.1.1"
-  q-verify: "2.1.1"
+  q-begin: "2.1.2"
+  q-checkpoint: "2.1.2"
+  q-commit: "2.1.2"
+  q-compact: "2.1.2"
+  q-dump: "2.1.2"
+  q-end: "2.1.2"
+  q-learnings: "2.1.2"
+  q-pare: "2.1.2"
+  q-prompts: "2.1.2"
+  q-save: "2.1.2"
+  q-setup: "2.1.2"
+  q-status: "2.1.2"
+  q-upgrade: "2.1.2"
+  q-verify: "2.1.2"
 
 upgrade_history: []
 ```
@@ -328,7 +328,7 @@ What would you like to do?
 ```
 === Q-Command System Configured ===
 
-Version: 2.1.1
+Version: 2.1.2
 Mode: [Quick/Detailed]
 Installed: [timestamp]
 
@@ -374,7 +374,7 @@ Ready to go!
 
 Before reporting setup complete:
 
-- [ ] version.yaml created with correct version (2.1.1)
+- [ ] version.yaml created with correct version (2.1.2)
 - [ ] version.yaml has installation timestamp
 - [ ] version.yaml has source repository info
 - [ ] config.md created with user preferences

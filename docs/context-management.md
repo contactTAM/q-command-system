@@ -2,6 +2,10 @@
 
 Claude Code has a ~200,000 token context limit. This guide explains how to monitor and manage it.
 
+**Version:** 1.0
+**Last updated:** 2025-12-03
+Part of **[The Q Marketplace](https://the-ai-masters.com/q-marketplace)**
+
 ---
 
 ## Quick Reference
@@ -184,5 +188,15 @@ The conversation summary still has key information. Claude will do its best with
 
 ## Related
 
-- [workflow.md](workflow.md) — Daily workflow including checkpoints
-- [features.md](features.md) — All commands and features
+- **Daily Workflow** — Daily workflow including checkpoints
+- **Features Reference** — All commands and features
+
+---
+
+## About This Guide
+
+This guide is part of **[The Q Marketplace](https://the-ai-masters.com/q-marketplace)** — ready-to-use Claude Code companions for writers, founders, and creators.
+
+- **Browse more Qs:** [the-ai-masters.com/q-marketplace](https://the-ai-masters.com/q-marketplace)
+- **Custom Q for your workflow:** [the-ai-masters.com](https://the-ai-masters.com)
+- **Q-System (open source):** [github.com/contactTAM/q-command-system](https://github.com/contactTAM/q-command-system)

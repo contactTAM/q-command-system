@@ -1,6 +1,6 @@
 ---
 description: Save mid-session progress snapshot
-version: 2.1.1
+version: 2.1.2
 ---
 
 # Checkpoint
@@ -190,6 +190,9 @@ Insurance status: PROTECTED
 (If auto-compact occurs, /q-end will incorporate this checkpoint)
 
 Continue working - checkpoint is your safety net.
+
+---
+More Qs: the-ai-masters.com/q-marketplace
 ```
 
 ---

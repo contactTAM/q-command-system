@@ -1,6 +1,6 @@
 ---
 description: Complete session with documentation and commit
-version: 2.1.1
+version: 2.1.2
 ---
 
 # End Session
@@ -328,6 +328,13 @@ VERIFICATION CHECKLIST:
 [X] Working tree clean
 
 Ready to push! Run: git push
+
+---
+
+Did this Q help you get real work done?
+- Share it: See SHARE.md for copy/paste templates
+- More Qs: the-ai-masters.com/q-marketplace
+- Custom Q built for you: the-ai-masters.com
 ```
 
 ---

@@ -4,6 +4,70 @@ All notable changes to the Q-Command System.
 
 ---
 
+## [2.1.2] - 2025-12-03
+
+**Virality features, documentation upgrades, quick start guides, licensing.**
+
+### Added
+
+- **Q Marketplace footer in session commands** — `/q-begin`, `/q-end`, `/q-checkpoint` now include marketplace links
+  - Subtle, non-intrusive footer at end of session output
+  - `/q-end` includes share CTA with SHARE.md reference
+
+- **SHARE.md template** — New file in `templates/` with viral distribution templates
+  - Social share templates (Twitter, LinkedIn, Slack, email)
+  - Q Marketplace listing
+  - White-glove service pitch ($2,500)
+  - Feedback request with email
+  - Customization guide with placeholders
+
+- **First-session welcome template** — Added to `templates/CLAUDE.md`
+  - One-time marketplace mention on first session
+  - Template for Q-specific customization
+
+- **3 Quick Start Guides** — New `docs/quick-start/` directory
+  - `q-quick-start-guide.md` — Get started with any Q in 5 minutes
+  - `git-quick-start.md` — Git essentials for Claude Code users
+  - `claude-code-tips.md` — Power user tips and tricks
+  - All guides include viral footer
+
+- **Standard documentation headers/footers** — All public docs now include:
+  - Version and last-updated date
+  - Q Marketplace branding
+  - Related documents section
+  - "About This Guide" footer with marketplace links
+
+- **Licensing** — Complete licensing infrastructure for Q distribution
+  - `templates/LICENSE.md` — Q Template License (custom license for Q templates)
+    - MIT-style disclaimers
+    - No redistribution clause
+    - AI-specific disclaimers (Claude-generated content)
+    - Third-party service disclaimers
+    - Beta notice
+  - `LICENSE` — MIT license for Q-Command System repository itself
+  - License reference added to `templates/CLAUDE.md`
+
+### Changed
+
+- All public documentation files now have consistent formatting
+- `docs/readme.md` updated with quick start section
+- `templates/CLAUDE.md` updated with "About This Q" footer
+
+### Rationale
+
+**Virality features:** When Q-Templates are distributed, every download is a potential dead end. These changes ensure users can discover:
+1. More Qs at the Q Marketplace
+2. White-glove custom Q service
+3. Easy sharing with colleagues
+
+**Design principles:**
+- Add value, not noise
+- Natural placement at break points
+- Professional tone
+- Optional depth (core info visible, details in SHARE.md)
+
+---
+
 ## [2.1.1] - 2025-12-02
 
 **Strict checklists, YAML versioning, efficient upgrades, and command adherence improvements.**

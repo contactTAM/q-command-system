@@ -2,6 +2,10 @@
 
 How to use Q-Command System in your daily work.
 
+**Version:** 1.0
+**Last updated:** 2025-12-03
+Part of **[The Q Marketplace](https://the-ai-masters.com/q-marketplace)**
+
 ---
 
 ## Starting a Session
@@ -138,3 +142,20 @@ This prevents conflicts when multiple people work the same day.
 ## Learn More
 
 - [context-management.md](context-management.md) — Understanding the 200K token limit
+
+---
+
+## Related
+
+- **Features Reference** — All commands and features
+- **Context Management** — Managing the 200K token limit
+
+---
+
+## About This Guide
+
+This guide is part of **[The Q Marketplace](https://the-ai-masters.com/q-marketplace)** — ready-to-use Claude Code companions for writers, founders, and creators.
+
+- **Browse more Qs:** [the-ai-masters.com/q-marketplace](https://the-ai-masters.com/q-marketplace)
+- **Custom Q for your workflow:** [the-ai-masters.com](https://the-ai-masters.com)
+- **Q-System (open source):** [github.com/contactTAM/q-command-system](https://github.com/contactTAM/q-command-system)

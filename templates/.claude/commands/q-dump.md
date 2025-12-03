@@ -1,6 +1,6 @@
 ---
 description: Create session transcript manually
-version: 2.1.1
+version: 2.1.2
 ---
 
 # Dump Session Transcript

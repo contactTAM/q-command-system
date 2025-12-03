@@ -1,6 +1,6 @@
 ---
 description: Safely free context space (checkpoint + compact)
-version: 2.1.1
+version: 2.1.2
 ---
 
 # Safe Compact

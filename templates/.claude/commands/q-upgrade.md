@@ -1,6 +1,6 @@
 ---
 description: Upgrade to latest Q-Command System version
-version: 2.1.1
+version: 2.1.2
 ---
 
 # Upgrade Q-Command System

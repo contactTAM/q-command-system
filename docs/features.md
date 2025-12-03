@@ -1,7 +1,10 @@
 # Q-Command System Features
 
+All commands and features reference.
+
 **Version:** 2.1
-**Last Updated:** 2025-11-30
+**Last updated:** 2025-12-03
+Part of **[The Q Marketplace](https://the-ai-masters.com/q-marketplace)**
 
 ---
 
@@ -526,3 +529,20 @@ Work...
 ---
 
 **Questions?** Open an issue at [github.com/contactTAM/q-command-system](https://github.com/contactTAM/q-command-system)
+
+---
+
+## Related
+
+- **Daily Workflow** — How to use Q-Command System day-to-day
+- **Context Management** — Managing the 200K token limit
+
+---
+
+## About This Guide
+
+This guide is part of **[The Q Marketplace](https://the-ai-masters.com/q-marketplace)** — ready-to-use Claude Code companions for writers, founders, and creators.
+
+- **Browse more Qs:** [the-ai-masters.com/q-marketplace](https://the-ai-masters.com/q-marketplace)
+- **Custom Q for your workflow:** [the-ai-masters.com](https://the-ai-masters.com)
+- **Q-System (open source):** [github.com/contactTAM/q-command-system](https://github.com/contactTAM/q-command-system)

@@ -1,6 +1,6 @@
 ---
 description: Verify session files were created correctly
-version: 2.1.1
+version: 2.1.2
 ---
 
 # Verify Session Files

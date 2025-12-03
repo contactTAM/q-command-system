@@ -1,6 +1,6 @@
 ---
 description: Stage and commit all changes
-version: 2.1.1
+version: 2.1.2
 ---
 
 # Commit Changes

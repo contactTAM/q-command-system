@@ -1,8 +1,10 @@
 # Verify Your Installation
 
-**Confirm everything is working before setting up the Q-Command System**
+Confirm everything is working before setting up the Q-Command System.
 
-Run through this checklist to ensure all prerequisites are properly installed.
+**Version:** 1.0
+**Last updated:** 2025-12-03
+Part of **[The Q Marketplace](https://the-ai-masters.com/q-marketplace)**
 
 **Time required:** 2-3 minutes
 
@@ -98,7 +100,7 @@ You should see your name and email listed.
 
 **Proceed to set up the Q-Command System:**
 
-**[Quick Start Guide](../QUICK-START-GUIDE.md)**
+**[Quick Start Guide](../../getting-started.md)**
 
 ---
 
@@ -122,6 +124,24 @@ If you're stuck, contact your AI Co-Pilot support with:
 
 ---
 
+## Related
+
+- **Mac Installation** — Install on macOS
+- **Windows Installation** — Install on Windows
+- **Quick Start Guide** — Set up the Q-Command System
+
+---
+
+## About This Guide
+
+This guide is part of **[The Q Marketplace](https://the-ai-masters.com/q-marketplace)** — ready-to-use Claude Code companions for writers, founders, and creators.
+
+- **Browse more Qs:** [the-ai-masters.com/q-marketplace](https://the-ai-masters.com/q-marketplace)
+- **Custom Q for your workflow:** [the-ai-masters.com](https://the-ai-masters.com)
+- **Q-System (open source):** [github.com/contactTAM/q-command-system](https://github.com/contactTAM/q-command-system)
+
+---
+
 **Previous:** [Mac Install](mac-install.md) | [Windows Install](windows-install.md)
 
-**Next:** [Quick Start Guide](../QUICK-START-GUIDE.md)
+**Next:** [Quick Start Guide](../../getting-started.md)

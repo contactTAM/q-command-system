@@ -1,6 +1,6 @@
 ---
 description: Optimize CLAUDE.md by offloading verbose content
-version: 2.1.1
+version: 2.1.2
 ---
 
 # Pare CLAUDE.md

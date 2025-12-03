@@ -2,7 +2,7 @@
 # Machine-readable release metadata for efficient upgrades
 # Used by /q-upgrade to determine what changed between versions
 
-current_version: "2.1.1"
+current_version: "2.1.2"
 minimum_supported: "2.0.0"
 
 # All available commands (for validation)
@@ -24,6 +24,37 @@ all_commands:
 
 # Release history (newest first)
 releases:
+  - version: "2.1.2"
+    date: "2025-12-03"
+    type: "patch"
+    summary: "Virality features, documentation upgrades, quick start guides, licensing"
+    highlights:
+      - "Q Marketplace footer in session commands (q-begin, q-end, q-checkpoint)"
+      - "SHARE.md template for viral distribution"
+      - "First-session welcome template in CLAUDE.md"
+      - "3 Quick Start Guides (Q, Git, Claude Code Tips)"
+      - "Standard headers/footers across all documentation"
+      - "Q Template License for distributed Qs"
+      - "MIT license for Q-Command System repository"
+    commands_changed:
+      - q-begin
+      - q-end
+      - q-checkpoint
+    commands_added: []
+    commands_removed: []
+    files_added:
+      - "templates/SHARE.md"
+      - "templates/LICENSE.md"
+      - "LICENSE"
+      - "docs/quick-start/q-quick-start-guide.md"
+      - "docs/quick-start/git-quick-start.md"
+      - "docs/quick-start/claude-code-tips.md"
+    files_removed: []
+    breaking_changes: false
+    migration_notes: |
+      No migration needed. New viral footers appear in session output.
+      SHARE.md and LICENSE.md templates included for Q distribution.
+
   - version: "2.1.1"
     date: "2025-12-02"
     type: "patch"

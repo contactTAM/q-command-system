@@ -1,6 +1,6 @@
 ---
 description: Start session with context refresh
-version: 2.1.1
+version: 2.1.2
 ---
 
 # Start Session
@@ -131,6 +131,9 @@ Current status:
 - Checkpoints to review: [N or "none"]
 
 What would you like to work on today?
+
+---
+Part of The Q Marketplace: the-ai-masters.com/q-marketplace
 ```
 
 - [ ] Summary displayed to user

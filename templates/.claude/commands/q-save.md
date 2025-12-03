@@ -1,6 +1,6 @@
 ---
 description: Quick exit with minimal documentation
-version: 2.1.1
+version: 2.1.2
 ---
 
 # Quick Save
